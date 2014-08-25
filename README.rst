@@ -1,3 +1,10 @@
+Journal
+=======
+
+I'd like to submit this to F1000Research as a data note.
+
+http://f1000research.com/
+
 Authors
 =======
 
