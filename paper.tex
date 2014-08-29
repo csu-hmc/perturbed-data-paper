@@ -3,6 +3,20 @@
 
 \begin{document}
 
+\begin{abstract}
+
+  Herein we share a data set of typical gait data for 11 subjects walking at a
+  three speeds on an instrumented treadmill while being longitudinally
+  perturbed in the stance phase with psuedo-random fluctuations in the
+  treadmill belt speed. We provide raw marker and ground reaction loads in
+  addition to processed data that includes gait landmarks, 2D joint angles,
+  angular rates, and joint torques. The protocol is described in detail along
+  with the the additional meta data about each of the data files. This data can
+  be useful for validating or genreating mathematical models that capable of
+  simulating non-periodic and pertubed gaits.
+
+\end{abstract}
+
 \section{Introduction}
 
 Emergig powered prothetics are in need of bio-inspired control systems.
@@ -22,5 +36,37 @@ manners.
 We collected over five and half hours of perturbed gait data from 11 subjects
 sampled at 100 hz. The data has been organized and made available for other
 research uses.
+
+\section{Raw Data}
+
+The raw data consists of a set of ASCII tab delimited text files output from
+both the Mocap and Record modules in D-Flow in addition a YAML file that
+contains all of the necessary meta data for the given trial. These three files
+are stored in a hierarchy of directories with one trial per directory. The
+directories are named in the following fashion \verb+T001/+ where \verb+T+
+stands for ``trial'' and the following three digits are provide a unique trial
+identification number.
+
+\subsection{mocap-xxx.txt}
+
+The output from the D-Flow mocap module is stored in a tab delimted file named
+\verb+mocap-xxx.txt+ where \verb+xxx+ represents the trial id number. The file
+contains several columns:
+
+\begin{description}
+  \item[TimeStamp] The system monotonically time when D-Flow recieves a frame
+    from Cortex. These are approximately at 100 hz and given in seconds.
+  \item[FrameNumber] Monotonically increasing integers that correspond to each
+    frame received from Cortex.
+  \item[Marker Coordinates] Any column that ends in \verb+.PosX+, \verb+.PosY+,
+    or \verb+.PosZ+ are marker coordinates expressed in Cortex's Cartesian
+    reference frame. These values are in meters.
+  \item[Ground Reaction Loads] The left \verb+FP1+ and right \verb+FP2+ force
+    plates output the forces and moments of the BLANK 
+
+Markers
+
+We make use of the full body 47 marker set described in \cite{Ton's HBM paper}.
+
 
 \end{document}

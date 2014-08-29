@@ -5,12 +5,28 @@ I'd like to submit this to F1000Research as a data note.
 
 http://f1000research.com/
 
+See the Author Guidelines and check out the "Data Note" description:
+
+http://f1000research.com/author-guidelines
+
+Notes on editing the files
+==========================
+
+- The README is in RestructuredText format. See
+  http://docutils.sourceforge.net/docs/user/rst/quickref.html for tips on the
+  syntax.
+- The paper will be written in LaTeX and eventually moved to writelatex.com or
+  Authorea for submission. For now we will keep it bare bones without any
+  journal styles.
+
 Authors
 =======
 
-Jason K. Moore
-Sandra K. Hnat
-Antonie J. van den Bogert
+This is the proposed author list, in order:
+
+- Jason K. Moore
+- Sandra K. Hnat
+- Antonie J. van den Bogert
 
 Abstract
 ========
@@ -23,7 +39,7 @@ Introduction (optional)
 Rationale for creating the dataset(s) and/or objectives for the experiment
 resulting in the dataset - why the data were gathered or produced.
 
-- System ID requires rich data
+- System ID techniques require large amounts of rich data
 - Map human control into prosthetic control space
 - Identification of control mechanisms
 
@@ -110,15 +126,15 @@ Data Collection/Testing Protocol
 
    - Cortex 3 for motion capture (marker coordinate locations and GRF)
    - D.Flow 3.15-3.16 for VR program, treadmill manipulation, and data recording
-   - Forcelink R-mill for the treadmill (+/- 0.05 meters mediolateral displacement 
-     and +/- 10 degrees sagittal pitch
-   - 10 Osprey cameras 
+   - Forcelink R-mill for the treadmill (+/- 0.05 meters mediolateral
+     displacement and +/- 10 degrees sagittal pitch
+   - 10 Osprey cameras
    - Data recorded (GRF, marker coordinates, belt speed, etc) at 100 Hz
 
 - Protocol
 
    - describe the testing procedure for each subject and how that was handled
-     with event timing in D-Flow 
+     with event timing in D-Flow
    - describe briefly in words the D-Flow program and what it's doing
    - 47 marker set, maybe include diagram in supplementary material
    - harness on subject, etc.
@@ -127,10 +143,10 @@ Data Collection/Testing Protocol
 
    - inertial artifacts due to platform movement
 
-      - did not use platform movement, but implemented in code because we intended to move
-        the platform 
+      - did not use platform movement, but implemented in code because we
+        intended to move the platform
 
 - code stuff
 
    - all signals filtered at 6 Hz low-pass Butterworth filter
-   - joint angles and moments calculated from 2D inverse dynamics program 
+   - joint angles and moments calculated from 2D inverse dynamics program
