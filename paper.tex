@@ -1,5 +1,14 @@
+% Editing notes
+% - No tabs, just spaces!
+% - No hanging whitespace
+% - Wrap lines to 79 characters
+% - Indentation should be two spaces per indent
+% - Don't worry about formatting details at first, just get the content in
+%   place.
+
 \documentclass{article}
 
+\usepackage{todo}
 
 \begin{document}
 
@@ -18,7 +27,7 @@
 \end{abstract}
 
 \section{Introduction}
-
+%
 Emergig powered prothetics are in need of bio-inspired control systems.
 Ideally, a powered prosthetic would behave in such a way that the user would
 feel like their limb was never disabled. There are a variety of approaches to
@@ -37,15 +46,49 @@ We collected over five and half hours of perturbed gait data from 11 subjects
 sampled at 100 hz. The data has been organized and made available for other
 research uses.
 
-\section{Raw Data}
+\section{Equipment}
+%
+The Human Motion and Control Lab at Cleveland State University has such a
+system. Our system includes:
 
+\begin{itemize}
+  \item A ForceLink R-Mill which has dual 6 DoF force plates, independent belts
+    for each foot, and lateral and pitch motion capabilities.
+  \item A 10 Camera Motion Analysis motion capture system which includes the
+    Cortex software and hardware for collecting analog and camera data
+    simultaneously.  Delsys wireless EMG + 3D Accelerometers.
+  \item Motek Medical’s D-Flow software and visual display system.
+\end{itemize}
+
+Cortex alone is capable of delivering data from the cameras, force plates, and
+analog sensors (EMG/Accelerometer), but D-Flow is required to collect data from
+digital sensors and the treadmill’s motion (lateral, pitch, and belts). D-Flow
+can output multiple types of files which contain the different data.
+
+Our motion capture system’s coordinate system is such that the X coordinate
+points to the right, the Y coordinate points upwards, and the Z coordinate
+follows from the right-hand-rule, i.e. points backwards with respect to a
+person walking forward on the treadmill. The camera’s coordinate system is
+aligned to an origin point on treadmill’s surface during camera calibration.
+
+\section{Raw Data}
+%
 The raw data consists of a set of ASCII tab delimited text files output from
-both the Mocap and Record modules in D-Flow in addition a YAML file that
+both the Mocap and Record modules in D-Flow in addition to a YAML file that
 contains all of the necessary meta data for the given trial. These three files
 are stored in a hierarchy of directories with one trial per directory. The
 directories are named in the following fashion \verb+T001/+ where \verb+T+
 stands for ``trial'' and the following three digits are provide a unique trial
 identification number.
+
+The text file output from the mocap module in DFlow is a tab delimited file.
+The first line is the header and contains a time stamp column, frame number
+column, marker position columns, force plate force/moment columns, force plate
+center of pressure columns, other analog columns, and potentially results from
+the real time Human Body Model \cite{Bogert2013} which is included with the
+D-Flow software. These are detailed below. The numerical values of the
+measurements are provided in decimal floating point notation with 6 decimals of
+precision, e.g. 123456.123456 [\%1.6f].
 
 \subsection{mocap-xxx.txt}
 
@@ -54,19 +97,151 @@ The output from the D-Flow mocap module is stored in a tab delimted file named
 contains several columns:
 
 \begin{description}
-  \item[TimeStamp] The system monotonically time when D-Flow recieves a frame
-    from Cortex. These are approximately at 100 hz and given in seconds.
-  \item[FrameNumber] Monotonically increasing integers that correspond to each
-    frame received from Cortex.
+  \item[TimeStamp] The monotonically increasing computer clock time when D-Flow
+    recieves a frame from Cortex. These are approximately at 100 hz and given
+    in seconds.
+  \item[FrameNumber] Monotonically increasing positive integers that correspond
+    to each frame received from Cortex.
   \item[Marker Coordinates] Any column that ends in \verb+.PosX+, \verb+.PosY+,
     or \verb+.PosZ+ are marker coordinates expressed in Cortex's Cartesian
     reference frame. These values are in meters.
-  \item[Ground Reaction Loads] The left \verb+FP1+ and right \verb+FP2+ force
-    plates output the forces and moments of the BLANK 
+  \item[Ground Reaction Loads] There are three ground reaction forces and three
+    ground reaction moments recorded by each of the two force plates in Newtons
+    and Newton-Meters, respectively. The prefix for these columns is either
+    \verb+FP1+ or \verb+FP2+ and represents either force plate 1 (left) or 2
+    (right). The suffixes are either \verb+.For[XYZ]+, \verb+.Mom[XYZ]+ for the
+    forces and moments, respectively. The force plate voltages are sampled at a
+    much higher frequency than the cameras, but delivered at the Cortex camera
+    sample rate, 100 Hz through the D-Flow mocap module. A force/moment
+    calibration matrix stored in Cortex converts the voltages to forces and
+    moments before sending it to D-Flow [1]. Cortex also computes the center of
+    pressure from the forces, moments, and force plate dimensions. These have
+    the same prefixes for the plate number, have the suffix \verb+.Cop[XYZ]+,
+    and are in meters.
+  \item[Analog Channels] Several analog signals are recorded under column
+    headers \verb+Channel[1-99].Anlg+. These correspond to analog signals
+    sampled by Cortex and correspond to the ?92? National Instruments XXXX DAQ
+    box. The first twelve are the voltages from the force plate load cells. We
+    also record the acceleration of 4 points on the treadmill base in chanels
+    X-X.
+\end{description}
 
-Markers
+\subsection{record-xxx.txt}
+%
+The record module also outputs a tab delimited ASCII text file. It includes a
+\verb+Time+ column which records the D-Flow system time in seconds which
+corresponds to the time recorded in the \verb+TimeStamp+ column in mocap module
+tsv file. There are two additional columns \verb+RightBeltSpeed+ and
+\verb+LeftBeltSpeed+ which provide the independent belt speeds measure in
+meters per second by an ?encoder?.
 
-We make use of the full body 47 marker set described in \cite{Ton's HBM paper}.
+Finally, the record module is capable of recording the time at which various
+events occur, as detected or set by D-Flow. It does this by inserting commented
+(\#) lines in between the rows when the event occurred. The record files have
+several events that correspond to the phases of the protocol:
 
+\begin{description}
+  \item[A: Force Plate Zeroing] Marks the time at which there is no load on the
+    force plates and when the voltages were zeroed.
+  \item[B: Calibration Pose] Marks the time at which the person is in the
+    T-Pose.
+  \item[C: First Normal Walking] Marks the time when the treadmill begins Phase
+    1: constant belt speed.
+  \item[D: Longitudinal Perturbation] Marks the time when the treadmill begins
+    Phase 2: longitudinal perturbations in the belt speed.
+  \item[E: Second Normal Walking] Marks the time when phase 3 starts: constant
+    belt speed.
+  \item[F: Unloaded End] Marks the time at which there is no load on the force
+    plates and the belts are stationary.
+\end{description}
+
+\subsection{meta-xxx.yml}
+
+Each trial directory contains a meta data file in the YML format. There are
+three main headings: \verb+study+, \verb+subject+, and \verb+trial+.
+
+The \verb+study+ section contains identififying informatio for the overall
+study, an identification number, name, and description. This is the same for
+all meta data files in the study.
+
+The \verb+subject+ provides key value pairs of information about the subject in
+that trial. Each subject has a unique identification number and basic
+anthropomorphic data is included.
+
+The \verb+trial+ section contains the unique information about the trial. Each
+trial has a unique identification number.
+
+\todo[inline]{Add and example meta data file here with explanations of each
+field.}
+
+\subsection{Markers}
+%
+We make use of the full body 47 marker set described in \cite{Ton's HBM paper}
+and presented in detail in Table \ref{tab:marker-labels}. As with all camera
+based motion capture systems, the markers sometimes go missing in the
+recording.
+
+If the data was recorded in a D-Flow version less than 3.16.2rc4 [3], D-Flow
+records the last non-missing value in all three axes until the marker is
+visible again when a marker goes missing.
+
+In D-Flow versions greater than or equal to 3.16.2rc4 the missing markers are
+indicated in the TSV file as either 0.000000 or -0.000000, which is the same as
+has been in the HBM columns in all versions of D-Flow. The D-Flow version must
+be provided in the meta data yml file, otherwise it will assume D-Flow is at
+the latest version.
+
+\begin{table}
+  \begin{tabular}{rlll}
+    1 & LHEAD & Left head & Just above the ear, in the middle. \\
+    2 & THEAD & Top head & On top of the head, in line with the LHEAD and RHEAD. \\
+    3 & RHEAD & Right head & Just above the ear, in the middle. \\
+    4 & FHEAD & Forehead & Between line LHEAD/RHEAD and THEAD a bit right from center. \\
+    5 & C7 & C7 & On the 7th cervical vertebrae. \\
+    6 & T10 & T10 & On the 10th thoracic vertbrae. \\
+    7 & SACR & Sacrum bone & on the scacral bone. \\
+    8 & NAVE & Navel & On the navel. \\
+    9 & XYPH & Xiphoid process & Xiphoid process of the sternum. \\
+    10 & STRN & Sternum & On the jugular notch of the sternum. \\
+    11 & BBAC & Scapula & On the inferior angle fo the right scapular. \\
+    12 & LSHO & Left shoulder & Left acromion. \\
+    13 & LDELT & Left deltoid muscle & Apex of the deltoid muscle. \\
+    14 & LLEE & Left lateral elbow & Left lateral epicondyle of the elbow. Upper one in the T-Pose. \\
+    15 & LMEE & Left medial elbow & Left medial epicondyle of the elbow. Lower on in the T-Pose. \\
+    16 & LFRM & Left forearm & On 2/3 on the line between the LLEE and LMW. \\
+    17 & LMW & Left medial wrist & On styloid process radius, thumb side. \\
+    18 & LLW & Left lateral wrist & On styloid process ulna, pinky side. \\
+    19 & LFIN & Left fingers & Center of the hand. Caput metatarsal 3. \\
+    20 & RSHO & Right shoulder & Right acromion. \\
+    21 & RDELT & Right deltoid muscle & Apex of deltoid muscle. \\
+    22 & RLEE & Right lateral elbow & Right lateral epicondyle of the elbow. Lower one in the T-pose. \\
+    23 & RMEE & Right medial elbow & Right medial epicondyle of the elbow. Lower one in the T-pose. \\
+    24 & RFRM & Right forearm & On 1/3 on the line between the RLEE and RMW. \\
+    25 & RMW & Right medial wrist & On styloid process radius, thumb side. \\
+    26 & RLW & Right lateral wrist & On styloid process ulna, pinky side. \\
+    27 & RFIN & Right fingers & Center of the hand. Caput metatarsal 3. \\
+    28 & LASIS & Pelvic bone left front & Left anterio superior iliac spine. \\
+    29 & RASIS & Pelvic bone right front & Right anterior superior iliac spine. \\
+    30 & LPSIS & Pelvic bone left back & Left posterior superio iliac spine. \\
+    31 & RPSIS & Pelvic bone right back & Right posterior superior iliac spine. \\
+    32 & LGTRO & Left greater trochanter of the femur & On the cetner of the left greater trochanter. \\
+    33 & FLTHI & Left thigh & On 1/3 on the line between the LFTRO and LLEK. \\
+    34 & LLEK & Left lateral epicondyle of the knee & On the lateral side of the joint axis. \\
+    35 & LATI & Left anterior of the tibia & On 2/3 on the line between the LLEK and LLM. \\
+    36 & LLM & Left lateral malleoulus of the ankle & The center of the heel at the same height as the toe. \\
+    37 & LHEE & Left heel & Center of the heel at the same height as the toe. \\
+    38 & LTOE & Left toe & Tip of big toe. \\
+    39 & LMT5 & Left 5th metatarsal & Caput of the 5th metatarsal bone, on joint line midfoot/toes. \\
+    40 & RGTRO & Right greater trochanter of the femur & On the cetner of the right greater trochanter. \\
+    41 & FRTHI & Right thigh & On 2/3 on the line between the RFTRO and RLEK. \\
+    42 & RLEK & Right lateral epicondyle of the knee & On the lateral side of the joint axis. \\
+    43 & RATI & Right anterior of the tibia & On 1/3 on the line between the RLEK and RLM. \\
+    44 & RLM & Right lateral malleoulus of the ankle & The center of the heel at the same height as the toe. \\
+    45 & RHEE & Right heel & Center of the heel at the same height as the toe. \\
+    46 & RTOE & Right toe & Tip of big toe. \\
+    47 & RMT5 & Right 5th metatarsal & Caput of the 5th metatarsal bone, on joint line midfoot/toes. \\
+  \end{tabular}
+  \label{tab:marker-labels}
+\end{table}
 
 \end{document}
