@@ -157,10 +157,10 @@ several events that correspond to the phases of the protocol:
 
 \subsection{meta-xxx.yml}
 
-Each trial directory contains a meta data file in the YML format. There are
+Each trial directory contains a meta data file in the YAML format. There are
 three main headings: \verb+study+, \verb+subject+, and \verb+trial+.
 
-The \verb+study+ section contains identififying informatio for the overall
+The \verb+study+ section contains identififying information for the overall
 study, an identification number, name, and description. This is the same for
 all meta data files in the study.
 
@@ -171,8 +171,122 @@ anthropomorphic data is included.
 The \verb+trial+ section contains the unique information about the trial. Each
 trial has a unique identification number.
 
-\todo[inline]{Add and example meta data file here with explanations of each
-field.}
+An example meta data file is shown in Figure \ref{fig:example-meta-data} and
+the following gives and explanation of the contents.
+
+\begin{figure}
+  \small
+  \begin{verbatim}
+    study:
+            id: 1
+            name: Gait Control Identification
+            description: Perturb the subject during walking and running.
+    subject:
+            id: 0
+    trial:
+            id: 58
+            subject-id: 0
+            datetime: 2014-03-28
+            notes: >
+                    This is an unloaded trial (no subject) 10 minute protocol that
+                    perturbs the subject longitudinally. The treadmill reference
+                    markers were not in place. We have the four custom made metal
+                    feet placed under the four corners of the treadmill to prevent
+                    pitch and sway movements. In addition, we also have the front
+                    left and rear right feet that were installed by Motek. We also
+                    have +/-3g analog accelerometers (ADXL330) affixed to the four
+                    corners of the main frame of the treadmill and wired into the
+                    NI box. The right handrail is removed.
+            nominal-speed: 0.8
+            nominal-speed-units: meters per second
+            stationary-platform: True
+            pitch: False
+            sway: False
+            hardware-settings:
+                    high-performance: True
+            analog-channel-map:
+                    Channel1.Anlg: F1Y1
+                    Channel2.Anlg: F1Y2
+                    Channel3.Anlg: F1Y3
+                    Channel4.Anlg: F1X1
+                    Channel5.Anlg: F1X2
+                    Channel6.Anlg: F1Z1
+                    Channel7.Anlg: F2Y1
+                    Channel8.Anlg: F2Y2
+                    Channel9.Anlg: F2Y3
+                    Channel10.Anlg: F2X1
+                    Channel11.Anlg: F2X2
+                    Channel12.Anlg: F2Z1
+                    Channel61.Anlg: Front_Left_AccX
+                    Channel62.Anlg: Front_Left_AccY
+                    Channel63.Anlg: Front_Left_AccZ
+                    Channel64.Anlg: Back_Left_AccX
+                    Channel65.Anlg: Back_Left_AccY
+                    Channel66.Anlg: Back_Left_AccZ
+                    Channel67.Anlg: Front_Right_AccX
+                    Channel68.Anlg: Front_Right_AccY
+                    Channel69.Anlg: Front_Right_AccZ
+                    Channel70.Anlg: Back_Right_AccX
+                    Channel71.Anlg: Back_Right_AccY
+                    Channel72.Anlg: Back_Right_AccZ
+            events:
+                    A: Force Plate Zeroing
+                    B: Calibration Pose
+                    C: First Normal Walking
+                    D: Longitudinal Perturbation
+                    E: Second Normal Walking
+                    F: Unloaded End
+            files:
+                    mocap: mocap-058.txt
+                    record: record-058.txt
+                    meta: meta-058.yml
+  \end{verbatim}
+  \caption{An example meta data YAML file.}
+  \label{fig:example-meta-data}
+\end{figure}
+
+\begin{description}
+  \item[analog-channel-map] A key value mapping of strings specifying the name
+    of the signal emmitted from the analog channels of the NI USB XXX.
+  \item[cortex-version] (string) Matches the version of Cortex used to record
+    the trial.
+  \item[datetime] (string) A date formatted string giving the date and/or time
+    of the trial in the \verb|YYYY-MM-DD| format.
+  \item[dflow-version] (string) Matches the version of D-Flow used to record
+    the trial.
+  \item[events] A key value map which prescribes names to the events recorded
+    in the record file.
+  \item[files] (list) A key value mapping of files associated with this trial
+    where the key is the file type and the values are the path to the file
+    relative to this meta file.
+  \item[hardware-settings] There are tons of settings for the hardware in both
+    D-Flow, Cortex, and the other software in the system. This contains any
+    non-default settings.
+    \begin{description}
+      \item[high-performance] (boolean) Indicates whether the D-Flow high
+        performance setting was on (True) or off (False).
+    \end{description}
+  \item[id] (integer) A unique three digit identifier for the trial. All of the
+    file names and directories associated with this trial include this.
+  \item[marker-map] A string key value map which contains names for the
+    markers.
+  \item[marker-set] (string) Indicates the HBM \cite{Bogert2013} marker
+    set used during the trial, either full, lower, or NA.
+  \item[nominal-speed] (float) The nominal or base speed during the trial.
+  \item[nominal-speed-units] (string) The units of the nominal speed.
+  \item[notes] {string} Notes about the trial.
+  \item[pitch] (boolean) Indicates if the pitch degree of freedom was acutated
+    during the trial.
+  \item[stationary-platform] (boolean) Indicates whether the treadmill
+      sway or pitch motion was actuated during the trial. If this flag is
+      false, the measured ground reaction forces must be compensated for the
+      inertial affects and be expressed the forces and moments in the motion
+      capture reference frame.
+  \item[subject-id] (integer) A number corresponding to the subject in the
+    trial.
+  \item[sway] (boolean) Indicates if the lateral (sway) degree of freedom was
+    acutated during the trial.
+\end{description}
 
 \subsection{Markers}
 %
@@ -192,54 +306,56 @@ be provided in the meta data yml file, otherwise it will assume D-Flow is at
 the latest version.
 
 \begin{table}
+  \centering
+  \caption{Descriptions of the 47 markers used in this study.}
   \begin{tabular}{rlll}
-    1 & LHEAD & Left head & Just above the ear, in the middle. \\
-    2 & THEAD & Top head & On top of the head, in line with the LHEAD and RHEAD. \\
-    3 & RHEAD & Right head & Just above the ear, in the middle. \\
-    4 & FHEAD & Forehead & Between line LHEAD/RHEAD and THEAD a bit right from center. \\
-    5 & C7 & C7 & On the 7th cervical vertebrae. \\
-    6 & T10 & T10 & On the 10th thoracic vertbrae. \\
-    7 & SACR & Sacrum bone & on the scacral bone. \\
-    8 & NAVE & Navel & On the navel. \\
-    9 & XYPH & Xiphoid process & Xiphoid process of the sternum. \\
-    10 & STRN & Sternum & On the jugular notch of the sternum. \\
-    11 & BBAC & Scapula & On the inferior angle fo the right scapular. \\
-    12 & LSHO & Left shoulder & Left acromion. \\
-    13 & LDELT & Left deltoid muscle & Apex of the deltoid muscle. \\
-    14 & LLEE & Left lateral elbow & Left lateral epicondyle of the elbow. Upper one in the T-Pose. \\
-    15 & LMEE & Left medial elbow & Left medial epicondyle of the elbow. Lower on in the T-Pose. \\
-    16 & LFRM & Left forearm & On 2/3 on the line between the LLEE and LMW. \\
-    17 & LMW & Left medial wrist & On styloid process radius, thumb side. \\
-    18 & LLW & Left lateral wrist & On styloid process ulna, pinky side. \\
-    19 & LFIN & Left fingers & Center of the hand. Caput metatarsal 3. \\
-    20 & RSHO & Right shoulder & Right acromion. \\
-    21 & RDELT & Right deltoid muscle & Apex of deltoid muscle. \\
-    22 & RLEE & Right lateral elbow & Right lateral epicondyle of the elbow. Lower one in the T-pose. \\
-    23 & RMEE & Right medial elbow & Right medial epicondyle of the elbow. Lower one in the T-pose. \\
-    24 & RFRM & Right forearm & On 1/3 on the line between the RLEE and RMW. \\
-    25 & RMW & Right medial wrist & On styloid process radius, thumb side. \\
-    26 & RLW & Right lateral wrist & On styloid process ulna, pinky side. \\
-    27 & RFIN & Right fingers & Center of the hand. Caput metatarsal 3. \\
-    28 & LASIS & Pelvic bone left front & Left anterio superior iliac spine. \\
-    29 & RASIS & Pelvic bone right front & Right anterior superior iliac spine. \\
-    30 & LPSIS & Pelvic bone left back & Left posterior superio iliac spine. \\
-    31 & RPSIS & Pelvic bone right back & Right posterior superior iliac spine. \\
-    32 & LGTRO & Left greater trochanter of the femur & On the cetner of the left greater trochanter. \\
-    33 & FLTHI & Left thigh & On 1/3 on the line between the LFTRO and LLEK. \\
-    34 & LLEK & Left lateral epicondyle of the knee & On the lateral side of the joint axis. \\
-    35 & LATI & Left anterior of the tibia & On 2/3 on the line between the LLEK and LLM. \\
-    36 & LLM & Left lateral malleoulus of the ankle & The center of the heel at the same height as the toe. \\
-    37 & LHEE & Left heel & Center of the heel at the same height as the toe. \\
-    38 & LTOE & Left toe & Tip of big toe. \\
-    39 & LMT5 & Left 5th metatarsal & Caput of the 5th metatarsal bone, on joint line midfoot/toes. \\
+    1  & LHEAD & Left head                             & Just above the ear, in the middle. \\
+    2  & THEAD & Top head                              & On top of the head, in line with the LHEAD and RHEAD. \\
+    3  & RHEAD & Right head                            & Just above the ear, in the middle. \\
+    4  & FHEAD & Forehead                              & Between line LHEAD/RHEAD and THEAD a bit right from center. \\
+    5  & C7    & C7                                    & On the 7th cervical vertebrae. \\
+    6  & T10   & T10                                   & On the 10th thoracic vertbrae. \\
+    7  & SACR  & Sacrum bone                           & on the scacral bone. \\
+    8  & NAVE  & Navel                                 & On the navel. \\
+    9  & XYPH  & Xiphoid process                       & Xiphoid process of the sternum. \\
+    10 & STRN  & Sternum                               & On the jugular notch of the sternum. \\
+    11 & BBAC  & Scapula                               & On the inferior angle fo the right scapular. \\
+    12 & LSHO  & Left shoulder                         & Left acromion. \\
+    13 & LDELT & Left deltoid muscle                   & Apex of the deltoid muscle. \\
+    14 & LLEE  & Left lateral elbow                    & Left lateral epicondyle of the elbow. Upper one in the T-Pose. \\
+    15 & LMEE  & Left medial elbow                     & Left medial epicondyle of the elbow. Lower on in the T-Pose. \\
+    16 & LFRM  & Left forearm                          & On 2/3 on the line between the LLEE and LMW. \\
+    17 & LMW   & Left medial wrist                     & On styloid process radius, thumb side. \\
+    18 & LLW   & Left lateral wrist                    & On styloid process ulna, pinky side. \\
+    19 & LFIN  & Left fingers                          & Center of the hand. Caput metatarsal 3. \\
+    20 & RSHO  & Right shoulder                        & Right acromion. \\
+    21 & RDELT & Right deltoid muscle                  & Apex of deltoid muscle. \\
+    22 & RLEE  & Right lateral elbow                   & Right lateral epicondyle of the elbow. Lower one in the T-pose. \\
+    23 & RMEE  & Right medial elbow                    & Right medial epicondyle of the elbow. Lower one in the T-pose. \\
+    24 & RFRM  & Right forearm                         & On 1/3 on the line between the RLEE and RMW. \\
+    25 & RMW   & Right medial wrist                    & On styloid process radius, thumb side. \\
+    26 & RLW   & Right lateral wrist                   & On styloid process ulna, pinky side. \\
+    27 & RFIN  & Right fingers                         & Center of the hand. Caput metatarsal 3. \\
+    28 & LASIS & Pelvic bone left front                & Left anterior superior iliac spine. \\
+    29 & RASIS & Pelvic bone right front               & Right anterior superior iliac spine. \\
+    30 & LPSIS & Pelvic bone left back                 & Left posterior superio iliac spine. \\
+    31 & RPSIS & Pelvic bone right back                & Right posterior superior iliac spine. \\
+    32 & LGTRO & Left greater trochanter of the femur  & On the cetner of the left greater trochanter. \\
+    33 & FLTHI & Left thigh                            & On 1/3 on the line between the LFTRO and LLEK. \\
+    34 & LLEK  & Left lateral epicondyle of the knee   & On the lateral side of the joint axis. \\
+    35 & LATI  & Left anterior of the tibia            & On 2/3 on the line between the LLEK and LLM. \\
+    36 & LLM   & Left lateral malleoulus of the ankle  & The center of the heel at the same height as the toe. \\
+    37 & LHEE  & Left heel                             & Center of the heel at the same height as the toe. \\
+    38 & LTOE  & Left toe                              & Tip of big toe. \\
+    39 & LMT5  & Left 5th metatarsal                   & Caput of the 5th metatarsal bone, on joint line midfoot/toes. \\
     40 & RGTRO & Right greater trochanter of the femur & On the cetner of the right greater trochanter. \\
-    41 & FRTHI & Right thigh & On 2/3 on the line between the RFTRO and RLEK. \\
-    42 & RLEK & Right lateral epicondyle of the knee & On the lateral side of the joint axis. \\
-    43 & RATI & Right anterior of the tibia & On 1/3 on the line between the RLEK and RLM. \\
-    44 & RLM & Right lateral malleoulus of the ankle & The center of the heel at the same height as the toe. \\
-    45 & RHEE & Right heel & Center of the heel at the same height as the toe. \\
-    46 & RTOE & Right toe & Tip of big toe. \\
-    47 & RMT5 & Right 5th metatarsal & Caput of the 5th metatarsal bone, on joint line midfoot/toes. \\
+    41 & FRTHI & Right thigh                           & On 2/3 on the line between the RFTRO and RLEK. \\
+    42 & RLEK  & Right lateral epicondyle of the knee  & On the lateral side of the joint axis. \\
+    43 & RATI  & Right anterior of the tibia           & On 1/3 on the line between the RLEK and RLM. \\
+    44 & RLM   & Right lateral malleoulus of the ankle & The center of the heel at the same height as the toe. \\
+    45 & RHEE  & Right heel                            & Center of the heel at the same height as the toe. \\
+    46 & RTOE  & Right toe                             & Tip of big toe. \\
+    47 & RMT5  & Right 5th metatarsal                  & Caput of the 5th metatarsal bone, on joint line midfoot/toes. \\
   \end{tabular}
   \label{tab:marker-labels}
 \end{table}
