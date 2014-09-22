@@ -360,4 +360,38 @@ the latest version.
   \label{tab:marker-labels}
 \end{table}
 
+\section{Processed Data}
+
+We developed a command line data processing tool for common gait computations
+and provide the processed data from this. The tool is centered around two main
+classes, one to store a complete trial in memory and a second to compute common
+gait variables of interest.
+
+The \verb|motek.DFlowData| class stores all the data presented in the previous
+section and encodes several ``cleaning'' operations to put the data into a
+usable form.
+
+\begin{itemize}
+  \item Loads the meta data file into a Python dictionary.
+  \item Loads the DFlow mocap module TSV file into Pandas \verb|DataFrame|.
+  \item Relabels the column headers to more meaningful names if this is
+    specified in the meta data.
+  \item Identifies the missing values in the mocap marker data and replaces
+    them with \verb|numpy.nan|.
+  \item Interpolates the missing marker values and replaces them with
+    interpolated estimates.
+  \item Loads the DFlow record moudle TSV file into a Pandas \verb|DataFrame|.
+  \item Extracts the events and creates a dictionary mapping the event names in
+    the meta data to the events detected in the record module file.
+  \item Merges the data from the mocap module and record module into one data
+    frame at the maximum common constant sample rate.
+  \item Extracts sections of the data bounded by the events.
+  \item Saves the cleaned data to disk.
+\end{itemize}
+
+The \verb|gait.WalkingData| class is then used to compute things such as gait
+landmarks (toe off and heel strike times), basic 2D inverse dynamics, and to
+store the data into a Pandas \verb|Panel| with each gait cycle on the main axis
+at a specified sample rate. This data is also saved to disk in HDF5 format.
+
 \end{document}

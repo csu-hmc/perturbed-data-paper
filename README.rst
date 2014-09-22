@@ -126,13 +126,16 @@ Perturbation Design
    - Heelstrikes and toeoffs
 
 - Description of GaitAnalysis Toolkit
-- all signals filtered at 6 Hz low-pass Butterworth filter
-- joint angles and moments calculated from 2D inverse dynamics program
+- All signals filtered at 6 Hz low-pass Butterworth filter
+- Joint angles and moments calculated from 2D inverse dynamics program
 - Compensation Techniques (maybe)
 
    - inertial artifacts due to platform movement
    - did not use platform movement, but implemented in code because we intended
      to move the platform
+
+- Show typical plots of data.
+- Pin to a particular version of GaitTK and DynamicistTK.
 
 Dataset validation (optional)
 =============================
