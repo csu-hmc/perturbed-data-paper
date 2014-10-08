@@ -16,7 +16,7 @@
 
   Herein we share a data set of typical gait data for 11 subjects walking at a
   three speeds on an instrumented treadmill while being longitudinally
-  perturbed in the stance phase with psuedo-random fluctuations in the
+  perturbed in the stance phase with pseudorandom fluctuations in the
   treadmill belt speed. We provide raw marker and ground reaction loads in
   addition to processed data that includes gait landmarks, 2D joint angles,
   angular rates, and joint torques. The protocol is described in detail along
@@ -28,11 +28,11 @@
 
 \section{Introduction}
 %
-Emergig powered prothetics are in need of bio-inspired control systems.
+Emerging powered prothetics are in need of bio-inspired control systems.
 Ideally, a powered prosthetic would behave in such a way that the user would
 feel like their limb was never disabled. There are a variety of approaches to
 developing bio-inspired control systems some of which aim to mimic the
-reactions and motion of an abled bodied person. A modern gait lab is able to
+reactions and motion of an able-bodied person. A modern gait lab is able to
 collect a variety of kinmetic, kinetic, and physiological data from humans
 during gait. This data can be used to drive the design of the controller. With
 a rich enough data set, one may be able to identify control mechanism used
@@ -92,7 +92,7 @@ precision, e.g. 123456.123456 [\%1.6f].
 
 \subsection{mocap-xxx.txt}
 
-The output from the D-Flow mocap module is stored in a tab delimted file named
+The output from the D-Flow mocap module is stored in a tab delimited file named
 \verb+mocap-xxx.txt+ where \verb+xxx+ represents the trial id number. The file
 contains several columns:
 
@@ -120,10 +120,10 @@ contains several columns:
     and are in meters.
   \item[Analog Channels] Several analog signals are recorded under column
     headers \verb+Channel[1-99].Anlg+. These correspond to analog signals
-    sampled by Cortex and correspond to the ?92? National Instruments XXXX DAQ
-    box. The first twelve are the voltages from the force plate load cells. We
-    also record the acceleration of 4 points on the treadmill base in chanels
-    X-X.
+    sampled by Cortex and correspond to the 96 analog-channel National 
+    Instruments 6255 DAQ box. The first twelve are the voltages from the 
+    force plate load cells. We also record the acceleration of 4 points on the
+    treadmill base in channels 61-72.
 \end{description}
 
 \subsection{record-xxx.txt}
@@ -160,7 +160,7 @@ several events that correspond to the phases of the protocol:
 Each trial directory contains a meta data file in the YAML format. There are
 three main headings: \verb+study+, \verb+subject+, and \verb+trial+.
 
-The \verb+study+ section contains identififying information for the overall
+The \verb+study+ section contains identifying information for the overall
 study, an identification number, name, and description. This is the same for
 all meta data files in the study.
 
@@ -359,6 +359,52 @@ the latest version.
   \end{tabular}
   \label{tab:marker-labels}
 \end{table}
+
+\section{Perturbation Signals}
+
+  The data set uses a testing protocol containing a segment of normal 
+  walking, followed by a series of pseudorandom longitudinal 
+  perturbations, and ending with a second segment of normal walking.   
+  Three pseudorandom speed control signals, with mean velocities of 
+  0.8, 1.2, and 1.6 m/s, were generated through MATLAB and Simulink. 
+  Initially, a random acceleration signal was created using discrete-time 
+  Gaussian white noise and saturated at the maximum belt acceleration 
+  of 15 m/s2, integrated to obtain belt speed, and high-pass filtered 
+  (second-order Butterworth) to eliminate velocity drift.   Mean velocity was 
+  then added to the signal and limited between 0 and 3.6 m/s.  The cutoff
+  frequencies of the high-pass filter, as well as the variance in the 
+  acceleration signal, were adjusted until the appropriate standard deviations
+  for each mean velocity were obtained.
+
+  These standard deviations were determined through a trial and error method.
+  Initially, perturbations of $\pm$ 10% for each mean velocity were generated. 
+  However, this large deviation in the slowest mean velocity (0.8 m/s) would
+  unintentionally reduce the treadmill speed to values close to zero.  This 
+  would produce an undesired stopping and starting sensation.  Alternatively, 
+  smaller standard perturbations of $\pm$ 5% did not produce noticeable 
+  perturbations in the fastest trial (1.6 m/s).  Therefore, standard deviations
+  of 7.16%, 10.23%, and 13.1% were selected for the 0.8, 1.2, and 
+  1.6 m/s speeds, respectively.   This ensured that the test subject was
+  sufficiently perturbed for each speed, while remaining within the limits of 
+  our testing protocol.  
+
+  To ensure that the treadmill could follow the higher frequencies of the 
+  random signals, the maximum treadmill acceleration of 15 m/s2 was used in the
+  D-Flow Software.  As this value remains constant throughout the experiment,
+  the initial starting and stopping of the treadmill would be too rapid for test
+  subjects.  To eliminate this, a ramped acceleration and deceleration was 
+  generated and placed at the beginning and end of the entire signal,
+  respectively.   Other additions include the one minute segments of 
+  unperturbed walking at the beginning and end of the trial and 30 seconds of 
+  no movement for force plate zeroing and subject T-pose calibration.  The 
+  sampling rate of the simulation was set to 100 Hz, corresponding to the 
+  D-Flow software's capabilities.  
+
+  The resulting output from the MATLAB script and Simulink produces a comma-
+  delimited text file of six columns: timestamp, slow, normal, and fast walking
+  perturbation signals, and slow and fast running signals.  These running 
+  signals were generated in the event the testing protocol expanded from a
+  walking study to a running study, though they were not used in the data set.    
 
 \section{Processed Data}
 
