@@ -1,8 +1,10 @@
 Build Instructions
 ==================
 
+.. image:: https://www.sharelatex.com/github/repos/csu-hmc/perturbed-data-paper/builds/latest/badge.svg
+
 Make sure you have a LaTeX Suite installed and simply type ``make`` at the
-command line.
+command line or checkout the ShareLaTeX CI build.
 
 Journal
 =======
