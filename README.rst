@@ -18,6 +18,8 @@ http://f1000research.com/author-guidelines
 Notes on editing the files
 ==========================
 
+- Please edit in new Git branch and submit a Pull Request since we have
+  multiple authors.
 - Wrap text files to 79 characters.
 - No tabs, use spaces for indentation.
 - The README is in RestructuredText format. See
