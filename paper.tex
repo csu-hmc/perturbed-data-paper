@@ -3,44 +3,48 @@
 % - No hanging whitespace
 % - Wrap lines to 79 characters
 % - Indentation should be two spaces per indent
-% - Don't worry about formatting details at first, just get the content in
-%   place.
+% - Only one space after periods.
+% - Don't worry about formatting details, just get the content in place.
 
 \documentclass{article}
 
+\usepackage{booktabs} % for table /toprule, /midrule, etc
 \usepackage{todo}
+
+\title{Perturbed Gait Data}
 
 \begin{document}
 
 \begin{abstract}
 
-  Herein we share a data set of typical gait data for 11 subjects walking at a
-  three speeds on an instrumented treadmill while being longitudinally
-  perturbed in the stance phase with pseudorandom fluctuations in the
-  treadmill belt speed. We provide raw marker and ground reaction loads in
-  addition to processed data that includes gait landmarks, 2D joint angles,
-  angular rates, and joint torques. The protocol is described in detail along
-  with the the additional meta data about each of the data files. This data can
-  be useful for validating or genreating mathematical models that capable of
-  simulating non-periodic and pertubed gaits.
+  Herein we share a typical gait data set collected from 11 subjects walking at
+  a three speeds on an instrumented treadmill while being longitudinally
+  perturbed during each stance phase with pseudo-random fluctuations in the
+  treadmill belt. We provide raw marker and ground reaction loads in addition
+  to a presentation of processed data that includes gait landmarks, 2D joint
+  angles, angular rates, and joint torques and the software that does the
+  processing. The protocol is described in detail along with the additional
+  meta data about each of the data files. This data can be useful for
+  validating or generating mathematical models that capable of simulating
+  non-periodic and perturbed gaits.
 
 \end{abstract}
 
 \section{Introduction}
 %
-Emerging powered prothetics are in need of bio-inspired control systems.
+Emerging powered prosthetics are in need of bio-inspired control systems.
 Ideally, a powered prosthetic would behave in such a way that the user would
 feel like their limb was never disabled. There are a variety of approaches to
 developing bio-inspired control systems some of which aim to mimic the
 reactions and motion of an able-bodied person. A modern gait lab is able to
-collect a variety of kinmetic, kinetic, and physiological data from humans
-during gait. This data can be used to drive the design of the controller. With
-a rich enough data set, one may be able to identify control mechanism used
-during a human's natural gait and recovery from perturbations. We have
-collected one such data set that we believe is richer than previous gait data
-sets and may be rich enough for control identification. The data can also be
-used for verifciation purposes for controllers that have been designed in other
-manners.
+collect a variety of kinematic, kinetic, and physiological data from humans
+during gait. This data can potentially be used to drive the design of the human
+mimicking controller. With a rich enough data set, one may be able to identify
+control mechanism used during a human's natural gait and recovery from
+perturbations. We have collected data that we believe is richer than previous
+gait data sets and may be rich enough for control identification. The data can
+also be used for verification purposes for controllers that have been designed
+in other manners.
 
 We collected over five and half hours of perturbed gait data from 11 subjects
 sampled at 100 hz. The data has been organized and made available for other
@@ -48,36 +52,37 @@ research uses.
 
 \section{Equipment}
 %
-The Human Motion and Control Lab at Cleveland State University has such a
-system. Our system includes:
+The Human Motion and Control Lab at Cleveland State University has modern human
+motion measurement equipment. Our system includes:
 
 \begin{itemize}
-  \item A ForceLink R-Mill which has dual 6 DoF force plates, independent belts
-    for each foot, and lateral and pitch motion capabilities.
-  \item A 10 Camera Motion Analysis motion capture system which includes the
-    Cortex software and hardware for collecting analog and camera data
-    simultaneously.  Delsys wireless EMG + 3D Accelerometers.
+  \item A ForceLink R-Mill which has dual 6 degree of freedom force plates,
+    independent belts for each foot, and lateral and pitch motion capabilities.
+  \item A 10 Camera Motion Analysis motion capture system which includes Osprey
+    cameras, the Cortex software, and hardware for collecting analog and camera
+    data simultaneously. Delsys wireless EMG + 3D Accelerometers.
   \item Motek Medical’s D-Flow software and visual display system.
 \end{itemize}
 
-Cortex alone is capable of delivering data from the cameras, force plates, and
-analog sensors (EMG/Accelerometer), but D-Flow is required to collect data from
-digital sensors and the treadmill’s motion (lateral, pitch, and belts). D-Flow
-can output multiple types of files which contain the different data.
+Cortex alone is capable of delivering data from the cameras along with force
+plates, and analog sensors (EMG/Accelerometer) through a National Instruments
+XXXX data acquisition unit. D-Flow is required to collect data from any digital
+sensors and the treadmill's motion (lateral, pitch, and belts). D-Flow can
+output multiple types of files which contain the different data.
 
-Our motion capture system’s coordinate system is such that the X coordinate
+Our motion capture system's coordinate system is such that the X coordinate
 points to the right, the Y coordinate points upwards, and the Z coordinate
 follows from the right-hand-rule, i.e. points backwards with respect to a
-person walking forward on the treadmill. The camera’s coordinate system is
-aligned to an origin point on treadmill’s surface during camera calibration.
+person walking forward on the treadmill. The camera's coordinate system is
+aligned to an origin point on treadmill's surface during camera calibration.
 
 \section{Raw Data}
 %
 The raw data consists of a set of ASCII tab delimited text files output from
-both the Mocap and Record modules in D-Flow in addition to a YAML file that
-contains all of the necessary meta data for the given trial. These three files
-are stored in a hierarchy of directories with one trial per directory. The
-directories are named in the following fashion \verb+T001/+ where \verb+T+
+both the ``mocap'' and ``record'' modules in D-Flow in addition to a YAML file
+that contains all of the necessary meta data for the given trial. These three
+files are stored in a hierarchy of directories with one trial per directory.
+The directories are named in the following fashion \verb+T001/+ where \verb+T+
 stands for ``trial'' and the following three digits are provide a unique trial
 identification number.
 
@@ -306,9 +311,13 @@ be provided in the meta data yml file, otherwise it will assume D-Flow is at
 the latest version.
 
 \begin{table}
-  \centering
   \caption{Descriptions of the 47 markers used in this study.}
+  \centering
+  \small
   \begin{tabular}{rlll}
+    \toprule
+    Number & Label & Name & Description \\
+    \midrule
     1  & LHEAD & Left head                             & Just above the ear, in the middle. \\
     2  & THEAD & Top head                              & On top of the head, in line with the LHEAD and RHEAD. \\
     3  & RHEAD & Right head                            & Just above the ear, in the middle. \\
@@ -356,55 +365,55 @@ the latest version.
     45 & RHEE  & Right heel                            & Center of the heel at the same height as the toe. \\
     46 & RTOE  & Right toe                             & Tip of big toe. \\
     47 & RMT5  & Right 5th metatarsal                  & Caput of the 5th metatarsal bone, on joint line midfoot/toes. \\
+    \bottomrule
   \end{tabular}
   \label{tab:marker-labels}
 \end{table}
 
 \section{Perturbation Signals}
+%
+The data set uses a testing protocol containing a segment of normal walking,
+followed by a series of pseudo-random longitudinal perturbations, and ending
+with a second segment of normal walking. Three pseudo-random speed control
+signals, with mean velocities of 0.8, 1.2, and 1.6 $m \cdot s^{-1}$, were
+generated through MATLAB and Simulink. Initially, a random acceleration signal
+was created using discrete-time Gaussian white noise and saturated at the
+maximum belt acceleration of 15 $m \cdot s^{-2}$, integrated to obtain belt
+speed, and high-pass filtered (second-order Butterworth) to eliminate velocity
+drift. Mean velocity was then added to the signal and limited between 0 and 3.6
+m/s. The cutoff frequencies of the high-pass filter, as well as the variance in
+the acceleration signal, were adjusted until the appropriate standard
+deviations for each mean velocity were obtained.
 
-  The data set uses a testing protocol containing a segment of normal 
-  walking, followed by a series of pseudorandom longitudinal 
-  perturbations, and ending with a second segment of normal walking.   
-  Three pseudorandom speed control signals, with mean velocities of 
-  0.8, 1.2, and 1.6 m/s, were generated through MATLAB and Simulink. 
-  Initially, a random acceleration signal was created using discrete-time 
-  Gaussian white noise and saturated at the maximum belt acceleration 
-  of 15 m/s2, integrated to obtain belt speed, and high-pass filtered 
-  (second-order Butterworth) to eliminate velocity drift.   Mean velocity was 
-  then added to the signal and limited between 0 and 3.6 m/s.  The cutoff
-  frequencies of the high-pass filter, as well as the variance in the 
-  acceleration signal, were adjusted until the appropriate standard deviations
-  for each mean velocity were obtained.
+These standard deviations were determined through a trial and error method.
+Initially, perturbations of $\pm$ 10\% for each mean velocity were generated.
+However, this large deviation in the slowest mean velocity (0.8 $m \cdot
+s^{-1}$) would unintentionally reduce the treadmill speed to values close to
+zero. This would produce an undesired stopping and starting sensation.
+Alternatively, smaller standard perturbations of $\pm$ 5\% did not produce
+noticeable perturbations in the fastest trial (1.6 $m \cdot s^{-1}$).
+Therefore, standard deviations of 7.16\%, 10.23\%, and 13.1\% were selected for
+the 0.8, 1.2, and 1.6 $m \cdot s^{-1}$ speeds, respectively.  This ensured that
+the test subject was sufficiently perturbed for each speed, while remaining
+within the limits of our testing protocol.
 
-  These standard deviations were determined through a trial and error method.
-  Initially, perturbations of $\pm$ 10% for each mean velocity were generated. 
-  However, this large deviation in the slowest mean velocity (0.8 m/s) would
-  unintentionally reduce the treadmill speed to values close to zero.  This 
-  would produce an undesired stopping and starting sensation.  Alternatively, 
-  smaller standard perturbations of $\pm$ 5% did not produce noticeable 
-  perturbations in the fastest trial (1.6 m/s).  Therefore, standard deviations
-  of 7.16%, 10.23%, and 13.1% were selected for the 0.8, 1.2, and 
-  1.6 m/s speeds, respectively.   This ensured that the test subject was
-  sufficiently perturbed for each speed, while remaining within the limits of 
-  our testing protocol.  
+To ensure that the treadmill could follow the higher frequencies of the random
+signals, the maximum treadmill acceleration of 15 $m \cdot s^{-2}$ was used in
+the D-Flow Software. As this value remains constant throughout the experiment,
+the initial starting and stopping of the treadmill would be too rapid for test
+subjects. To eliminate this, a ramped acceleration and deceleration was
+generated and placed at the beginning and end of the entire signal,
+respectively. Other additions include the one minute segments of unperturbed
+walking at the beginning and end of the trial and 30 seconds of no movement for
+force plate zeroing and subject T-pose calibration.  The sampling rate of the
+simulation was set to 100 Hz, corresponding to the D-Flow software's
+capabilities.
 
-  To ensure that the treadmill could follow the higher frequencies of the 
-  random signals, the maximum treadmill acceleration of 15 m/s2 was used in the
-  D-Flow Software.  As this value remains constant throughout the experiment,
-  the initial starting and stopping of the treadmill would be too rapid for test
-  subjects.  To eliminate this, a ramped acceleration and deceleration was 
-  generated and placed at the beginning and end of the entire signal,
-  respectively.   Other additions include the one minute segments of 
-  unperturbed walking at the beginning and end of the trial and 30 seconds of 
-  no movement for force plate zeroing and subject T-pose calibration.  The 
-  sampling rate of the simulation was set to 100 Hz, corresponding to the 
-  D-Flow software's capabilities.  
-
-  The resulting output from the MATLAB script and Simulink produces a comma-
-  delimited text file of six columns: timestamp, slow, normal, and fast walking
-  perturbation signals, and slow and fast running signals.  These running 
-  signals were generated in the event the testing protocol expanded from a
-  walking study to a running study, though they were not used in the data set.    
+The resulting output from the MATLAB script and Simulink produces a comma-
+delimited text file of six columns: timestamp, slow, normal, and fast walking
+perturbation signals, and slow and fast running signals.  These running signals
+were generated in the event the testing protocol expanded from a walking study
+to a running study, though they were not used in the data set.
 
 \section{Processed Data}
 
@@ -413,22 +422,23 @@ and provide the processed data from this. The tool is centered around two main
 classes, one to store a complete trial in memory and a second to compute common
 gait variables of interest.
 
-The \verb|motek.DFlowData| class stores all the data presented in the previous
-section and encodes several ``cleaning'' operations to put the data into a
-usable form.
+The \verb|motek.DFlowData| class collects and stores all the raw data presented
+in the previous section and applies several ``cleaning'' operations to put the
+data into a usable form.
 
 \begin{itemize}
   \item Loads the meta data file into a Python dictionary.
   \item Loads the DFlow mocap module TSV file into Pandas \verb|DataFrame|.
   \item Relabels the column headers to more meaningful names if this is
     specified in the meta data.
-  \item Identifies the missing values in the mocap marker data and replaces
-    them with \verb|numpy.nan|.
-  \item Interpolates the missing marker values and replaces them with
-    interpolated estimates.
-  \item Loads the DFlow record moudle TSV file into a Pandas \verb|DataFrame|.
+  \item Optionally identifies the missing values in the mocap marker data and
+    replaces them with \verb|numpy.nan|.
+  \item Optionally interpolates the missing marker values and replaces them
+    with interpolated estimates using a variety of interpolation methods.
+  \item Loads the D-Flow record moudle TSV file into a Pandas \verb|DataFrame|.
   \item Extracts the events and creates a dictionary mapping the event names in
     the meta data to the events detected in the record module file.
+  \item Compensates the ground reaction loads for treadmill motion.
   \item Merges the data from the mocap module and record module into one data
     frame at the maximum common constant sample rate.
   \item Extracts sections of the data bounded by the events.

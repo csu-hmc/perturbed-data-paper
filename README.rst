@@ -161,7 +161,7 @@ Dataset validation (optional)
    datasets, including any allowances made for controlling bias or unwanted
    sources of variability.
 
-- Walker ?#9? has odd ankle joint torques
+- Walker ?#9? has odd ankle joint torques (trials 25, 26, 27)
 
 Data availability
 =================
