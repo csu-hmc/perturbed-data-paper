@@ -1,7 +1,7 @@
 Build Instructions
 ==================
 
-Make sure you have a LaTeX Suite installed and simply type ``make`` at the
+Make sure you have a LaTeX suite installed and simply type ``make`` at the
 command line or checkout the ShareLaTeX CI build.
 
 .. image:: https://www.sharelatex.com/github/repos/csu-hmc/perturbed-data-paper/builds/latest/badge.svg
@@ -24,12 +24,12 @@ Notes on editing the files
 - Please edit in new Git branch and submit a Pull Request since we have
   multiple authors.
 - Wrap text files to 79 characters.
-- No tabs, use spaces for indentation.
+- No tabs, use 2 spaces for indentation.
 - The README is in RestructuredText format. See
   http://docutils.sourceforge.net/docs/user/rst/quickref.html for tips on the
   syntax.
 - The paper will be written in LaTeX and eventually moved to writelatex.com or
-  Authorea for submission to F1000Research. For now we will keep it bare bones
+  Authorea for submission to F1000Research. For now, we will keep it bare bones
   without any journal styles.
 - Figures belong in the `figures` directory and the source code used to
   generate the figures should be in the `src` directory along with any
