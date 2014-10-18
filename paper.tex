@@ -422,22 +422,23 @@ and provide the processed data from this. The tool is centered around two main
 classes, one to store a complete trial in memory and a second to compute common
 gait variables of interest.
 
-The \verb|motek.DFlowData| class stores all the data presented in the previous
-section and encodes several ``cleaning'' operations to put the data into a
-usable form.
+The \verb|motek.DFlowData| class collects and stores all the raw data presented
+in the previous section and applies several ``cleaning'' operations to put the
+data into a usable form.
 
 \begin{itemize}
   \item Loads the meta data file into a Python dictionary.
   \item Loads the DFlow mocap module TSV file into Pandas \verb|DataFrame|.
   \item Relabels the column headers to more meaningful names if this is
     specified in the meta data.
-  \item Identifies the missing values in the mocap marker data and replaces
-    them with \verb|numpy.nan|.
-  \item Interpolates the missing marker values and replaces them with
-    interpolated estimates.
-  \item Loads the DFlow record moudle TSV file into a Pandas \verb|DataFrame|.
+  \item Optionally identifies the missing values in the mocap marker data and
+    replaces them with \verb|numpy.nan|.
+  \item Optionally interpolates the missing marker values and replaces them
+    with interpolated estimates using a variety of interpolation methods.
+  \item Loads the D-Flow record moudle TSV file into a Pandas \verb|DataFrame|.
   \item Extracts the events and creates a dictionary mapping the event names in
     the meta data to the events detected in the record module file.
+  \item Compensates the ground reaction loads for treadmill motion.
   \item Merges the data from the mocap module and record module into one data
     frame at the maximum common constant sample rate.
   \item Extracts sections of the data bounded by the events.
