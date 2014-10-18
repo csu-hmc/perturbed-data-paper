@@ -4,6 +4,8 @@ import os
 import random
 
 import yaml
+from numpy import rad2deg
+from scipy.constants import golden
 import matplotlib.pyplot as plt
 import pandas
 from gaitanalysis.motek import DFlowData, markers_for_2D_inverse_dynamics
@@ -38,7 +40,26 @@ def trial_file_paths(trials_dir, trial_number):
     return mocap_file_path, record_file_path, meta_file_path
 
 
-def load_data(event, tmp):
+def load_data(event, paths, tmp):
+    """Loads an event and processes the data, if necessary, from a trial
+    into a WalkingData object.
+
+    Parameters
+    ==========
+    event : string
+        A valid event for the given trial.
+    paths : list of strings
+        The paths to the mocap, record, and meta data files.
+    tmp : string
+        A path to a temporary directory in which the processed data can be
+        stored.
+
+    Returns
+    =======
+    gait_data : gaitanalysis.gait.WalkingData
+        The WalkingData instance containing the data for the event.
+
+    """
 
     file_name = '_'.join([n.lower() for n in event.split(' ')]) + '.h5'
 
@@ -80,18 +101,53 @@ def load_data(event, tmp):
     return gait_data
 
 
-def remove_bad_steps(gait_data, lower, upper):
-    # Remove bad steps based on # samples in each step.
-    valid = gait_data.step_data['Number of Samples'] < upper
-    lower_values = gait_data.step_data[valid]
+def remove_bad_steps(gait_data, lower, upper, col):
+    """
 
-    valid = lower_values['Number of Samples'] > lower
+    Parameters
+    ==========
+    gait_data : gaitanalysis.gait.WalkingData
+        The data object containing both the steps Panel and step_data
+        DataFrame.
+    lower : int or float
+        The lower bound for the step_data histogram.
+    upper : int or float
+        The upper bound for the step_data histogram.
+    col : string
+        The column in step_data to use for the bounding.
+
+    Returns
+    =======
+    gait_cycles : Panel
+        A reduced Panel of gait cycles.
+    gait_cycle_data : DataFrame
+        A reduced DataFrame of gait cycle data.
+
+    """
+
+    valid = gait_data.step_data[col] < upper
+    lower_values = gait_data.step_data[valid]
+    valid = lower_values[col] > lower
     mid_values = lower_values[valid]
 
-    return gait_data.steps.iloc[mid_values.index]
+    return gait_data.steps.iloc[mid_values.index], mid_values
 
 
 if __name__ == '__main__':
+
+    params = {'backend': 'ps',
+              'axes.labelsize': 8,
+              'axes.titlesize': 10,
+              'text.fontsize': 10,
+              'legend.fontsize': 8,
+              'xtick.labelsize': 8,
+              'ytick.labelsize': 8,
+              'text.usetex': True,
+              'font.family': 'serif',
+              'font.serif': ['Computer Modern'],
+              'figure.figsize': (6.0, 6.0 / golden),
+             }
+    plt.rcParams.update(params)
 
     trial_number = '020'
 
@@ -103,16 +159,20 @@ if __name__ == '__main__':
 
     tmp = config['tmp_data_directory']
 
-    unperturbed_gait_data_1 = \
-        remove_bad_steps(load_data('First Normal Walking', tmp), 80, 105)
-    unperturbed_gait_data_2 = \
-        remove_bad_steps(load_data('Second Normal Walking', tmp), 80, 105)
-    unperturbed_gait_cycles = pandas.concat((unperturbed_gait_data_1,
-                                             unperturbed_gait_data_2),
+    unperturbed_gait_data_1 = load_data('First Normal Walking', paths, tmp)
+    unperturbed_gait_data_2 = load_data('Second Normal Walking', paths, tmp)
+    one = remove_bad_steps(unperturbed_gait_data_1, 1.18, 1.22,
+                           'Average Belt Speed')
+    two = remove_bad_steps(unperturbed_gait_data_2, 1.18, 1.22,
+                           'Average Belt Speed')
+    unperturbed_gait_cycles = pandas.concat((one[0], two[0]),
                                             ignore_index=True)
+    unperturbed_step_data = pandas.concat((one[1], two[1]),
+                                          ignore_index=True)
 
-    perturbed_gait_data = load_data('Longitudinal Perturbation', tmp)
+    perturbed_gait_data = load_data('Longitudinal Perturbation', paths, tmp)
 
+    # Time series comparison plot.
     num_steps = unperturbed_gait_cycles.shape[0]
 
     idxs = random.sample(range(perturbed_gait_data.steps.shape[0]), num_steps)
@@ -131,6 +191,10 @@ if __name__ == '__main__':
                'Knee.Flexion.Moment',
                'Hip.Flexion.Moment']
 
+    y_labels = ['Ankle Plantar Flexion',
+                'Knee Flexion',
+                'Hip Flexion']
+
     fig, axes = plt.subplots(3, 2, sharex=True)
 
     blue = sbn.xkcd_rgb['windows blue']
@@ -139,42 +203,65 @@ if __name__ == '__main__':
     ppercent = mean_of_perturbed.index.values.astype(float)
     upercent = mean_of_unperturbed['Percent Gait Cycle']
 
-    for row, angle, torque in zip(axes, angles, torques):
+    con = [lambda x: rad2deg(x), lambda x: x]
+
+    for row, angle, torque, y_label in zip(axes, angles, torques, y_labels):
         for side, linetype in zip(['Right', 'Left'], ['-', '--']):
-            row[0].set_ylabel(angle.split('.')[0])
+
+            row[0].set_ylabel(y_label)
+
             for i, col in enumerate([angle, torque]):
 
                 col_name = side + '.' + col
 
-                pmean = mean_of_perturbed[col_name]
-                pstd = 2.0 * std_of_perturbed[col_name]
+                pmean = con[i](mean_of_perturbed[col_name])
+                pstd = 2.0 * con[i](std_of_perturbed[col_name])
 
-                umean = mean_of_unperturbed[col_name]
-                ustd = 2.0 * std_of_unperturbed[col_name]
+                umean = con[i](mean_of_unperturbed[col_name])
+                ustd = 2.0 * con[i](std_of_unperturbed[col_name])
 
                 row[i].fill_between(ppercent,
                                     (pmean - pstd).values,
                                     (pmean + pstd).values,
-                                    alpha=0.5,
-                                    color=blue)
+                                    alpha=0.25,
+                                    color=blue,
+                                    label='_nolegend_')
 
                 row[i].fill_between(upercent,
                                     (umean - ustd).values,
                                     (umean + ustd).values,
-                                    alpha=0.5,
-                                    color=purple)
+                                    alpha=0.40,
+                                    color=purple,
+                                    label='_nolegend_')
 
-                row[i].plot(ppercent, pmean.values, linetype, color=blue)
-                row[i].plot(upercent, umean.values, linetype, color=purple)
+                row[i].plot(ppercent, pmean.values, linetype, color=blue,
+                            label=side + ' Perturbed')
+                row[i].plot(upercent, umean.values, linetype, color=purple,
+                            label=side + ' Un-perturbed')
 
-    axes[0, 0].set_title('Joint Angles')
-    axes[0, 1].set_title('Joint Torques')
+    plt.subplots_adjust(top=0.85)
+
+    axes[0, 0].set_title('Joint Angles [deg]')
+    axes[0, 1].set_title('Joint Torques [Nm]')
     axes[-1, 0].xaxis.set_major_formatter(_percent_formatter)
     axes[-1, 1].xaxis.set_major_formatter(_percent_formatter)
     axes[-1, 0].set_xlabel('Percent Right Gait Cycle')
     axes[-1, 1].set_xlabel('Percent Right Gait Cycle')
+    axes[0, 0].legend(loc='upper left', ncol=2, bbox_to_anchor=(0.4, 1.75))
 
     if not os.path.exists('../figures'):
         os.makedirs('../figures')
 
     fig.savefig('../figures/unperturbed-perturbed-comparison.pdf')
+
+    # Step data histogram comparisons.
+    columns = ['Average Belt Speed', 'Cadence', 'Step Duration',
+               'Stride Length']
+    units = ['[m/s]', '[Hz]', '[s]', '[m]']
+    axes = perturbed_gait_data.step_data.iloc[idxs].hist(column=columns,
+                                                         color=blue)
+    for i, ax in enumerate(axes.flatten()):
+        ax = unperturbed_step_data[columns[i]].hist(ax=ax, color=purple)
+        ax.set_title(columns[i] + ' ' + units[i])
+
+    plt.savefig('../figures/unperturbed-perturbed-hist-comparison.pdf')

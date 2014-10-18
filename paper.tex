@@ -8,6 +8,7 @@
 
 \documentclass{article}
 
+\usepackage{graphicx}
 \usepackage{booktabs} % for table /toprule, /midrule, etc
 \usepackage{todo}
 
@@ -449,5 +450,29 @@ The \verb|gait.WalkingData| class is then used to compute things such as gait
 landmarks (toe off and heel strike times), basic 2D inverse dynamics, and to
 store the data into a Pandas \verb|Panel| with each gait cycle on the main axis
 at a specified sample rate. This data is also saved to disk in HDF5 format.
+
+Figure~\ref{fig:angle-torque-comparison} compares the mean and standard
+deviation of saggital plane joint angles and torques from the perturbed gait
+cycles and the unperturbed gait cycles computed from trial 20 for 120 gait
+cycles. The variation in the dynamics is larger for the perturbed gait cycles.
+
+\begin{figure}
+  \includegraphics{figures/unperturbed-perturbed-comparison.pdf}
+  \caption{Mean (solid, dashed) and $2\sigma$ (shaded) ($N=120$) joint angles
+    and torques from both unperturbed (purple) and perturbed (blue) gait cycles
+    from trial 20.}
+  \label{fig:angle-torque-comparison}
+\end{figure}
+
+Figure~\ref{fig:gait-cycle-stats-comparison} compares the distribution in
+several statistics of the unperturbed and perturbed gait cycles.
+
+\begin{figure}
+  \includegraphics{figures/unperturbed-perturbed-hist-comparison.pdf}
+  \caption{Histograms of the average belt speed, cadence, step duration, and
+    stride length which compare 120 gait cycles for the unperturbed (purple)
+    and perturbed (blue).}
+  \label{fig:gait-cycle-stats-comparison}
+\end{figure}
 
 \end{document}
