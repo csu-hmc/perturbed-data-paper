@@ -31,6 +31,10 @@ Notes on editing the files
 - The paper will be written in LaTeX and eventually moved to writelatex.com or
   Authorea for submission to F1000Research. For now we will keep it bare bones
   without any journal styles.
+- Figures belong in the `figures` directory and the source code used to
+  generate the figures should be in the `src` directory along with any
+  instructions in `src/README.rst`. Be careful about uploading (lots) of giant
+  binaries. The figures should be correctly sized plots in the PDF format.
 
 Authors
 =======
