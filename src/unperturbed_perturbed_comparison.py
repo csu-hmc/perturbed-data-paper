@@ -77,7 +77,7 @@ def load_data(event, paths, tmp):
                                               index_col='TimeStamp',
                                               isb_coordinates=True)
 
-        # Compute the lower limb 2D inverse dynamics, identify right hell
+        # Compute the lower limb 2D inverse dynamics, identify right heel
         # strike times, and split the data into gait cycles.
         gait_data = WalkingData(perturbed_df)
         marker_set = dflow_data.meta['trial']['marker-set']
@@ -102,7 +102,8 @@ def load_data(event, paths, tmp):
 
 
 def remove_bad_steps(gait_data, lower, upper, col):
-    """
+    """Returns the gait cycles with outliers removed based on the step_data
+    DataFrame column.
 
     Parameters
     ==========
