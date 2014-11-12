@@ -377,22 +377,14 @@ The data set uses a testing protocol containing a segment of normal walking,
 followed by a series of pseudo-random longitudinal perturbations, and ending
 with a second segment of normal walking. Three pseudo-random speed control
 signals, with mean velocities of 0.8, 1.2, and 1.6 $m \cdot s^{-1}$, were
-generated through MATLAB and Simulink (Figure~\ref{fig:simulink}). Initially, a 
-random acceleration signal was created using discrete-time Gaussian white 
-noise and saturated at the maximum belt acceleration of 15 $m \cdot s^{-2}$,
-integrated to obtain belt speed, and high-pass filtered (second-order
-Butterworth) to eliminate velocity drift. Mean velocity was then added to the 
-signal and limited between 0 and 3.6 m/s. The cutoff frequencies of the high-
-pass filter, as well as the variance in the acceleration signal, were adjusted 
-until the appropriate standard deviations for each mean velocity were obtained.
-
-\begin{figure}
-  \includegraphics{figures/longitudinal_perturbation.pdf}
-  \caption{MATLAB Simulink model for generating longitudinal perturbations,
-                given variance, cutoff frequency of the high-pass filter, and
-                the average speed}
-  \label{fig:simulink}
-\end{figure}
+generated through MATLAB and Simulink. Initially, a  random acceleration signal
+was created using discrete-time Gaussian white noise and saturated at the maximum
+belt acceleration of 15 $m \cdot s^{-2}$, integrated to obtain belt speed, and 
+high-pass filtered (second-order Butterworth) to eliminate velocity drift. Mean 
+velocity was then added to the signal and limited between 0 and 3.6 m/s. The 
+cutoff frequencies of the high-pass filter, as well as the variance in the acceleration 
+signal, were adjusted until the appropriate standard deviations for each mean 
+velocity were obtained.
 
 These standard deviations were determined through a trial and error method.
 Initially, perturbations of $\pm$ 10\% for each mean velocity were generated.
