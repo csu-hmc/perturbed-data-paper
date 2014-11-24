@@ -21,7 +21,7 @@
   Herein we share a typical gait data set collected from 11 subjects walking at
   a three speeds on an instrumented treadmill while being longitudinally
   perturbed during each stance phase with pseudo-random fluctuations in the
-  treadmill belt. We provide raw marker and ground reaction loads in addition
+  speed of the treadmill belt. We provide raw marker and ground reaction loads in addition
   to a presentation of processed data that includes gait landmarks, 2D joint
   angles, angular rates, and joint torques and the software that does the
   processing. The protocol is described in detail along with the additional
@@ -76,6 +76,8 @@ points to the right, the Y coordinate points upwards, and the Z coordinate
 follows from the right-hand-rule, i.e. points backwards with respect to a
 person walking forward on the treadmill. The camera's coordinate system is
 aligned to an origin point on treadmill's surface during camera calibration.
+The same point is used as the origin of the ground reaction force measuring
+system.
 
 \section{Raw Data}
 %
@@ -129,7 +131,9 @@ contains several columns:
     sampled by Cortex and correspond to the 96 analog-channel National 
     Instruments 6255 DAQ box. The first twelve are the voltages from the 
     force plate load cells. We also record the acceleration of 4 points on the
-    treadmill base in channels 61-72.
+    treadmill base in channels 61-72.  TvdB: are these useful?  If so, we need to 
+    provide information on how to process these channels.  If not, maybe
+    not mention them at all?
 \end{description}
 
 \subsection{record-xxx.txt}
@@ -138,8 +142,8 @@ The record module also outputs a tab delimited ASCII text file. It includes a
 \verb+Time+ column which records the D-Flow system time in seconds which
 corresponds to the time recorded in the \verb+TimeStamp+ column in mocap module
 tsv file. There are two additional columns \verb+RightBeltSpeed+ and
-\verb+LeftBeltSpeed+ which provide the independent belt speeds measure in
-meters per second by an ?encoder?.
+\verb+LeftBeltSpeed+ which provide the independent belt speeds measured in
+meters per second by an encoder in the treadmill.
 
 Finally, the record module is capable of recording the time at which various
 events occur, as detected or set by D-Flow. It does this by inserting commented
@@ -446,7 +450,7 @@ speeds.
 \section{Processed Data}
 
 We developed a command line data processing tool for common gait computations
-and provide the processed data from this. The tool is centered around two main
+and provide the processed data from this. The tool was developed in Pythin and centered around two main
 classes, one to store a complete trial in memory and a second to compute common
 gait variables of interest.
 
