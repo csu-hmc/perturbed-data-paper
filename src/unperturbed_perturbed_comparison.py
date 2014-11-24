@@ -256,16 +256,22 @@ if __name__ == '__main__':
 
     fig.savefig('../figures/unperturbed-perturbed-comparison.pdf')
 
-    # Gait cycle statistics histogram comparisons.
-    columns = ['Average Belt Speed', 'Stride Frequency', 'Stride Duration',
-               'Stride Length']
-    units = ['[m/s]', '[Hz]', '[s]', '[m]']
-    axes = perturbed_gait_data.gait_cycle_stats.iloc[idxs].hist(column=columns,
-                                                                color=blue)
-    for ax in axes.flatten():
-        title = ax.get_title()
-        i = columns.index(title)
-        ax = unperturbed_gait_cycle_stats[title].hist(ax=ax, color=purple)
-        ax.set_title(title + ' ' + units[i])
+    # Boxplots comparing the gait cycle stats. The figure will have three
+    # pairs of boxplots for the belt speed, stride frequency, and stride
+    # length.
 
-    plt.savefig('../figures/unperturbed-perturbed-hist-comparison.pdf')
+    fig, axes = plt.subplots(1, 3)
+
+    columns = ['Average Belt Speed', 'Stride Frequency', 'Stride Length']
+    units = ['[m/s]', '[Hz]', '[s]']
+
+    for col, ax, unit in zip(columns, axes.flatten(), units):
+        ax.set_title('{} {}'.format(col, unit))
+        u = unperturbed_gait_cycle_stats[col]
+        p = perturbed_gait_data.gait_cycle_stats.iloc[idxs][col]
+        data = pandas.DataFrame({'Perturbed': p.values,
+                                 'Unperturbed': u.values})
+        sbn.boxplot(data, ax=ax, color=[blue, purple])
+
+    plt.tight_layout()
+    plt.savefig('../figures/unperturbed-perturbed-boxplot-comparison.pdf')
