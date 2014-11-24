@@ -9,7 +9,7 @@ from scipy.constants import golden
 import matplotlib.pyplot as plt
 import pandas
 from gaitanalysis.motek import DFlowData, markers_for_2D_inverse_dynamics
-from gaitanalysis.gait import WalkingData
+from gaitanalysis.gait import GaitData
 from gaitanalysis.utils import _percent_formatter
 import seaborn as sbn
 
@@ -42,7 +42,7 @@ def trial_file_paths(trials_dir, trial_number):
 
 def load_data(event, paths, tmp):
     """Loads an event and processes the data, if necessary, from a trial
-    into a WalkingData object.
+    into a GaitData object.
 
     Parameters
     ==========
@@ -56,8 +56,8 @@ def load_data(event, paths, tmp):
 
     Returns
     =======
-    gait_data : gaitanalysis.gait.WalkingData
-        The WalkingData instance containing the data for the event.
+    gait_data : gaitanalysis.gait.GaitData
+        The GaitData instance containing the data for the event.
 
     """
 
@@ -79,7 +79,7 @@ def load_data(event, paths, tmp):
 
         # Compute the lower limb 2D inverse dynamics, identify right heel
         # strike times, and split the data into gait cycles.
-        gait_data = WalkingData(perturbed_df)
+        gait_data = GaitData(perturbed_df)
         marker_set = dflow_data.meta['trial']['marker-set']
         subject_mass = dflow_data.meta['subject']['mass']
         labels = markers_for_2D_inverse_dynamics(marker_set)
@@ -96,26 +96,26 @@ def load_data(event, paths, tmp):
     else:
         print('Loading processed {} data from file...'.format(event))
         f.close()
-        gait_data = WalkingData(tmp_data_path)
+        gait_data = GaitData(tmp_data_path)
 
     return gait_data
 
 
-def remove_bad_steps(gait_data, lower, upper, col):
-    """Returns the gait cycles with outliers removed based on the step_data
-    DataFrame column.
+def remove_bad_gait_cycles(gait_data, lower, upper, col):
+    """Returns the gait cycles with outliers removed based on the
+    gait_cycle_stats DataFrame column.
 
     Parameters
     ==========
-    gait_data : gaitanalysis.gait.WalkingData
-        The data object containing both the steps Panel and step_data
-        DataFrame.
+    gait_data : gaitanalysis.gait.GaitData
+        The data object containing both the gait_cycles Panel and
+        gait_cycle_stats DataFrame.
     lower : int or float
-        The lower bound for the step_data histogram.
+        The lower bound for the gait_cycle_stats histogram.
     upper : int or float
-        The upper bound for the step_data histogram.
+        The upper bound for the gait_cycle_stats histogram.
     col : string
-        The column in step_data to use for the bounding.
+        The column in gait_cycle_stats to use for the bounding.
 
     Returns
     =======
@@ -126,12 +126,12 @@ def remove_bad_steps(gait_data, lower, upper, col):
 
     """
 
-    valid = gait_data.step_data[col] < upper
-    lower_values = gait_data.step_data[valid]
+    valid = gait_data.gait_cycle_stats[col] < upper
+    lower_values = gait_data.gait_cycle_stats[valid]
     valid = lower_values[col] > lower
     mid_values = lower_values[valid]
 
-    return gait_data.steps.iloc[mid_values.index], mid_values
+    return gait_data.gait_cycles.iloc[mid_values.index], mid_values
 
 
 if __name__ == '__main__':
@@ -162,24 +162,25 @@ if __name__ == '__main__':
 
     unperturbed_gait_data_1 = load_data('First Normal Walking', paths, tmp)
     unperturbed_gait_data_2 = load_data('Second Normal Walking', paths, tmp)
-    one = remove_bad_steps(unperturbed_gait_data_1, 1.18, 1.22,
-                           'Average Belt Speed')
-    two = remove_bad_steps(unperturbed_gait_data_2, 1.18, 1.22,
-                           'Average Belt Speed')
+    one = remove_bad_gait_cycles(unperturbed_gait_data_1, 1.18, 1.22,
+                                 'Average Belt Speed')
+    two = remove_bad_gait_cycles(unperturbed_gait_data_2, 1.18, 1.22,
+                                 'Average Belt Speed')
     unperturbed_gait_cycles = pandas.concat((one[0], two[0]),
                                             ignore_index=True)
-    unperturbed_step_data = pandas.concat((one[1], two[1]),
-                                          ignore_index=True)
+    unperturbed_gait_cycle_stats = pandas.concat((one[1], two[1]),
+                                                 ignore_index=True)
 
     perturbed_gait_data = load_data('Longitudinal Perturbation', paths, tmp)
 
     # Time series comparison plot.
-    num_steps = unperturbed_gait_cycles.shape[0]
+    num_gait_cycles = unperturbed_gait_cycles.shape[0]
 
-    idxs = random.sample(range(perturbed_gait_data.steps.shape[0]), num_steps)
+    idxs = random.sample(range(perturbed_gait_data.gait_cycles.shape[0]),
+                         num_gait_cycles)
 
-    mean_of_perturbed = perturbed_gait_data.steps.iloc[idxs].mean(axis='items')
-    std_of_perturbed = perturbed_gait_data.steps.iloc[idxs].std(axis='items')
+    mean_of_perturbed = perturbed_gait_data.gait_cycles.iloc[idxs].mean(axis='items')
+    std_of_perturbed = perturbed_gait_data.gait_cycles.iloc[idxs].std(axis='items')
 
     mean_of_unperturbed = unperturbed_gait_cycles.mean(axis='items')
     std_of_unperturbed = unperturbed_gait_cycles.std(axis='items')
@@ -255,14 +256,16 @@ if __name__ == '__main__':
 
     fig.savefig('../figures/unperturbed-perturbed-comparison.pdf')
 
-    # Step data histogram comparisons.
-    columns = ['Average Belt Speed', 'Cadence', 'Step Duration',
+    # Gait cycle statistics histogram comparisons.
+    columns = ['Average Belt Speed', 'Stride Frequency', 'Stride Duration',
                'Stride Length']
     units = ['[m/s]', '[Hz]', '[s]', '[m]']
-    axes = perturbed_gait_data.step_data.iloc[idxs].hist(column=columns,
-                                                         color=blue)
-    for i, ax in enumerate(axes.flatten()):
-        ax = unperturbed_step_data[columns[i]].hist(ax=ax, color=purple)
-        ax.set_title(columns[i] + ' ' + units[i])
+    axes = perturbed_gait_data.gait_cycle_stats.iloc[idxs].hist(column=columns,
+                                                                color=blue)
+    for ax in axes.flatten():
+        title = ax.get_title()
+        i = columns.index(title)
+        ax = unperturbed_gait_cycle_stats[title].hist(ax=ax, color=purple)
+        ax.set_title(title + ' ' + units[i])
 
     plt.savefig('../figures/unperturbed-perturbed-hist-comparison.pdf')
