@@ -1,7 +1,3 @@
-%signal_check.m plots the input vs. output for three average perturbation
-%speeds (0.8, 1.2, 1.6 m/s) for a portion (around 300-310 seconds) of the 
-%entire trial
-
 clear
 clc
 
@@ -45,26 +41,26 @@ clc
 
     figure(1)
         subplot(3,1,1)
-        plot(time_input, inputs(:,1),'k')
+        plot(time_input, inputs(:,1),'Color',[0.5098 0.3725 0.5294])
         hold on
-        plot(output_slow_time, output_slow,'r')
+        plot(output_slow_time, output_slow,'Color',[0.2157 0.4706 0.7490])
         legend('Input','Output')
         xlim([305 310]); 
         ylabel('Speed (m/s)','Fontweight','bold')
         title('Slow Walking (0.8 m/s)','Fontweight','bold')
     
         subplot(3,1,2)
-        plot(time_input, inputs(:,2),'k')
+        plot(time_input, inputs(:,2),'Color',[0.5098 0.3725 0.5294])
         hold on
-        plot(output_normal_time, output_normal,'r')
+        plot(output_normal_time, output_normal,'Color',[0.2157 0.4706 0.7490])
         ylabel('Speed (m/s)','Fontweight','bold')
         xlim([305 310]); 
         title('Normal Walking (1.2 m/s)','Fontweight','bold')
     
         subplot(3,1,3)
-        plot(time_input,inputs(:,3),'k')
+        plot(time_input,inputs(:,3),'Color',[0.5098 0.3725 0.5294])
         hold on
-        plot(output_fast_time,output_fast,'r')
+        plot(output_fast_time,output_fast,'Color',[0.2157 0.4706 0.7490])
         ylabel('Speed (m/s)','Fontweight','bold')
         xlim([305 310]); xlabel('Time (s)','Fontweight','bold')
         title('Fast Walking (1.6 m/s)','Fontweight','bold')

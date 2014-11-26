@@ -67,34 +67,32 @@ clc
 
     figure(1)
         subplot(3,1,1)
-        plot(fi_inputs,2*abs(Y_input(1:NFFT_inputs/2+1,1)),'k')
+        plot(fi_inputs,2*abs(Y_input(1:NFFT_inputs/2+1,1)),'Color',[0.5098 0.3725 0.5294])
         hold on
-        plot(fi_output_slow,2*abs(Y_output_slow(1:NFFT_output_slow/2+1)),'r')
+        plot(fi_output_slow,2*abs(Y_output_slow(1:NFFT_output_slow/2+1)),'Color',[0.2157 0.4706 0.7490])
         legend('Input','Output')
         title('Slow Walking (0.8 m/s)','Fontweight','bold')
-        ylabel('|Y(f)|','Fontweight','bold')
+        ylabel('Amplitude','Fontweight','bold')
         ylim([0 6*10^-3]); xlim([0 8])
     
         subplot(3,1,2)
-        plot(fi_inputs,2*abs(Y_input(1:NFFT_inputs/2+1,2)),'k')
+        plot(fi_inputs,2*abs(Y_input(1:NFFT_inputs/2+1,2)),'Color',[0.5098 0.3725 0.5294])
         hold on
-        plot(fi_output_normal,2*abs(Y_output_slow(1:NFFT_output_normal/2+1)),'r')
+        plot(fi_output_normal,2*abs(Y_output_slow(1:NFFT_output_normal/2+1)),'Color',[0.2157 0.4706 0.7490])
         legend('Input','Output')
         title('Normal Walking (1.2 m/s)','Fontweight','bold')
-        ylabel('|Y(f)|','Fontweight','bold')
+        ylabel('Amplitude','Fontweight','bold')
         ylim([0 0.015]); xlim([0 8])
         
         subplot(3,1,3)
-         plot(fi_inputs,2*abs(Y_input(1:NFFT_inputs/2+1,3)),'k')
+         plot(fi_inputs,2*abs(Y_input(1:NFFT_inputs/2+1,3)),'Color',[0.5098 0.3725 0.5294])
         hold on
-        plot(fi_output_fast,2*abs(Y_output_fast(1:NFFT_output_fast/2+1)),'r')
+        plot(fi_output_fast,2*abs(Y_output_fast(1:NFFT_output_fast/2+1)),'Color',[0.2157 0.4706 0.7490])
         legend('Input','Output')
         title('Fast Walking (1.6 m/s)','Fontweight','bold')
         xlabel('Frequency (Hz)','Fontweight','bold')
-        ylabel('|Y(f)|','Fontweight','bold')
+        ylabel('Amplitude','Fontweight','bold')
         ylim([0 0.03]); xlim([0 8])
         
         h=figure(1);
         saveas(h,'frequency_analysis.pdf');
-        
-        
