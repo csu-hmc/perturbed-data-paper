@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 import os
-import random
 
 import yaml
 from numpy import rad2deg
@@ -147,7 +146,8 @@ if __name__ == '__main__':
               'font.family': 'serif',
               'font.serif': ['Computer Modern'],
               'figure.figsize': (6.0, 6.0 / golden),
-             }
+              }
+
     plt.rcParams.update(params)
 
     trial_number = '020'
@@ -174,13 +174,11 @@ if __name__ == '__main__':
     perturbed_gait_data = load_data('Longitudinal Perturbation', paths, tmp)
 
     # Time series comparison plot.
-    num_gait_cycles = unperturbed_gait_cycles.shape[0]
+    num_unperturbed_cycles = unperturbed_gait_cycles.shape[0]
+    num_perturbed_cycles = perturbed_gait_data.gait_cycles.shape[0]
 
-    idxs = random.sample(range(perturbed_gait_data.gait_cycles.shape[0]),
-                         num_gait_cycles)
-
-    mean_of_perturbed = perturbed_gait_data.gait_cycles.iloc[idxs].mean(axis='items')
-    std_of_perturbed = perturbed_gait_data.gait_cycles.iloc[idxs].std(axis='items')
+    mean_of_perturbed = perturbed_gait_data.gait_cycles.mean(axis='items')
+    std_of_perturbed = perturbed_gait_data.gait_cycles.std(axis='items')
 
     mean_of_unperturbed = unperturbed_gait_cycles.mean(axis='items')
     std_of_unperturbed = unperturbed_gait_cycles.std(axis='items')
@@ -216,11 +214,13 @@ if __name__ == '__main__':
 
                 col_name = side + '.' + col
 
+                sigma_mul = 3.0
+
                 pmean = con[i](mean_of_perturbed[col_name])
-                pstd = 2.0 * con[i](std_of_perturbed[col_name])
+                pstd = sigma_mul * con[i](std_of_perturbed[col_name])
 
                 umean = con[i](mean_of_unperturbed[col_name])
-                ustd = 2.0 * con[i](std_of_unperturbed[col_name])
+                ustd = sigma_mul * con[i](std_of_unperturbed[col_name])
 
                 row[i].fill_between(ppercent,
                                     (pmean - pstd).values,
@@ -237,9 +237,9 @@ if __name__ == '__main__':
                                     label='_nolegend_')
 
                 row[i].plot(ppercent, pmean.values, linetype, color=blue,
-                            label=side + ' Perturbed')
+                            label=side + ' Perturbed, N = {}'.format(num_perturbed_cycles))
                 row[i].plot(upercent, umean.values, linetype, color=purple,
-                            label=side + ' Un-perturbed')
+                            label=side + ' Unperturbed, N = {}'.format(num_unperturbed_cycles))
 
     plt.subplots_adjust(top=0.85)
 
@@ -249,7 +249,7 @@ if __name__ == '__main__':
     axes[-1, 1].xaxis.set_major_formatter(_percent_formatter)
     axes[-1, 0].set_xlabel('Percent Right Gait Cycle')
     axes[-1, 1].set_xlabel('Percent Right Gait Cycle')
-    axes[0, 0].legend(loc='upper left', ncol=2, bbox_to_anchor=(0.4, 1.75))
+    axes[0, 0].legend(loc='upper left', ncol=2, bbox_to_anchor=(0.15, 1.75))
 
     if not os.path.exists('../figures'):
         os.makedirs('../figures')
@@ -263,15 +263,15 @@ if __name__ == '__main__':
     fig, axes = plt.subplots(1, 3)
 
     columns = ['Average Belt Speed', 'Stride Frequency', 'Stride Length']
-    units = ['[m/s]', '[Hz]', '[s]']
+    units = ['[m/s]', '[Hz]', '[m]']
 
     for col, ax, unit in zip(columns, axes.flatten(), units):
         ax.set_title('{} {}'.format(col, unit))
         u = unperturbed_gait_cycle_stats[col]
-        p = perturbed_gait_data.gait_cycle_stats.iloc[idxs][col]
-        data = pandas.DataFrame({'Perturbed': p.values,
-                                 'Unperturbed': u.values})
-        sbn.boxplot(data, ax=ax, color=[blue, purple])
+        p = perturbed_gait_data.gait_cycle_stats[col]
+        sbn.boxplot([p.values, u.values], ax=ax, color=[blue, purple],
+                    names=['Perturbed\nN = {}'.format(num_perturbed_cycles),
+                           'Unperturbed\nN = {}'.format(num_unperturbed_cycles)])
 
     plt.tight_layout()
     plt.savefig('../figures/unperturbed-perturbed-boxplot-comparison.pdf')
