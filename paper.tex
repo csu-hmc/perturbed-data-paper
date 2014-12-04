@@ -6,16 +6,30 @@
 % - Only one space after periods.
 % - Don't worry about formatting details, just get the content in place.
 
-\documentclass{article}
+\documentclass[10pt,a4paper,twocolumn]{article}
+\usepackage{f1000_styles}
 
 \usepackage{graphicx}
 \usepackage{booktabs} % for table /toprule, /midrule, etc
-\usepackage{todo}
+
+% I get a conflict with the todo stuff in f1000_styles if this is loaded.
+%\usepackage{todo}
+
+\begin{document}
 
 \title{An elaborate data set on human gait and the effect of mechanical
 perturbations}
 
-\begin{document}
+\author[1]{Jason K. Moore}
+\author[1]{Sandra K. Hnat}
+\author[1]{Antonie van den Bogert}
+
+\affil[1]{Mechanical Engineering, Cleveland State University, Cleveland, Ohio,
+  USA, 44115. j.k.moore19@csuohio.edu, s.hnat@vikes.csuohio.edu,
+  a.vandenbogert@csuohio.edu}
+
+\maketitle
+\thispagestyle{fancy}
 
 \begin{abstract}
 
@@ -31,8 +45,10 @@ perturbations}
   non-periodic and perturbed gaits.
 
 \end{abstract}
+\listoftodos[F1000Research review comments] % Ignore until review stage
+\clearpage
 
-\section{Introduction}
+\section*{Introduction}
 %
 Emerging powered prosthetics are in need of bio-inspired control systems.
 Ideally, a powered prosthetic would behave in such a way that the user would
@@ -52,7 +68,7 @@ We collected over five and half hours of perturbed gait data from 11 subjects
 sampled at 100 hz. The data has been organized and made available for other
 research uses.
 
-\section{Equipment}
+\section*{Equipment}
 %
 The Human Motion and Control Lab at Cleveland State University has modern human
 motion measurement equipment. Our system includes:
@@ -80,7 +96,7 @@ aligned to an origin point on treadmill's surface during camera calibration.
 The same point is used as the origin of the ground reaction force measuring
 system.
 
-\section{Raw Data}
+\section*{Raw Data}
 %
 The raw data consists of a set of ASCII tab delimited text files output from
 both the ``mocap'' and ``record'' modules in D-Flow in addition to a YAML file
@@ -99,7 +115,7 @@ D-Flow software. These are detailed below. The numerical values of the
 measurements are provided in decimal floating point notation with 6 decimals of
 precision, e.g. 123456.123456 [\%1.6f].
 
-\subsection{mocap-xxx.txt}
+\subsection*{mocap-xxx.txt}
 
 The output from the D-Flow mocap module is stored in a tab delimited file named
 \verb+mocap-xxx.txt+ where \verb+xxx+ represents the trial id number. The file
@@ -137,7 +153,7 @@ contains several columns:
     not mention them at all?
 \end{description}
 
-\subsection{record-xxx.txt}
+\subsection*{record-xxx.txt}
 %
 The record module also outputs a tab delimited ASCII text file. It includes a
 \verb+Time+ column which records the D-Flow system time in seconds which
@@ -166,7 +182,7 @@ several events that correspond to the phases of the protocol:
     plates and the belts are stationary.
 \end{description}
 
-\subsection{meta-xxx.yml}
+\subsection*{meta-xxx.yml}
 
 Each trial directory contains a meta data file in the YAML format. There are
 three main headings: \verb+study+, \verb+subject+, and \verb+trial+.
@@ -185,7 +201,7 @@ trial has a unique identification number.
 An example meta data file is shown in Figure \ref{fig:example-meta-data} and
 the following gives and explanation of the contents.
 
-\begin{figure}
+\begin{figure*}
   \small
   \begin{verbatim}
     study:
@@ -254,7 +270,7 @@ the following gives and explanation of the contents.
   \end{verbatim}
   \caption{An example meta data YAML file.}
   \label{fig:example-meta-data}
-\end{figure}
+\end{figure*}
 
 \begin{description}
   \item[analog-channel-map] A key value mapping of strings specifying the name
@@ -299,7 +315,7 @@ the following gives and explanation of the contents.
     acutated during the trial.
 \end{description}
 
-\subsection{Markers}
+\subsection*{Markers}
 %
 We make use of the full body 47 marker set described in \cite{Ton's HBM paper}
 and presented in detail in Table \ref{tab:marker-labels}. As with all camera
@@ -316,7 +332,7 @@ has been in the HBM columns in all versions of D-Flow. The D-Flow version must
 be provided in the meta data yml file, otherwise it will assume D-Flow is at
 the latest version.
 
-\begin{table}
+\begin{table*}
   \caption{Descriptions of the 47 markers used in this study.}
   \centering
   \small
@@ -374,9 +390,9 @@ the latest version.
     \bottomrule
   \end{tabular}
   \label{tab:marker-labels}
-\end{table}
+\end{table*}
 
-\section{Perturbation Signals}
+\section*{Perturbation Signals}
 %
 The data set uses a testing protocol containing a segment of normal walking,
 followed by a series of pseudo-random longitudinal perturbations, and ending
@@ -419,38 +435,38 @@ The resulting output from the MATLAB script and Simulink produces a comma-
 delimited text file of six columns: timestamp, slow, normal, and fast walking
 perturbation signals, and slow and fast running signals.  These running signals
 were generated in the event the testing protocol expanded from a walking study
-to a running study, though they were not used in the data set.  The actual motion
-of the treadmill belts are compared to the original input signals as shown in 
-Figure~\ref{fig:input_output}.   The standard deviations of the outputs were 
-calculated at 6.07\%, 9.68\%, and 12.68\% for the the 0.8, 1.2, and 
-1.6 $m \cdot s^{-1}$ speeds, respectively. 
+to a running study, though they were not used in the data set.  The actual
+motion of the treadmill belts are compared to the original input signals as
+shown in Figure~\ref{fig:input_output}.   The standard deviations of the
+outputs were calculated at 6.07\%, 9.68\%, and 12.68\% for the the 0.8, 1.2,
+and 1.6 $m \cdot s^{-1}$ speeds, respectively.
 
-\begin{figure}
+\begin{figure*}
   \includegraphics{figures/input_vs_output.pdf}
-  \caption{Treadmill belt velocity input signals (purple) and recorded output 
-                velocities (blue) for average belt speeds of 0.8, 1.2, and 1.6 m/s,
-                respectively}
+  \caption{Treadmill belt velocity input signals (purple) and recorded output
+    velocities (blue) for average belt speeds of 0.8, 1.2, and 1.6 m/s,
+    respectively}
   \label{fig:input_output}
-\end{figure}
+\end{figure*}
 
 For further analysis, the input and output signals for each average speed were
-transformed into the frequency domain through the Fast Fourier algorithm, and 
-the results are shown in Figure~\ref{fig:freq_analysis}.  It was observed that for
-the 1.2 $m \cdot s^{-1}$ average walking speed, the amplitude of the output is 
-significantly lower than the amplitude of the input signal at lower frequencies.  
-Additionally, the amplitude of output signal in the 0.8 $m \cdot s^{-1}$ walking
-speed begins to attenuate around 2 Hz, which is a noticeably lower frequency than
-the other walking speeds.  
+transformed into the frequency domain through the Fast Fourier algorithm, and
+the results are shown in Figure~\ref{fig:freq_analysis}. It was observed that
+for the 1.2 $m \cdot s^{-1}$ average walking speed, the amplitude of the output
+is significantly lower than the amplitude of the input signal at lower
+frequencies. Additionally, the amplitude of output signal in the 0.8 $m \cdot
+s^{-1}$ walking speed begins to attenuate around 2 Hz, which is a noticeably
+lower frequency than the other walking speeds.
 
-\begin{figure}
+\begin{figure*}
   \includegraphics{figures/frequency_analysis.pdf}
-  \caption{Frequency analysis of the treadmill belt velocity input signal 
+  \caption{Frequency analysis of the treadmill belt velocity input signal
                  (purple) and the recorded output velocity (blue)
                 for average belt speeds of 0.8, 1.2, and 1.6 m/s, respectively}
   \label{fig:freq_analysis}
-\end{figure}
+\end{figure*}
 
-\section{Processed Data}
+\section*{Processed Data}
 
 We developed a command line data processing tool for common gait computations
 and provide the processed data from this. The tool was developed in Pythin and centered around two main
@@ -490,26 +506,26 @@ deviation of saggital plane joint angles and torques from the perturbed gait
 cycles and the unperturbed gait cycles computed from trial 20 for 120 gait
 cycles. The variation in the dynamics is larger for the perturbed gait cycles.
 
-\begin{figure}
+\begin{figure*}
   \includegraphics{figures/unperturbed-perturbed-comparison.pdf}
   \caption{Mean (solid, dashed) and $2\sigma$ (shaded) ($N=120$) joint angles
     and torques from both unperturbed (purple) and perturbed (blue) gait cycles
     from trial 20.}
   \label{fig:angle-torque-comparison}
-\end{figure}
+\end{figure*}
 
 Figure~\ref{fig:gait-cycle-stats-comparison} compares the distribution in a few
 statistics of the unperturbed and perturbed gait cycles.
 
-\begin{figure}
+\begin{figure*}
   \includegraphics{figures/unperturbed-perturbed-boxplot-comparison.pdf}
   \caption{Box plots of the average belt speed, stride frequency, and stride
     length which compare 120 gait cycles for the unperturbed (purple) and
     perturbed (blue).}
   \label{fig:gait-cycle-stats-comparison}
-\end{figure}
+\end{figure*}
 
-\section{Conclusion}
+\section*{Conclusion}
 
 We have presented the details of what we believe to be a rich dataset of motion
 and ground reaction loads humans exhibit when recovering from minor
@@ -524,8 +540,25 @@ working on mathematical models for control in gait and this dataset provides
 both a way to validate these models and data that can be used to generate
 models.
 
-\section{Acknowledgments}
-We thank Roman Boychuk and Obinna Nwanna for assistance with the experiments.  The work was partially funded by the
-State of Ohio Third Frontier Commission through the Wright Center for Sensor Systems Engineering (WCSSE).
+\subsection*{Author contributions}
+A.v.d.B. conceived of the experiments and protocol. J.K.M and S.K.H developed
+the protocol, ran the experiments, and collected the data. J.K.M was the
+primary author of the paper with significant contributions from S.K.H and
+A.v.d.B. All authors were involved in the revision of the draft manuscript and
+have agreed to the final content.
+
+\subsection*{Competing interests}
+The authors have no  financial, personal, or professional competing interests
+that could be construed to unduly influence the content of this article.
+
+\subsection*{Grant Information}
+The work was partially funded by the State of Ohio Third Frontier Commission
+through the Wright Center for Sensor Systems Engineering (WCSSE).
+
+\subsection*{Acknowledgments}
+We thank Roman Boychuk and Obinna Nwanna for assistance with the experiments.
+
+%{\small\bibliographystyle{unsrt}
+%\bibliography{bibfile}}
 
 \end{document}
