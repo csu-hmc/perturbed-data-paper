@@ -9,16 +9,27 @@
 \documentclass[10pt,a4paper,twocolumn]{article}
 \usepackage{f1000_styles}
 
+% graphicx is also declared in f1000_styles
 \usepackage{graphicx}
-\usepackage{booktabs} % for table /toprule, /midrule, etc
+
+% for nice table formatting, i.e. /toprule, /midrule, etc
+\usepackage{booktabs}
+
+% to allow for \verb++ declarations in captions.
+\usepackage{cprotect}
 
 % I get a conflict with the todo stuff in f1000_styles if this is loaded.
 %\usepackage{todo}
 
+% This allows Figures to be renamed as Listing, as required by F1000Research.
+\usepackage{float}
+\newfloat{listing}{thp}{lop}
+\floatname{listing}{Listing}
+
 \begin{document}
 
 \title{An elaborate data set on human gait and the effect of mechanical
-perturbations}
+  perturbations}
 
 \author[1]{Jason K. Moore}
 \author[1]{Sandra K. Hnat}
@@ -460,24 +471,26 @@ lower frequency than the other walking speeds.
 
 \begin{figure*}
   \includegraphics{figures/frequency_analysis.pdf}
-  \caption{Frequency analysis of the treadmill belt velocity input signal
-                 (purple) and the recorded output velocity (blue)
-                for average belt speeds of 0.8, 1.2, and 1.6 m/s, respectively}
+  \caption{Frequency spectrum of the treadmill belt velocity input signal
+    (purple) and the recorded output velocity (blue) for average belt speeds of
+    0.8, 1.2, and 1.6 m/s, respectively}
   \label{fig:freq_analysis}
 \end{figure*}
 
 \section*{Processed Data}
 
-We developed a command line data processing tool for common gait computations
-and provide the processed data from this. The tool was developed in Pythin and centered around two main
-classes, one to store a complete trial in memory and a second to compute common
-gait variables of interest.
+We developed a toolkit for data processing, GaitAnalysisToolKit, for common
+gait computations and provide an example processed trial to show the character
+of the data. The tool was developed in Python, is dependent on the SciPy Stack,
+and provides two main classes: one to do basic gait data cleaning,
+\verb|DFlowData|, and a second to compute common gait variables of interest,
+\verb|GaitData|.
 
-The \verb|motek.DFlowData| class collects and stores all the raw data presented
-in the previous section and applies several ``cleaning'' operations to put the
-data into a usable form.
+The \verb|DFlowData| class collects and stores all the raw data presented in
+the previous section and applies several ``cleaning'' operations to transform
+the data into a usable form. The cleaning process follows these basic steps:
 
-\begin{itemize}
+\begin{enumerate}
   \item Loads the meta data file into a Python dictionary.
   \item Loads the DFlow mocap module TSV file into Pandas \verb|DataFrame|.
   \item Relabels the column headers to more meaningful names if this is
@@ -486,31 +499,77 @@ data into a usable form.
     replaces them with \verb|numpy.nan|.
   \item Optionally interpolates the missing marker values and replaces them
     with interpolated estimates using a variety of interpolation methods.
-  \item Loads the D-Flow record moudle TSV file into a Pandas \verb|DataFrame|.
+  \item Loads the D-Flow record module TSV file into a Pandas \verb|DataFrame|.
   \item Extracts the events and creates a dictionary mapping the event names in
     the meta data to the events detected in the record module file.
-  \item Compensates the ground reaction loads for treadmill motion.
+  \item Compensates the ground reaction loads based on whether the meta data
+    indicates there was treadmill motion.
   \item Merges the data from the mocap module and record module into one data
     frame at the maximum common constant sample rate.
-  \item Extracts sections of the data bounded by the events.
-  \item Saves the cleaned data to disk.
+\end{enumerate}
+
+Once the data is cleaned there are two methods that allow you to extract the
+cleaned data:
+
+\begin{itemize}
+  \item Extract sections of the data bounded by the events recorded in the
+    \verb|record-XXX.txt| file.
+  \item Save the cleaned data to disk.
 \end{itemize}
 
-The \verb|gait.WalkingData| class is then used to compute things such as gait
-landmarks (toe off and heel strike times), basic 2D inverse dynamics, and to
-store the data into a Pandas \verb|Panel| with each gait cycle on the main axis
-at a specified sample rate. This data is also saved to disk in HDF5 format.
+An example of the API is given in Listing~\ref{lis:dflowdata}.
 
-Figure~\ref{fig:angle-torque-comparison} compares the mean and standard
-deviation of saggital plane joint angles and torques from the perturbed gait
-cycles and the unperturbed gait cycles computed from trial 20 for 120 gait
-cycles. The variation in the dynamics is larger for the perturbed gait cycles.
+\begin{listing*}
+  \begin{verbatim}
+    >>> from gaitanalysis.motek import DFlowData
+    >>> data = DFlowData('mocap-020.txt', 'record-020.txt', 'meta-020.yml')
+    >>> mass = data.meta['subject']['mass']
+    >>> data.clean()
+    >>> event_df = dflow_data.extract_processed_data(event='Longitudinal Perturbation')
+  \end{verbatim}
+  \cprotect\caption{Python interpreter session showing how one could load a
+    trial into memory, extract the subject's mass from the meta data, run the
+    data cleaning process, and finally extract a Pandas \verb|DataFrame|
+    containing all of the time histories for a specific event in the trial.}
+  \label{lis:dflowdata}
+\end{listing*}
+
+The \verb|GaitData| class is then used to compute things such as gait landmarks
+(toe off and heel strike times), basic 2D inverse dynamics, and to store the
+data into a Pandas \verb|Panel| with each gait cycle on the main axis at a
+specified sample rate. This data is also saved to disk in HDF5 format.
+
+\begin{listing*}
+  \begin{verbatim}
+    >>> from gaitanalysis.gait import GaitData
+    >>> gdata = GaitData(event_df)
+    >>> gdata.inverse_dynamics_2d(left_markers, right_markers, left_loads,
+    ...                           right_loads, mass, 6.0)
+    >>> gdata.grf_landmarks('Right Fy', 'Left Fy', threshhold=20.0)
+    >>> gdata.split_at('right')
+    >>> gdata.plot_gait_cycles('Left Hip Joint Torque', mean=True)
+    >>> gdata.save('gait-data.h5')
+  \end{verbatim}
+  \cprotect\caption{Python interpreter session showing how one could compute
+    the inverse dynamics (joint angles and torques), indentify the gait
+    landmarks (e.g. heelstrikes), split the data with respect to the gait
+    landmarks in a Pandas \verb|Panel|, plot the mean and standard deviation of
+    one time history with respect to the gait cycles, and save the data to disk.}
+  \label{lis:dflowdata}
+\end{listing*}
+
+A similar workflow was used to produce Figure~\ref{fig:angle-torque-comparison}
+which compares the mean and standard deviation of saggital plane joint angles
+and torques from the perturbed gait cycles and the unperturbed gait cycles
+computed from trial 20 for 120 gait cycles. The variation in the dynamics is
+larger for the perturbed gait cycles.
 
 \begin{figure*}
+  \centering
   \includegraphics{figures/unperturbed-perturbed-comparison.pdf}
-  \caption{Mean (solid, dashed) and $2\sigma$ (shaded) ($N=120$) joint angles
-    and torques from both unperturbed (purple) and perturbed (blue) gait cycles
-    from trial 20.}
+  \cprotect\caption{Mean (right: solid, left: dashed) and $3\sigma$ (shaded)
+    joint angles and torques from both unperturbed (purple) and perturbed
+    (blue) gait cycles from trial 20. Produced by \verb|unperturbed_perturbed_comparison.py|.}
   \label{fig:angle-torque-comparison}
 \end{figure*}
 
@@ -518,10 +577,11 @@ Figure~\ref{fig:gait-cycle-stats-comparison} compares the distribution in a few
 statistics of the unperturbed and perturbed gait cycles.
 
 \begin{figure*}
+  \centering
   \includegraphics{figures/unperturbed-perturbed-boxplot-comparison.pdf}
-  \caption{Box plots of the average belt speed, stride frequency, and stride
-    length which compare 120 gait cycles for the unperturbed (purple) and
-    perturbed (blue).}
+  \cprotect\caption{Box plots of the average belt speed, stride frequency, and
+    stride length which compare 120 gait cycles for the unperturbed (purple) and
+    perturbed (blue). Produced by \verb|unperturbed_perturbed_comparison.py|.}
   \label{fig:gait-cycle-stats-comparison}
 \end{figure*}
 
