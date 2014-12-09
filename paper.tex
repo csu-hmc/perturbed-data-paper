@@ -18,13 +18,11 @@
 % to allow for \verb++ declarations in captions.
 \usepackage{cprotect}
 
+% for nice source code syntax highlighting, also provides Listing env
+\usepackage{minted}
+
 % I get a conflict with the todo stuff in f1000_styles if this is loaded.
 %\usepackage{todo}
-
-% This allows Figures to be renamed as Listing, as required by F1000Research.
-\usepackage{float}
-\newfloat{listing}{thp}{lop}
-\floatname{listing}{Listing}
 
 \begin{document}
 
@@ -520,13 +518,13 @@ cleaned data:
 An example of the API is given in Listing~\ref{lis:dflowdata}.
 
 \begin{listing*}
-  \begin{verbatim}
+  \begin{minted}{python}
     >>> from gaitanalysis.motek import DFlowData
     >>> data = DFlowData('mocap-020.txt', 'record-020.txt', 'meta-020.yml')
     >>> mass = data.meta['subject']['mass']
     >>> data.clean()
     >>> event_df = dflow_data.extract_processed_data(event='Longitudinal Perturbation')
-  \end{verbatim}
+  \end{minted}
   \cprotect\caption{Python interpreter session showing how one could load a
     trial into memory, extract the subject's mass from the meta data, run the
     data cleaning process, and finally extract a Pandas \verb|DataFrame|
@@ -540,7 +538,7 @@ data into a Pandas \verb|Panel| with each gait cycle on the main axis at a
 specified sample rate. This data is also saved to disk in HDF5 format.
 
 \begin{listing*}
-  \begin{verbatim}
+  \begin{minted}{python}
     >>> from gaitanalysis.gait import GaitData
     >>> gdata = GaitData(event_df)
     >>> gdata.inverse_dynamics_2d(left_markers, right_markers, left_loads,
@@ -549,7 +547,7 @@ specified sample rate. This data is also saved to disk in HDF5 format.
     >>> gdata.split_at('right')
     >>> gdata.plot_gait_cycles('Left Hip Joint Torque', mean=True)
     >>> gdata.save('gait-data.h5')
-  \end{verbatim}
+  \end{minted}
   \cprotect\caption{Python interpreter session showing how one could compute
     the inverse dynamics (joint angles and torques), indentify the gait
     landmarks (e.g. heelstrikes), split the data with respect to the gait
