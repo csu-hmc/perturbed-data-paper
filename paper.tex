@@ -565,11 +565,11 @@ cleaned data:
 An example of the API is given in Listing~\ref{lis:dflowdata}.
 
 \begin{listing*}
-  \begin{minted}{python}
+  \begin{minted}[gobble=4]{python}
     >>> from gaitanalysis.motek import DFlowData
     >>> data = DFlowData('mocap-020.txt', 'record-020.txt', 'meta-020.yml')
     >>> mass = data.meta['subject']['mass']
-    >>> data.clean()
+    >>> data.clean_data()
     >>> event_df = dflow_data.extract_processed_data(event='Longitudinal Perturbation')
   \end{minted}
   \cprotect\caption{Python interpreter session showing how one could load a
@@ -585,7 +585,7 @@ data into a Pandas \verb|Panel| with each gait cycle on the main axis at a
 specified sample rate. This data is also saved to disk in HDF5 format.
 
 \begin{listing*}
-  \begin{minted}{python}
+  \begin{minted}[gobble=4]{python}
     >>> from gaitanalysis.gait import GaitData
     >>> gdata = GaitData(event_df)
     >>> gdata.inverse_dynamics_2d(left_markers, right_markers, left_loads,
@@ -646,11 +646,11 @@ both a way to validate these models and data that can be used to generate
 models.
 
 \subsection*{Author contributions}
-A.v.d.B. conceived of the experiments and protocol. J.K.M and S.K.H developed
-the protocol, ran the experiments, and collected the data. J.K.M was the
-primary author of the paper with significant contributions from S.K.H and
-A.v.d.B. All authors were involved in the revision of the draft manuscript and
-have agreed to the final content.
+A.v.d.B. conceived of the experiments and protocol. J.K.M and S.K.H refined the
+protocol, ran the experiments, and collected the data. J.K.M was the primary
+author of the paper with significant contributions from S.K.H and A.v.d.B. All
+authors were involved in the revision of the draft manuscript and have agreed
+to the final content.
 
 \subsection*{Competing interests}
 The authors have no  financial, personal, or professional competing interests
