@@ -193,136 +193,160 @@ several events that correspond to the phases of the protocol:
 
 \subsection*{meta-xxx.yml}
 
-Each trial directory contains a meta data file in the YAML format. There are
-three main headings: \verb+study+, \verb+subject+, and \verb+trial+.
+Each trial directory contains a meta data file in the YAML format named in the
+following style \verb|meta-xxx.yml| where \verb|xxx| is the three digit trial
+identification number. There are three main headings in the file: \verb+study+,
+\verb+subject+, and \verb+trial+. An example meta data file is shown in Listing
+\ref{lis:example-meta-data}.
 
 The \verb+study+ section contains identifying information for the overall
 study, an identification number, name, and description. This is the same for
-all meta data files in the study.
-
-The \verb+subject+ provides key value pairs of information about the subject in
-that trial. Each subject has a unique identification number and basic
-anthropomorphic data is included.
-
-The \verb+trial+ section contains the unique information about the trial. Each
-trial has a unique identification number.
-
-An example meta data file is shown in Figure \ref{fig:example-meta-data} and
-the following gives and explanation of the contents.
-
-\begin{figure*}
-  \small
-  \begin{verbatim}
-    study:
-            id: 1
-            name: Gait Control Identification
-            description: Perturb the subject during walking and running.
-    subject:
-            id: 0
-    trial:
-            id: 58
-            subject-id: 0
-            datetime: 2014-03-28
-            notes: >
-                    This is an unloaded trial (no subject) 10 minute protocol that
-                    perturbs the subject longitudinally. The treadmill reference
-                    markers were not in place. We have the four custom made metal
-                    feet placed under the four corners of the treadmill to prevent
-                    pitch and sway movements. In addition, we also have the front
-                    left and rear right feet that were installed by Motek. We also
-                    have +/-3g analog accelerometers (ADXL330) affixed to the four
-                    corners of the main frame of the treadmill and wired into the
-                    NI box. The right handrail is removed.
-            nominal-speed: 0.8
-            nominal-speed-units: meters per second
-            stationary-platform: True
-            pitch: False
-            sway: False
-            hardware-settings:
-                    high-performance: True
-            analog-channel-map:
-                    Channel1.Anlg: F1Y1
-                    Channel2.Anlg: F1Y2
-                    Channel3.Anlg: F1Y3
-                    Channel4.Anlg: F1X1
-                    Channel5.Anlg: F1X2
-                    Channel6.Anlg: F1Z1
-                    Channel7.Anlg: F2Y1
-                    Channel8.Anlg: F2Y2
-                    Channel9.Anlg: F2Y3
-                    Channel10.Anlg: F2X1
-                    Channel11.Anlg: F2X2
-                    Channel12.Anlg: F2Z1
-                    Channel61.Anlg: Front_Left_AccX
-                    Channel62.Anlg: Front_Left_AccY
-                    Channel63.Anlg: Front_Left_AccZ
-                    Channel64.Anlg: Back_Left_AccX
-                    Channel65.Anlg: Back_Left_AccY
-                    Channel66.Anlg: Back_Left_AccZ
-                    Channel67.Anlg: Front_Right_AccX
-                    Channel68.Anlg: Front_Right_AccY
-                    Channel69.Anlg: Front_Right_AccZ
-                    Channel70.Anlg: Back_Right_AccX
-                    Channel71.Anlg: Back_Right_AccY
-                    Channel72.Anlg: Back_Right_AccZ
-            events:
-                    A: Force Plate Zeroing
-                    B: Calibration Pose
-                    C: First Normal Walking
-                    D: Longitudinal Perturbation
-                    E: Second Normal Walking
-                    F: Unloaded End
-            files:
-                    mocap: mocap-058.txt
-                    record: record-058.txt
-                    meta: meta-058.yml
-  \end{verbatim}
-  \caption{An example meta data YAML file.}
-  \label{fig:example-meta-data}
-\end{figure*}
+all meta data files in the study. Details are given below:
 
 \begin{description}
-  \item[analog-channel-map] A key value mapping of strings specifying the name
-    of the signal emmitted from the analog channels of the NI USB XXX.
-  \item[cortex-version] (string) Matches the version of Cortex used to record
-    the trial.
-  \item[datetime] (string) A date formatted string giving the date and/or time
-    of the trial in the \verb|YYYY-MM-DD| format.
-  \item[dflow-version] (string) Matches the version of D-Flow used to record
-    the trial.
-  \item[events] A key value map which prescribes names to the events recorded
-    in the record file.
-  \item[files] (list) A key value mapping of files associated with this trial
-    where the key is the file type and the values are the path to the file
-    relative to this meta file.
+  \item[id] An integer specifying a unique identification number of the study.
+  \item[name] A string giving the name of the study.
+  \item[description] A string with a basic description of the study.
+\end{description}
+
+The \verb+subject+ provides key value pairs of information about the subject in
+that trial. Each subject has a unique identification number along with basic
+anthropomorphic data. The following details the possible meta data for the
+subject:
+
+\begin{description}
+  \item[age] An integer age in years of the subject at the time of the trial.
+  \item[ankle-width-left] A float specifying the width of the subjects left
+    ankle.
+  \item[ankle-width-right] A float specifying the width of the subjects right
+    ankle.
+  \item[ankle-width-units] A string giving the units of measurement of the
+    ankle widths.
+  \item[id] An unique identification integer for the subject.
+  \item[gender] A string specifying the gender of the subject.
+  \item[height] A float specifying the measured height of the subject (with
+    shoes on) at the time of the trial.
+  \item[height-units] A string giving the units of the height measurement.
+  \item[knee-width-left] A float specifying the width of the subjects left
+    knee.
+  \item[knee-width-right] A float specifying the width of the subjects right
+    knee.
+  \item[knee-width-units] A string giving the units of measurement of the
+    knee widths.
+  \item[mass] A float specifying the self-reported mass of the subject.
+  \item[mass-units] A string specifying the units of the mass measurement.
+\end{description}
+
+The \verb+trial+ section contains the information about the particular trial.
+Each trial has a unique identification number along with a variety of other
+information, detailed below:
+
+\begin{description}
+  \item[analog-channel-map] A mapping of the strings D-Flow assigns to signals
+    emmitted from the analog channels of the NI USB-6255 to names the user
+    desires.
+  \item[cortex-version] The version of Cortex used to record the trial.
+  \item[datetime]A date formatted string giving the date of the trial in the
+    \verb|YYYY-MM-DD| format.
+  \item[dflow-version] The version of D-Flow used to record the trial.
+  \item[events] A key value map which prescribes names to the alphabetic events
+    recorded in the record file.
+  \item[files] A key value mapping of files associated with this trial
+    where the key is the DFlow file type and the value is the path to the file
+    relative to the meta file.
   \item[hardware-settings] There are tons of settings for the hardware in both
     D-Flow, Cortex, and the other software in the system. This contains any
     non-default settings.
     \begin{description}
-      \item[high-performance] (boolean) Indicates whether the D-Flow high
+      \item[high-performance] A boolean value indicatin whether the D-Flow high
         performance setting was on (True) or off (False).
     \end{description}
-  \item[id] (integer) A unique three digit identifier for the trial. All of the
-    file names and directories associated with this trial include this.
-  \item[marker-map] A string key value map which contains names for the
-    markers.
-  \item[marker-set] (string) Indicates the HBM \cite{Bogert2013} marker
-    set used during the trial, either full, lower, or NA.
-  \item[nominal-speed] (float) The nominal or base speed during the trial.
-  \item[nominal-speed-units] (string) The units of the nominal speed.
-  \item[notes] {string} Notes about the trial.
-  \item[pitch] (boolean) Indicates if the pitch degree of freedom was acutated
+  \item[id] An unique three digit integer identifier for the trial. All of the
+    file names and directories associated with this trial include this number.
+  \item[marker-map] A key value map which maps marker names in the mocap file
+    to the user's desired names for the markers.
+  \item[marker-set] Indicates the HBM~\cite{Bogert2013} marker set used during
+    the trial, either full, lower, or NA.
+  \item[nominal-speed] A float representing the nominal desired treadmill speed
     during the trial.
-  \item[stationary-platform] (boolean) Indicates whether the treadmill
+  \item[nominal-speed-units] (string) The units of the nominal speed.
+  \item[notes] Any notes about the trial.
+  \item[pitch] A boolean that indicates if the treamdill pitch degree of
+    freedom was acutated during the trial.
+  \item[stationary-platform] A boolean that indicates whether the treadmill
       sway or pitch motion was actuated during the trial. If this flag is
       false, the measured ground reaction forces must be compensated for the
-      inertial affects and be expressed the forces and moments in the motion
-      capture reference frame.
-  \item[subject-id] (integer) A number corresponding to the subject in the
-    trial.
-  \item[sway] (boolean) Indicates if the lateral (sway) degree of freedom was
-    acutated during the trial.
+      inertial affects and be expressed in the motion capture reference frame.
+  \item[subject-id] An integer corresponding to the subject in the trial.
+  \item[sway] A boolean that indicates if the treadmill lateral (sway) degree
+    of freedom was acutated during the trial.
 \end{description}
+
+\begin{listing*}
+  \small
+  \begin{minted}[gobble=4]{yaml}
+    study:
+       id: 1
+       name: Gait Control Identification
+       description: Perturb the subject during walking and running.
+    subject:
+       id: 8
+       age: 20
+       mass: 70.0
+       mass-units: kilograms
+       height: 1.572
+       height-units: meters
+       knee-width-left: 107.43
+       knee-width-right: 107.41
+       knee-width-units: millimeters
+       ankle-width-left: 70.52
+       ankle-width-right: 67.66
+       ankle-width-units: millimeters
+       gender: male
+    trial:
+       id: 58
+       subject-id: 8
+       datetime: 2014-03-28
+       notes: >
+           The subject did a somersault during this trial instead of following
+           instructions to walk. Will have to use for another study.
+       nominal-speed: 0.8
+       nominal-speed-units: meters per second
+       stationary-platform: True
+       pitch: False
+       sway: False
+       hardware-settings:
+           high-performance: True
+       dflow-version: 3.16.1
+       cortex-version: 3.1.1.1290
+       marker-map:
+           M1: LHEAD
+           M2: THEAD
+           M3: RHEAD
+           M4: FHEAD
+           M5: C7
+       analog-channel-map:
+           Channel1.Anlg: F1Y1
+           Channel2.Anlg: F1Y2
+           Channel3.Anlg: F1Y3
+           Channel4.Anlg: F1X1
+       events:
+           A: Force Plate Zeroing
+           B: Calibration Pose
+           C: First Normal Walking
+           D: Longitudinal Perturbation
+           E: Second Normal Walking
+           F: Unloaded End
+       files:
+           compensation: ../T057/mocap-057.txt
+           mocap: mocap-058.txt
+           record: record-058.txt
+           meta: meta-058.yml
+  \end{minted}
+  \caption{A fictious example of a YAML formatted meta data file. All of the
+    possible keys in the data set are shown.}
+  \label{lis:example-meta-data}
+\end{listing*}
 
 \subsection*{Markers}
 %
