@@ -48,7 +48,7 @@
   and/or laterally perturbed during each stance phase with pseudo-random
   fluctuations in the speed of the treadmill belt. A total of approximately 1.5
   hours of normal walking ($>5000$ gait cycles) and 6 hours of perturbed walking
-  ($>20,000$ gait cycles) is included in the data set. We provide full body raw
+  ($>20,000$ gait cycles) is included in the data set. We provide full body
   marker locations and ground reaction loads in addition to a presentation of
   processed data that includes gait landmarks, 2D joint angles, angular rates,
   and joint torques and the software used for the computations. The protocol is
@@ -106,19 +106,24 @@ The Human Motion and Control Lab at Cleveland State University has modern human
 motion measurement equipment. Our system includes:
 
 \begin{itemize}
-  \item A ForceLink R-Mill which has dual 6 degree of freedom force plates,
-    independent belts for each foot, and lateral and pitch motion capabilities.
-  \item A 10 Camera Motion Analysis motion capture system which includes Osprey
-    cameras, the Cortex software, and hardware for collecting analog and camera
-    data simultaneously. Delsys wireless EMG + 3D Accelerometers.
-  \item Motek Medical’s D-Flow software and visual display system.
+  \item A ForceLink R-Mill treadmill which has dual 6 degree of freedom force
+    plates, independent belts for each foot, and motion capabilities (lateral,
+    pitch).
+  \item A 10 camera Motion Analysis motion capture system which includes Osprey
+    cameras, the Cortex software (3.1.1.1290), and hardware for collecting
+    analog and camera data simultaneously.
+  \item National Instruments USB-6255 data aquisition unit.
+  \item Four Sparkfun ADXL330 Triple Axis Accelerometer Breakout boards
+    attached to the treadmill.
+  \item Motek Medical’s D-Flow software (3.16.1 to 3.16.2) and visual display
+    system.
 \end{itemize}
 
 Cortex alone is capable of delivering data from the cameras along with force
 plates, and analog sensors (EMG/Accelerometer) through a National Instruments
-XXXX data acquisition unit. D-Flow is required to collect data from any digital
-sensors and the treadmill's motion (lateral, pitch, and belts). D-Flow can
-output multiple types of files which contain the different data.
+USB-6255 data acquisition unit. D-Flow is required to collect data from any
+digital sensors and the treadmill's motion (lateral, pitch, and belts). D-Flow
+can output multiple types of files which contain the different data.
 
 Our motion capture system's coordinate system is such that the X coordinate
 points to the right, the Y coordinate points upwards, and the Z coordinate
@@ -127,6 +132,132 @@ person walking forward on the treadmill. The camera's coordinate system is
 aligned to an origin point on treadmill's surface during camera calibration.
 The same point is used as the origin of the ground reaction force measuring
 system.
+
+\section*{Protocol}
+%
+The experimental protocol consisted of static measurements and walking on the
+treadmill for 10 minutes under unperturbed and perturbed conditions. Before a
+set of trials on the same day the following happened:
+%
+\begin{itemize}
+  \item Calibration of the motion capture system.
+  \item Subject changes into atheltic shoes, lyrca shorts, sports bra, baseball
+    cap, and rock climbing harness.
+  \item All 47 markers are applied directly to the skin except for the heel,
+    toe, and head markers.~\footnote{The sacrum and rear pelvic markers were
+    placed on the shorts for a small number of the subjects}.
+  \item Subjects self-reported age, gender, and mass.
+  \item Height is measured by the experimentalist.
+  \item Four reference photographs (front, back, right, left) are taken of
+    subjects marker locations.
+\end{itemize}
+
+After a briefing by the expermentalist on the trial protocol the subject
+follows the verbal instructions of the experimentalist and the on-screen
+instructions from the video display in front of the subject. The protocal goes
+as so:
+%
+\begin{enumerate}
+  \item Subject steps onto the treadmill and markers are identified with
+    Cortex.
+  \item The safety cable is attached loosely to the rock climbing harness such
+    that no undue forces are acting on the subject during walking, but that the
+    harness will prevent a full fall.
+  \item The subject starts by stepping on sides of treadmill so that feet don't
+    touch the force plates and the force plate signals are zero'd.
+  \item Once notified by the screen, the subject stands in the initialization
+    pose: standing straight up, looking forward, arms out by their sides (~45
+    degrees) and the event is manually recorded by the operator.
+  \item A countdown to the first normal walking phase is displayed. At the end
+    of the countodwn the treadmill starts at the specified speed and the
+    subject is instructed to walk normally, to focus on the road in the
+    screen, and not to look at their feet.
+  \item After 1 minute of normal walking, the longitudinal perturbation phase
+    begins.
+  \item After 8 minutes of walking under the influence of the perturbations,
+    the normal walking phase begins.
+  \item After 1 minute, a countdown is shown and the treadmill decelerates to a
+    stop.
+  \item The subject is instructed to step off of the force plates for 10
+    seconds.
+  \item The subject could take a break before each additional trial.
+\end{enumerate}
+
+\section*{Perturbation Signals}
+%
+The data set uses a testing protocol containing a segment of normal walking,
+followed by a series of pseudo-random longitudinal perturbations, and ending
+with a second segment of normal walking. Three pseudo-random speed control
+signals, with mean velocities of 0.8, 1.2, and 1.6 $m \cdot s^{-1}$, were
+generated through MATLAB and Simulink. Initially, a  random acceleration signal
+was created using discrete-time Gaussian white noise and saturated at the
+maximum belt acceleration of 15 $m \cdot s^{-2}$, integrated to obtain belt
+speed, and high-pass filtered (second-order Butterworth) to eliminate velocity
+drift. Mean velocity was then added to the signal and limited between 0 and 3.6
+m/s. The cutoff frequencies of the high-pass filter, as well as the variance in
+the acceleration signal, were adjusted until the appropriate standard
+deviations for each mean velocity were obtained.
+
+These standard deviations were determined through a trial and error method.
+Initially, perturbations of $\pm$ 10\% for each mean velocity were generated.
+However, this large deviation in the slowest mean velocity (0.8 $m \cdot
+s^{-1}$) would unintentionally reduce the treadmill speed to values close to
+zero. This would produce an undesired stopping and starting sensation.
+Alternatively, smaller standard perturbations of $\pm$ 5\% did not produce
+noticeable perturbations in the fastest trial (1.6 $m \cdot s^{-1}$).
+Therefore, standard deviations of 7.16\%, 10.23\%, and 13.1\% were selected for
+the 0.8, 1.2, and 1.6 $m \cdot s^{-1}$ speeds, respectively.  This ensured that
+the test subject was sufficiently perturbed for each speed, while remaining
+within the limits of our testing protocol.
+
+To ensure that the treadmill could follow the higher frequencies of the random
+signals, the maximum treadmill acceleration of 15 $m \cdot s^{-2}$ was used in
+the D-Flow Software. As this value remains constant throughout the experiment,
+the initial starting and stopping of the treadmill would be too rapid for test
+subjects. To eliminate this, a ramped acceleration and deceleration was
+generated and placed at the beginning and end of the entire signal,
+respectively. Other additions include the one minute segments of unperturbed
+walking at the beginning and end of the trial and 30 seconds of no movement for
+force plate zeroing and subject T-pose calibration.  The sampling rate of the
+simulation was set to 100 Hz, corresponding to the D-Flow software's
+capabilities.
+
+The resulting output from the MATLAB script and Simulink produces a comma-
+delimited text file of six columns: timestamp, slow, normal, and fast walking
+perturbation signals, and slow and fast running signals.  These running signals
+were generated in the event the testing protocol expanded from a walking study
+to a running study, though they were not used in the data set.  The actual
+motion of the treadmill belts are compared to the original input signals as
+shown in Figure~\ref{fig:input_output}.   The standard deviations of the
+outputs were calculated at 6.07\%, 9.68\%, and 12.68\% for the the 0.8, 1.2,
+and 1.6 $m \cdot s^{-1}$ speeds, respectively.
+
+\begin{figure*}
+  \centering
+  \includegraphics{figures/input_vs_output.pdf}
+  \caption{Treadmill belt velocity input signals (purple) and recorded output
+    velocities (blue) for average belt speeds of 0.8, 1.2, and 1.6 m/s,
+    respectively}
+  \label{fig:input_output}
+\end{figure*}
+
+For further analysis, the input and output signals for each average speed were
+transformed into the frequency domain through the Fast Fourier algorithm, and
+the results are shown in Figure~\ref{fig:freq_analysis}. It was observed that
+for the 1.2 $m \cdot s^{-1}$ average walking speed, the amplitude of the output
+is significantly lower than the amplitude of the input signal at lower
+frequencies. Additionally, the amplitude of output signal in the 0.8 $m \cdot
+s^{-1}$ walking speed begins to attenuate around 2 Hz, which is a noticeably
+lower frequency than the other walking speeds.
+
+\begin{figure*}
+  \centering
+  \includegraphics{figures/frequency_analysis.pdf}
+  \caption{Frequency spectrum of the treadmill belt velocity input signal
+    (purple) and the recorded output velocity (blue) for average belt speeds of
+    0.8, 1.2, and 1.6 m/s, respectively}
+  \label{fig:freq_analysis}
+\end{figure*}
 
 \section*{Raw Data}
 %
@@ -447,80 +578,6 @@ the latest version.
   \end{tabular}
   \label{tab:marker-labels}
 \end{table*}
-
-\section*{Perturbation Signals}
-%
-The data set uses a testing protocol containing a segment of normal walking,
-followed by a series of pseudo-random longitudinal perturbations, and ending
-with a second segment of normal walking. Three pseudo-random speed control
-signals, with mean velocities of 0.8, 1.2, and 1.6 $m \cdot s^{-1}$, were
-generated through MATLAB and Simulink. Initially, a  random acceleration signal
-was created using discrete-time Gaussian white noise and saturated at the maximum
-belt acceleration of 15 $m \cdot s^{-2}$, integrated to obtain belt speed, and 
-high-pass filtered (second-order Butterworth) to eliminate velocity drift. Mean 
-velocity was then added to the signal and limited between 0 and 3.6 m/s. The 
-cutoff frequencies of the high-pass filter, as well as the variance in the acceleration 
-signal, were adjusted until the appropriate standard deviations for each mean 
-velocity were obtained.
-
-These standard deviations were determined through a trial and error method.
-Initially, perturbations of $\pm$ 10\% for each mean velocity were generated.
-However, this large deviation in the slowest mean velocity (0.8 $m \cdot
-s^{-1}$) would unintentionally reduce the treadmill speed to values close to
-zero. This would produce an undesired stopping and starting sensation.
-Alternatively, smaller standard perturbations of $\pm$ 5\% did not produce
-noticeable perturbations in the fastest trial (1.6 $m \cdot s^{-1}$).
-Therefore, standard deviations of 7.16\%, 10.23\%, and 13.1\% were selected for
-the 0.8, 1.2, and 1.6 $m \cdot s^{-1}$ speeds, respectively.  This ensured that
-the test subject was sufficiently perturbed for each speed, while remaining
-within the limits of our testing protocol.
-
-To ensure that the treadmill could follow the higher frequencies of the random
-signals, the maximum treadmill acceleration of 15 $m \cdot s^{-2}$ was used in
-the D-Flow Software. As this value remains constant throughout the experiment,
-the initial starting and stopping of the treadmill would be too rapid for test
-subjects. To eliminate this, a ramped acceleration and deceleration was
-generated and placed at the beginning and end of the entire signal,
-respectively. Other additions include the one minute segments of unperturbed
-walking at the beginning and end of the trial and 30 seconds of no movement for
-force plate zeroing and subject T-pose calibration.  The sampling rate of the
-simulation was set to 100 Hz, corresponding to the D-Flow software's
-capabilities.
-
-The resulting output from the MATLAB script and Simulink produces a comma-
-delimited text file of six columns: timestamp, slow, normal, and fast walking
-perturbation signals, and slow and fast running signals.  These running signals
-were generated in the event the testing protocol expanded from a walking study
-to a running study, though they were not used in the data set.  The actual
-motion of the treadmill belts are compared to the original input signals as
-shown in Figure~\ref{fig:input_output}.   The standard deviations of the
-outputs were calculated at 6.07\%, 9.68\%, and 12.68\% for the the 0.8, 1.2,
-and 1.6 $m \cdot s^{-1}$ speeds, respectively.
-
-\begin{figure*}
-  \includegraphics{figures/input_vs_output.pdf}
-  \caption{Treadmill belt velocity input signals (purple) and recorded output
-    velocities (blue) for average belt speeds of 0.8, 1.2, and 1.6 m/s,
-    respectively}
-  \label{fig:input_output}
-\end{figure*}
-
-For further analysis, the input and output signals for each average speed were
-transformed into the frequency domain through the Fast Fourier algorithm, and
-the results are shown in Figure~\ref{fig:freq_analysis}. It was observed that
-for the 1.2 $m \cdot s^{-1}$ average walking speed, the amplitude of the output
-is significantly lower than the amplitude of the input signal at lower
-frequencies. Additionally, the amplitude of output signal in the 0.8 $m \cdot
-s^{-1}$ walking speed begins to attenuate around 2 Hz, which is a noticeably
-lower frequency than the other walking speeds.
-
-\begin{figure*}
-  \includegraphics{figures/frequency_analysis.pdf}
-  \caption{Frequency spectrum of the treadmill belt velocity input signal
-    (purple) and the recorded output velocity (blue) for average belt speeds of
-    0.8, 1.2, and 1.6 m/s, respectively}
-  \label{fig:freq_analysis}
-\end{figure*}
 
 \section*{Processed Data}
 
