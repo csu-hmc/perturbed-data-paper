@@ -10,6 +10,33 @@ from gaitanalysis.motek import DFlowData, markers_for_2D_inverse_dynamics
 from gaitanalysis.gait import GaitData
 
 
+def config_paths(root_dir):
+    """Returns the full path to the directories specified in the config.yml
+    file.
+
+    Parameters
+    ----------
+    root_dir : string
+        Absolute path to the root directory of the repository.
+
+    Returns
+    -------
+    raw_dir : string
+        Absolute path to the raw data directory.
+    processed_dir : string
+        Absolute path to the processed data directory.
+
+    """
+
+    with open(os.path.join(root_dir, 'config.yml'), 'r') as f:
+        config = yaml.load(f)
+
+    raw_dir = os.path.join(root_dir, config['raw_data_dir'])
+    processed_dir = os.path.join(root_dir, config['processed_data_dir'])
+
+    return raw_dir, processed_dir
+
+
 def trial_file_paths(trials_dir, trial_number):
     """Returns the most common paths to the trials in the gait
     identification data set.
