@@ -3,19 +3,19 @@
 import os
 from collections import defaultdict
 
-import yaml
 import numpy as np
 import pandas as pd
 
-from utils import generate_meta_data_tables
+from utils import generate_meta_data_tables, config_paths
 
+print('Generating subject table.')
 
-with open('config.yml', 'r') as f:
-    config = yaml.load(f)
+script_path = os.path.realpath(__file__)
+src_dir = os.path.dirname(script_path)
+root_dir = os.path.realpath(os.path.join(src_dir, '..'))
+raw_dir, processed_dir = config_paths(root_dir)
 
-root = config['root_data_directory']
-
-tables = generate_meta_data_tables(root)
+tables = generate_meta_data_tables(raw_dir)
 
 subject_df = tables['TOP|subject']
 
@@ -55,11 +55,13 @@ formatters = {'Height [m]': lambda x: 'NA' if np.isnan(x)
 unique_subjects = unique_subjects.drop_duplicates()
 unique_subjects = unique_subjects.drop(0)  # remove null subject
 
-table_dir = os.path.join('..', 'tables')
+table_dir = os.path.join(root_dir, 'tables')
 if not os.path.exists(table_dir):
     os.makedirs(table_dir)
 
-with open(os.path.join(table_dir, 'subjects.tex'), 'w') as f:
+table_path = os.path.join(table_dir, 'subjects.tex')
+with open(table_path, 'w') as f:
     f.write(unique_subjects.sort().to_latex(na_rep='NA', index=False,
                                             columns=new_cols,
                                             formatters=formatters))
+print('Table at: {}'.format(table_path))

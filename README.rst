@@ -1,179 +1,168 @@
-Build Instructions
-==================
+Introduction
+============
 
-Make sure you have a LaTeX suite installed and simply type ``make`` at the
-command line or checkout the ShareLaTeX CI build.
+This is the source repository for the paper:
+
+Moore, J.K., Hnat, S.K, van den Bogert, A. "An elaborate data set on human gait
+and the effect of mechanical perturbations", 2014.
+
+The latest rendered version of the PDF can be viewed via the ShareLaTeX CI
+system:
 
 .. image:: https://www.sharelatex.com/github/repos/csu-hmc/perturbed-data-paper/builds/latest/badge.svg
    :target: https://www.sharelatex.com/github/repos/csu-hmc/perturbed-data-paper/builds/latest/output.pdf
 
-Journal
-=======
-
-I'd like to submit this to F1000Research as a data note.
-
-http://f1000research.com/
-
-See the Author Guidelines and check out the "Data Note" description:
-
-http://f1000research.com/author-guidelines
-
 Notes on editing the files
 ==========================
 
+- Wrap text files to 79 characters.
+- No tabs, use 2 spaces for indentation in LaTeX, 3 in RestructuredText, and 4
+  in Python and Octave.
 - Please edit in new Git branch and submit a Pull Request since we have
   multiple authors.
-- Wrap text files to 79 characters.
-- No tabs, use 2 spaces for indentation.
 - The README is in RestructuredText format. See
   http://docutils.sourceforge.net/docs/user/rst/quickref.html for tips on the
   syntax.
-- The paper will be written in LaTeX and eventually moved to writelatex.com or
-  Authorea for submission to F1000Research. For now, we will keep it bare bones
-  without any journal styles.
-- Figures belong in the `figures` directory and the source code used to
-  generate the figures should be in the `src` directory along with any
-  instructions in `src/README.rst`. Be careful about uploading (lots) of giant
-  binaries. The figures should be correctly sized plots in the PDF format.
+- Figures belong in the ``figures`` directory, tables in the ``tables``
+  directory and the source code used to generate them should be in the ``src``
+  directory along with any instructions in ``README.rst``.The figures should be
+  correctly sized plots in the PDF format. The generated figures and tables can
+  be committed to the Git repo so that the ShareLatex CI builds. Be careful
+  about uploading (lots) of giant binaries. Do not add data to the Git repo,
+  use a data hosting repository.
 
-Authors
-=======
+Get the source
+==============
 
-This is the proposed author list, in order:
+Either clone the repository with Git::
 
-- Jason K. Moore
-- Sandra K. Hnat
-- Antonie J. van den Bogert
+   $ git clone https://github.com/csu-hmc/perturbed-data-paper.git
 
-Abstract
-========
+Or download and unpack the zip file::
 
-   No longer than approximately 300 words; without references.
+   $ wget https://github.com/csu-hmc/perturbed-data-paper/archive/master.zip
+   $ unzip master.zip
 
-Introduction (optional)
+Change into the source directory::
+
+   $ cd perturbed-data-paper
+
+Basic LaTeX Build Instructions
+==============================
+
+To build the pdf from the latex source using the pregenerated figures and
+tables in the repository, make sure you have an up-to-date latex suite
+installed[1]_, download the source, and run ``make``.
+
+.. [1] The minted package requires Python and the Pygments packaged. See the
+   minted documentation for installation details or installation instructions
+   for building from the raw data.
+
+The default ``make`` target will build the document::
+
+   $ make
+
+View with your preferred PDF viewer::
+
+   $ evince paper.pdf
+
+Full build instructions
 =======================
 
-   Rationale for creating the dataset(s) and/or objectives for the experiment
-   resulting in the dataset - why the data were gathered or produced.
+The full build instructions allow you to generate the figures and tables from
+raw data and compile the LaTeX document.
 
-- System ID techniques require large amounts of rich data
-- Map human control into prosthetic control space
-- Identification of control mechanisms
+Install dependencies
+--------------------
 
-Materials and methods
-=====================
+In addition to the basic LaTeX dependency install the following Octave and
+Python software.
 
-   Detailed account of the protocol used to generate the dataset:
+Install Octave_ (>=3.8) from your system package manager or other binary
+method, for example on Debian based Linux systems::
 
-   - For standard protocols that have been published elsewhere, a brief
-     description and reference is sufficient.
-   - Details for the source of all samples, reagents, antibodies etc.
-   - Details of how samples were selected; what exclusions were made, if any.
-   - Details of what was being measured;
+   $ sudo apt-get install octave
 
-   For processed data, this section should include details of any software used
-   to process the data, including the version used, details of where the
-   software can be accessed, and any parameters that could impact the outcome
-   of the results.
+.. _Octave: http://www.octave.org
 
-   Please see our editorial policies for patient data, or for research
-   involving animals.
+Install the `Anaconda Python Distribution`_, following the instructions on the
+website, for example for 64 bit Linux::
 
-Equipment
----------
+   $ wget http://09c8d0b2229f813c1b93-c95ac804525aac4b6dba79b00b39d1d3.r79.cf1.rackcdn.com/Anaconda-2.1.0-Linux-x86_64.sh
+   $ bash Anaconda-2.1.0-Linux-x86.sh
 
-- Cortex 3 for motion capture (marker coordinate locations and GRF)
-- D.Flow 3.15-3.16 for VR program, treadmill manipulation, and data recording
-- Forcelink R-mill for the treadmill (+/- 0.05 meters mediolateral
-  displacement and +/- 10 degrees sagittal pitch)
-- 10 Motion Analysis Osprey cameras
+.. _Anaconda Python Distribution: http://continuum.io/downloads
 
-Protocol
---------
+Now create and activate a Conda environment with the main Python dependencies::
 
-- describe the testing procedure for each subject and how that was handled
-  with event timing in D-Flow
-- describe briefly in words the D-Flow program and what it's doing
-- 47 marker set, maybe include diagram in supplementary material
-- harness on subject, etc.
+   $ conda create -n gait pip numpy=1.9.1 scipy=0.14.0 \
+     matplotlib=1.4.2 pytables=3.1.1 pandas=0.15.1 pyyaml=3.11 seaborn=0.5.0 \
+     pygments=2.0.1
+   $ source activate gait
 
-Perturbation Design
--------------------
+Finally install the remaining dependencies with pip::
 
-- Simulink diagrams and MATLAB code
+   (gait)$ pip install oct2py==2.4.0
+   (gait)$ pip install DynamicistToolKit==0.3.5
+   (gait)$ pip install GaitAnalysisToolKit==0.1.2
 
-  - twice integrated white noise into high pass Butterworth and saturated
+Get the data
+------------
 
-- signals generated around ~8-10% standard dev. of the average speed
+The data is available for download from Zenodo. It consists of two gzipped tar
+balls of approximately 1.2GB each. Create a directory to house the data,
+download, and unpack::
 
-  - done ad hoc through coding, also done "experimentally"
+   (gait)$ mkdir raw-data
+   (gait)$ cd raw-data
+   (gait)$ wget https://zenodo.org/record/13030/files/perturbed-walking-data-01.tar.gz
+   (gait)$ wget https://zenodo.org/record/13030/files/perturbed-walking-data-02.tar.gz
+   (gait)$ tar -zxfv perturbed-walking-data-01.tar.gz
+   (gait)$ tar -zxfv perturbed-walking-data-02.tar.gz
+   (gait)$ rm perturbed-walking-data-01.tar.gz
+   (gait)$ rm perturbed-walking-data-02.tar.gz
+   (gait)$ cd ..
 
-"Raw" Data
-----------
+The above commands can also be run with the make target::
 
-- The raw data will be defined as the data which comes out D-Flow along with
-  the input belt signal generated by the Simulink model.
-- Data:
+   (gait)$ make download
 
-  - Marker locations in 3D space
-  - Belt speed: actual and desired
-  - Ground reaction loads at each foot
-  - Events
-  - Anatomical marker locations
-  - Subject data: height, weight, age, ankle/knee widths
+Configuration file
+------------------
 
-- Detailed description of the meta data file.
-- File descriptions: mocap file, record module file, etc.
+Copy the default configuration file to a file called ``config.yml``::
 
-"Processed Data"
-----------------
+   (gait)$ cp default-config.yml config.yml
 
-- We will present some details of the processed data, but point the readers to
-  the GATK for processing the raw data.
-- The processed data will be the outputs of the WalkingData class in the gait
-  analysis toolkit.
+This can also be performed with a make target::
 
-  - Joint angles and angular rates
-  - Joint torques
-  - Heelstrikes and toeoffs
+   (gait)$ make defaultconfig
 
-- Description of GaitAnalysis Toolkit
-- All signals filtered at 6 Hz low-pass 2nd Butterworth filter
-  (forward-backward)
-- Joint angles and moments calculated from 2D inverse dynamics program
-- Compensation Techniques (maybe)
+Generate the tables and figures
+-------------------------------
 
-  - inertial artifacts due to platform movement
-  - did not use platform movement, but implemented in code because we intended
-    to move the platform
-  - belt acceleration compensation. This may be necessary.
+The plots can be generated by running the following scripts from the ``src``
+directory::
 
-- Show typical plots of data.
+   (gait)$ python src/unperturbed_perturbed_comparison.py
 
-  - one subject, medium walking speed, sagittal plane joint moments and angles
-    in hip, knee, ankle (a 3x2 matrix of graphs). From the unperturbed walking
-    a mean and SD, from the perturbed walking, maybe a 10-second section, or
-    multiple gait cycles superimposed on a plot with 0-100% on the horizontal
-    axis.
+The tables can be generated with::
 
-- Pin to a particular version of GaitTK and DynamicistTK.
+   (gait)$ python src/subject_tables.py
 
-Dataset validation (optional)
-=============================
+This can also be performed with a make target::
 
-   Information about any validation carried out and/or any limitations of the
-   datasets, including any allowances made for controlling bias or unwanted
-   sources of variability.
+   (gait)$ make tables
+   (gait)$ make figures
 
-- Walker ?#9? has odd ankle joint torques (trials 25, 26, 27)
+Build the pdf
+-------------
 
-Data availability
-=================
+::
 
-   A machine-readable section which will make it possible for the citation and
-   provenance of the dataset(s) to be tracked; this section will be generated
-   by the editorial office.
+   (gait)$ make pdf
 
-I'd like to share the data on Figshare. I'm not sure if they support a
-directory hierarchy and they don't support uploading giant compressed files
-(unless maybe if you pay).
+The entire process from data download to pdf compilation can be run with a
+single make target::
+
+   (gait)$ make pdfraw
