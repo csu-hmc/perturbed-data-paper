@@ -687,6 +687,51 @@ statistics of the unperturbed and perturbed gait cycles.
   \label{fig:gait-cycle-stats-comparison}
 \end{figure*}
 
+\section*{Data Limitations}
+%
+The data is provided in good faith with great attention to detail. The
+following list gives various notes and warnings about the data that should be
+taken into account when making use of it.
+%
+\begin{itemize}
+  \item Be sure to read the notes in each meta data file for details about
+    possible anomalies in that particular trial.
+  \item The subject identification number 0 stands for "no subject" and was
+    used whenever data was collected from the system with no subject on the
+    treadmill, for example during the trials that were intended to be used for
+    inertial compensation purposes if the treadmill was moving. These trials
+    play through the exact protocol as those with a human subject and the
+    matching trials are indicated in the meta data.
+  \item Trials 1 and 2 were not recorded as part of this study. Those trial
+    identification numbers were reserved for early data exploration from data
+    collected in other studies.
+  \item Trials 37, 38, and 39 do not exist. The numbers were accidentally
+    skipped.
+  \item Trials 9, 10, and 11 used a slightly different event definition where the
+    calibration poses were not explicitly tagged by an event, yet the protocol
+    was the identical to the following trials.
+  \item During trials 9-15 we used wooden blocks to fix the treadmill to the
+    concrete floor to eliminate the treadmill's lowest factory vibration mode
+    (~5 hz). But these blocks seem to have corrupted the force plate
+    measurements by imposing undue stresses on the system. The force plate
+    measurements should not be used from these trials, but the marker data is
+    fine.
+  \item We did not record unloaded compensation trials for trials 9-15.
+    Regardless, they would be useless due to the previous point.
+  \item Trials 6-8 use an early experimental protocol which divided the
+    perturbation sections into three sections: longitudinal perturbations,
+    lateral perturbations, and a combination of each. We then learned the
+    treadmill had a low vibrational mode which significantly affects the force
+    plate measurements. The force measurements during these trials are
+    corrupted by this vibrational mode and should be used with caution or not
+    at all.
+  \item Trials 6-8 use a XX lower body marker set only.
+  \item The ankle joint torques computed from subject 9's data in trials 25-27
+    are abnormal and should be used with caution or not at all. We were not
+    about to locate the source of the error, but it is likely related to the
+    force calibration.
+\end{itemize}
+
 \section*{Conclusion}
 
 We have presented the details of what we believe to be a rich dataset of motion
