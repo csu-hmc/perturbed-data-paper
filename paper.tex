@@ -62,29 +62,95 @@
 
 \section*{Introduction}
 %
-Emerging powered prosthetics and orthotics are in need of bio-inspired control systems.
-Ideally, a powered prosthetic would behave in such a way that the user would
-feel like their limb was never disabled. There are a variety of approaches to
-developing bio-inspired control systems some of which aim to mimic the
-reactions and motion of an able-bodied person. A modern gait lab is able to
-collect a variety of kinematic, kinetic, and physiological data from humans
-during gait. This data can potentially be used to drive the design of the human
-mimicking controller. With a rich enough data set, one may be able to identify
-control mechanism used during a human's natural gait and recovery from
-perturbations. We have collected data that we believe is richer than previous
-gait data sets and may be rich enough for control identification. The data can
-also be used for verification purposes for controllers that have been designed
-in other manners.
+The collection of dynamical data during human walking has a long history
+beginning with the first motion pictures and now with modern marker based
+motion capture techniques, image and video analysis, and high fidelity ground
+reaction load measurements. Even though years of data on thousands of subjects
+now exist, this data is not widely disseminated, well organized, nor available
+with few or no restrictions. David Winter's published normative gait
+data~\cite{Winter1990} is widely used in biomechanics studies, yet it comes
+from relatively few subjects and only a small number of gait cycles per
+subject. This small source has successfully inspired powered prosthetic control
+design~\cite{Sup2008}, but success in other fields using large sets of
+data for discovery lead one to believe that may be possible in the
+biomechanical field too. To find out if that hypothesis is true, our data needs
+to be shared extensively, organized, and curated to enabled analysts.
 
-We collected over five and half hours of perturbed gait data from 15 subjects
-sampled at 100 hz. The data has been organized and made available for other
-research uses.
+There are some notable gait data sets and databases besides Winter's authoritative
+set that are publicly available. Notably the International Society of
+Biomechanics has maintained a web page (http://isbweb.org/data) since
+approximately 1995 that includes data sets for download and most unencumbered
+use. Vaughn, et. al's data~\cite{Vaughan1992} with kinematics and force plate
+measurement from several subjects. Chris Kirtley shares normative gait from
+several studies on the CGA Normative Gait Database~\cite{Kirtley} and these
+files have influenced and been included in other studies, for
+example the average gait cycles from children used in~\cite{Bogert2003}.
 
-\section*{Particpants}
+Chester et. al~\cite{Chester2007} report on a large gait database comparison
+where one database contained kinematic data of 409 gait cycles of children from
+1 to 7 years old but the data does not seem to be publicly available. Tirosh
+et. al, recognized the need of a comprehensive data base for clinical gait data
+and created the Gaitabase~\cite{Tirosh2010}.  This database may contain a
+substantial amount of data but it is encumbered by a very complicated and
+restrictive license and sharing scheme. The University of Wisconsin at LaCrosse
+has a normative gait data set~\cite{Wilson} from 25 subjects with lower
+extremity marker data and force plate measurements from a single stance phase.
+
+More recent examples of biomechanist's sharing their data alongside
+publications are: \cite{Bogert2013} which includes processed joint kinematics
+from eleven subjects walking for few gait cycles and \cite{Wang2014} who
+includes data from 10 subjects walking for five minutes each at five different
+speeds but only a small set of lower extremity markers are present. The second
+is notable because it publishes the data in Dryad, a modern citable data
+repository.
+
+The publicly available gait data is small compared to the number of gait
+studies that have been performed over the years. And the data that is available
+in general suffers from things such as few subjects, few gait cycles, few
+markers, no raw data, limited force plate measurements, lack of meta data, and
+restrictive licensing. To help with this situation we are making the data we
+collected for our research purposes publicly available and free of the
+previously mentioned deficiencies. Not only do we provide a larger set of
+normative gait data that has been previously available we include an even large
+set of data in which the subject is being perturbed which does not exist at
+all. We believe both of these sets of data can serve a variety of use cases and
+hope that we can save time for researchers with use cases for this data.
+
+Our use case for the data is centered around emerging powered prosthetics and
+orthotics need of bio-inspired control systems. Ideally, a powered prosthetic
+would behave in such a way that the user would feel like their limb was never
+disabled. There are a variety of approaches to developing bio-inspired control
+systems some of which aim to mimic the reactions and motion of an able-bodied
+person. A modern gait lab is able to collect a variety of kinematic, kinetic,
+and physiological data from humans during gait. This data can potentially be
+used to drive the design of the human-mimicking controller. With a rich enough
+data set, one may be able to identify control mechanisms used during a human's
+natural gait and recovery from perturbations. We have collected data that we
+believe is richer than previous gait data sets and may be rich enough for
+control identification.  The data can also be used for verification purposes
+for controllers that have been designed in other manners.
+
+With all of this in mind, we collected over five and half hours of gait data
+from fifteen able bodied subjects and includes over 25,000 gait cycles. Most of
+the subjects walked at three different speeds on an instrumented treadmill
+while we collected full body marker locations and ground reaction loads from a
+pair of force plates. The protocol for the majority of the trials includes two
+minutes of normal walking and eight minutes of walking under the influence of
+pseudo-random belt speed fluctuations. The data has been organized complete with
+rich meta data and made available in the most unrestrictive form for other
+research uses following modern best practices in data sharing~\cite{White2013}.
+
+Furthermore, we include a small Apache licensed open source software library
+for basic gait analysis and demonstrate it's use in the paper. The combination
+of the open data and open software allow the results presented within to be
+computationally reproducible and instructions are included in the associated
+repository for doing so.
+
+\section*{Participants}
 %
 Fifteen able bodied subjects including four females and eleven males with an
 average age of $24\pm4$ years, height of $1.75\pm0.09$ m, mass of $74\pm13$ kg
-particpated in the study. The data has been anonymized with respect to the
+participated in the study. The data has been anonymized with respect to the
 participants' identities and an unique identification number was assigned to
 each subject. A selection of the meta data collected for each subject is shown
 in Table~\ref{tab:subjects}.
@@ -504,7 +570,7 @@ information, detailed below:
 
 \subsection*{Markers}
 %
-We make use of the full body 47 marker set described in \cite{Ton's HBM paper}
+We make use of the full body 47 marker set described in \cite{Bogert2013}
 and presented in detail in Table \ref{tab:marker-labels}. As with all camera
 based motion capture systems, the markers sometimes go missing in the
 recording.
@@ -769,7 +835,7 @@ through the Wright Center for Sensor Systems Engineering (WCSSE).
 \subsection*{Acknowledgments}
 We thank Roman Boychuk and Obinna Nwanna for assistance with the experiments.
 
-%{\small\bibliographystyle{unsrt}
-%\bibliography{bibfile}}
+{\small\bibliographystyle{unsrt}
+\bibliography{gait-data}}
 
 \end{document}
