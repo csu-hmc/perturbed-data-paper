@@ -12,6 +12,25 @@ system:
 .. image:: https://www.sharelatex.com/github/repos/csu-hmc/perturbed-data-paper/builds/latest/badge.svg
    :target: https://www.sharelatex.com/github/repos/csu-hmc/perturbed-data-paper/builds/latest/output.pdf
 
+Data
+====
+
+The data presented in the paper is available for download from Zenodo under the
+Creative Commons CC0 license.
+
+.. image:: https://zenodo.org/badge/doi/10.5281/zenodo.13030.svg
+   :target: http://dx.doi.org/10.5281/zenodo.13030
+
+Software
+========
+
+The software used for the analysis is availabe in the ``src`` directory and as
+as an open source Python package developed for this paper. The snapshot of the
+GaitAnalysisToolKit is available via Zenodo:
+
+.. image:: https://zenodo.org/badge/doi/10.5281/zenodo.13159.svg
+   :target: http://dx.doi.org/10.5281/zenodo.13159
+
 Notes on editing the files
 ==========================
 
@@ -30,6 +49,17 @@ Notes on editing the files
   be committed to the Git repo so that the ShareLatex CI builds. Be careful
   about uploading (lots) of giant binaries. Do not add data to the Git repo,
   use a data hosting repository.
+
+License
+=======
+
+This repository is licensed under the `Creative Commons Attribution 4.0
+International License`_.
+
+.. image:: https://i.creativecommons.org/l/by/4.0/80x15.png
+   :target: http://creativecommons.org/licenses/by/4.0
+
+.. _Creative Commons Attribution 4.0 International License: http://creativecommons.org/licenses/by/4.0
 
 Get the source
 ==============
