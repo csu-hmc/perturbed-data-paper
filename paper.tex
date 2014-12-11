@@ -112,7 +112,7 @@ motion measurement equipment. Our system includes:
   \item A 10 camera Motion Analysis motion capture system which includes Osprey
     cameras, the Cortex software (3.1.1.1290), and hardware for collecting
     analog and camera data simultaneously.
-  \item National Instruments USB-6255 data aquisition unit.
+  \item National Instruments USB-6255 data acquisition unit.
   \item Four Sparkfun ADXL330 Triple Axis Accelerometer Breakout boards
     attached to the treadmill.
   \item Motek Medical’s D-Flow software (3.16.1 to 3.16.2) and visual display
@@ -141,7 +141,7 @@ set of trials on the same day the following happened:
 %
 \begin{itemize}
   \item Calibration of the motion capture system.
-  \item Subject changes into atheltic shoes, lyrca shorts, sports bra, baseball
+  \item Subject changes into athletic shoes, shorts, sports bra, baseball
     cap, and rock climbing harness.
   \item All 47 markers are applied directly to the skin except for the heel,
     toe, and head markers.~\footnote{The sacrum and rear pelvic markers were
@@ -152,9 +152,9 @@ set of trials on the same day the following happened:
     subjects marker locations.
 \end{itemize}
 
-After a briefing by the expermentalist on the trial protocol the subject
+After a briefing by the experimentalist on the trial protocol the subject
 follows the verbal instructions of the experimentalist and the on-screen
-instructions from the video display in front of the subject. The protocal goes
+instructions from the video display in front of the subject. The protocol goes
 as so:
 %
 \begin{enumerate}
@@ -164,12 +164,12 @@ as so:
     that no undue forces are acting on the subject during walking, but that the
     harness will prevent a full fall.
   \item The subject starts by stepping on sides of treadmill so that feet don't
-    touch the force plates and the force plate signals are zero'd.
+    touch the force plates and the force plate signals are zeroed.
   \item Once notified by the screen, the subject stands in the initialization
     pose: standing straight up, looking forward, arms out by their sides (~45
     degrees) and the event is manually recorded by the operator.
   \item A countdown to the first normal walking phase is displayed. At the end
-    of the countodwn the treadmill starts at the specified speed and the
+    of the countdown the treadmill starts at the specified speed and the
     subject is instructed to walk normally, to focus on the road in the
     screen, and not to look at their feet.
   \item After 1 minute of normal walking, the longitudinal perturbation phase
@@ -223,13 +223,13 @@ simulation was set to 100 Hz, corresponding to the D-Flow software's
 capabilities.
 
 The resulting output from the MATLAB script and Simulink produces a comma-
-delimited text file of six columns: timestamp, slow, normal, and fast walking
+delimited text file of six columns: time stamp, slow, normal, and fast walking
 perturbation signals, and slow and fast running signals.  These running signals
 were generated in the event the testing protocol expanded from a walking study
 to a running study, though they were not used in the data set.  The actual
 motion of the treadmill belts are compared to the original input signals as
 shown in Figure~\ref{fig:input_output}.   The standard deviations of the
-outputs were calculated at 6.07\%, 9.68\%, and 12.68\% for the the 0.8, 1.2,
+outputs were calculated at 6.07\%, 9.68\%, and 12.68\% for the 0.8, 1.2,
 and 1.6 $m \cdot s^{-1}$ speeds, respectively.
 
 \begin{figure*}
@@ -269,7 +269,7 @@ The directories are named in the following fashion \verb+T001/+ where \verb+T+
 stands for ``trial'' and the following three digits are provide a unique trial
 identification number.
 
-The text file output from the mocap module in DFlow is a tab delimited file.
+The text file output from the mocap module in D-Flow is a tab delimited file.
 The first line is the header and contains a time stamp column, frame number
 column, marker position columns, force plate force/moment columns, force plate
 center of pressure columns, other analog columns, and potentially results from
@@ -286,7 +286,7 @@ contains several columns:
 
 \begin{description}
   \item[TimeStamp] The monotonically increasing computer clock time when D-Flow
-    recieves a frame from Cortex. These are approximately at 100 hz and given
+    receives a frame from Cortex. These are approximately at 100 hz and given
     in seconds.
   \item[FrameNumber] Monotonically increasing positive integers that correspond
     to each frame received from Cortex.
@@ -308,11 +308,11 @@ contains several columns:
     and are in meters.
   \item[Analog Channels] Several analog signals are recorded under column
     headers \verb+Channel[1-99].Anlg+. These correspond to analog signals
-    sampled by Cortex and correspond to the 96 analog-channel National 
-    Instruments 6255 DAQ box. The first twelve are the voltages from the 
+    sampled by Cortex and correspond to the 96 analog-channel National
+    Instruments 6255 DAQ box. The first twelve are the voltages from the
     force plate load cells. We also record the acceleration of 4 points on the
-    treadmill base in channels 61-72.  TvdB: are these useful?  If so, we need to 
-    provide information on how to process these channels.  If not, maybe
+    treadmill base in channels 61-72.  TvdB: are these useful?  If so, we need to
+    provide information on how to process these channels. If not, maybe
     not mention them at all?
 \end{description}
 
@@ -397,7 +397,7 @@ information, detailed below:
 
 \begin{description}
   \item[analog-channel-map] A mapping of the strings D-Flow assigns to signals
-    emmitted from the analog channels of the NI USB-6255 to names the user
+    emitted from the analog channels of the NI USB-6255 to names the user
     desires.
   \item[cortex-version] The version of Cortex used to record the trial.
   \item[datetime]A date formatted string giving the date of the trial in the
@@ -406,13 +406,13 @@ information, detailed below:
   \item[events] A key value map which prescribes names to the alphabetic events
     recorded in the record file.
   \item[files] A key value mapping of files associated with this trial
-    where the key is the DFlow file type and the value is the path to the file
+    where the key is the D-Flow file type and the value is the path to the file
     relative to the meta file.
   \item[hardware-settings] There are tons of settings for the hardware in both
     D-Flow, Cortex, and the other software in the system. This contains any
     non-default settings.
     \begin{description}
-      \item[high-performance] A boolean value indicatin whether the D-Flow high
+      \item[high-performance] A boolean value indicating whether the D-Flow high
         performance setting was on (True) or off (False).
     \end{description}
   \item[id] An unique three digit integer identifier for the trial. All of the
@@ -425,15 +425,15 @@ information, detailed below:
     during the trial.
   \item[nominal-speed-units] (string) The units of the nominal speed.
   \item[notes] Any notes about the trial.
-  \item[pitch] A boolean that indicates if the treamdill pitch degree of
-    freedom was acutated during the trial.
+  \item[pitch] A boolean that indicates if the treadmill pitch degree of
+    freedom was actuated during the trial.
   \item[stationary-platform] A boolean that indicates whether the treadmill
       sway or pitch motion was actuated during the trial. If this flag is
       false, the measured ground reaction forces must be compensated for the
       inertial affects and be expressed in the motion capture reference frame.
   \item[subject-id] An integer corresponding to the subject in the trial.
   \item[sway] A boolean that indicates if the treadmill lateral (sway) degree
-    of freedom was acutated during the trial.
+    of freedom was actuated during the trial.
 \end{description}
 
 \begin{listing*}
@@ -497,7 +497,7 @@ information, detailed below:
            record: record-058.txt
            meta: meta-058.yml
   \end{minted}
-  \caption{A fictious example of a YAML formatted meta data file. All of the
+  \caption{A fictitious example of a YAML formatted meta data file. All of the
     possible keys in the data set are shown.}
   \label{lis:example-meta-data}
 \end{listing*}
@@ -521,7 +521,7 @@ the latest version.
 
 \begin{table*}
   \cprotect\caption{Descriptions of the 47 markers used in this study. The Set
-    column indicates wheter the marker exists in the lower and/or full body
+    column indicates whether the marker exists in the lower and/or full body
     marker set.  The label column matches the column headers in the
     \verb|mocap-xxx.txt| files and/or the marker map in the \verb|meta-xxx.yml|
     file.}
@@ -537,7 +537,7 @@ the latest version.
     F   & 4  & FHEAD & Forehead                              & Between line LHEAD/RHEAD and THEAD a bit right from center. \\
     L/F & 5  & C7    & C7                                    & On the 7th cervical vertebrae. \\
     L/F & 6  & T10   & T10                                   & On the 10th thoracic vertbrae. \\
-    L/F & 7  & SACR  & Sacrum bone                           & On the scacral bone. \\
+    L/F & 7  & SACR  & Sacrum bone                           & On the sacral bone. \\
     L/F & 8  & NAVE  & Navel                                 & On the navel. \\
     L/F & 9  & XYPH  & Xiphoid process                       & Xiphoid process of the sternum. \\
     F   & 10 & STRN  & Sternum                               & On the jugular notch of the sternum. \\
@@ -598,7 +598,7 @@ the data into a usable form. The cleaning process follows these basic steps:
 
 \begin{enumerate}
   \item Loads the meta data file into a Python dictionary.
-  \item Loads the DFlow mocap module TSV file into Pandas \verb|DataFrame|.
+  \item Loads the D-Flow mocap module TSV file into Pandas \verb|DataFrame|.
   \item Relabels the column headers to more meaningful names if this is
     specified in the meta data.
   \item Optionally identifies the missing values in the mocap marker data and
@@ -657,14 +657,14 @@ specified sample rate. This data is also saved to disk in HDF5 format.
     >>> gdata.save('gait-data.h5')
   \end{minted}
   \cprotect\caption{Python interpreter session showing how one could compute
-    the inverse dynamics (joint angles and torques), indentify the gait
-    landmarks (e.g. heelstrikes), split the data with respect to the gait
+    the inverse dynamics (joint angles and torques), identify the gait
+    landmarks (e.g. heel strikes), split the data with respect to the gait
     landmarks in a Pandas \verb|Panel|, plot the mean and standard deviation of
     one time history with respect to the gait cycles, and save the data to disk.}
   \label{lis:dflowdata}
 \end{listing*}
 
-A similar workflow was used to produce Figure~\ref{fig:angle-torque-comparison}
+A similar work flow was used to produce Figure~\ref{fig:angle-torque-comparison}
 which compares the mean and standard deviation of saggital plane joint angles
 and torques from the perturbed gait cycles and the unperturbed gait cycles
 computed from trial 20 for 120 gait cycles. The variation in the dynamics is
