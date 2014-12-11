@@ -75,6 +75,8 @@
 *.mw
 # nomencl
 *.nlo
+# cprotect
+*.cpt
 
 ## Python
 # Byte-compiled / optimized / DLL files
