@@ -82,7 +82,7 @@ Basic LaTeX Build Instructions
 
 To build the pdf from the latex source using the pregenerated figures and
 tables in the repository, make sure you have an up-to-date latex suite
-installed[1]_, download the source, and run ``make``.
+installed [1]_, download the source, and run ``make``.
 
 .. [1] The minted package requires Python and the Pygments packaged. See the
    minted documentation for installation details or installation instructions
