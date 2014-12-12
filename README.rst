@@ -31,6 +31,17 @@ GaitAnalysisToolKit is available via Zenodo:
 .. image:: https://zenodo.org/badge/doi/10.5281/zenodo.13159.svg
    :target: http://dx.doi.org/10.5281/zenodo.13159
 
+License
+=======
+
+This repository is licensed under the `Creative Commons Attribution 4.0
+International License`_.
+
+.. image:: https://i.creativecommons.org/l/by/4.0/80x15.png
+   :target: http://creativecommons.org/licenses/by/4.0
+
+.. _Creative Commons Attribution 4.0 International License: http://creativecommons.org/licenses/by/4.0
+
 Notes on editing the files
 ==========================
 
@@ -49,17 +60,6 @@ Notes on editing the files
   be committed to the Git repo so that the ShareLatex CI builds. Be careful
   about uploading (lots) of giant binaries. Do not add data to the Git repo,
   use a data hosting repository.
-
-License
-=======
-
-This repository is licensed under the `Creative Commons Attribution 4.0
-International License`_.
-
-.. image:: https://i.creativecommons.org/l/by/4.0/80x15.png
-   :target: http://creativecommons.org/licenses/by/4.0
-
-.. _Creative Commons Attribution 4.0 International License: http://creativecommons.org/licenses/by/4.0
 
 Get the source
 ==============
