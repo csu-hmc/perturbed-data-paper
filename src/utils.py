@@ -1,8 +1,10 @@
 #!/usr/bin/env python
 
+# standard library
 import os
 from collections import defaultdict
 
+# external
 import yaml
 import numpy as np
 import pandas as pd
@@ -224,3 +226,144 @@ def generate_meta_data_tables(trials_dir, top_level_key='TOP', key_sep='|'):
         tables[k] = pd.DataFrame(v, index=ordered_trial_nums)
 
     return tables
+
+
+def measured_subject_mass(raw_data_dir, processed_data_dir):
+    """This script computes the mean mass of each subject based on the force
+    plate data collected just after the calibration pose. It also compares
+    it to the mass provided by the subject. Some subjects may have invalid
+    measurements and will not be included, so you should make use of the
+    self reported mass.
+
+    Parameters
+    ----------
+    raw_data_dir : string
+        The path to the raw data directory.
+    processed_data_dir : string
+        The path to the processed data directory.
+
+    Returns
+    -------
+    mean : pandas.DataFrame
+        A data frame containing columns with mean/std measured mass, the
+        self reported mass, and indexed by subject id.
+
+    """
+
+    # Subject 0 is for the null subject. For subject 1 we use the self
+    # reported value because there is no "Calibration Pose" event. For
+    # subject 11 and subject 4, we use the self reported mass because the
+    # wooden feet were in place and the force measurements are
+    # untrust-worthy.
+    subj_with_invalid_meas = [0, 1, 4, 11]
+
+    # Some of the trials have anomalies in the data after the calibration
+    # pose due to the subjects' movement. The following gives best estimates
+    # of the sections of the event that are suitable to use in the subjects'
+    # mass computation. The entire time series during the "Calibration Pose"
+    # event is acceptable for trials not listed.
+    time_sections = {'020': (None, 14.0),
+                     '021': (None, 14.0),
+                     '031': (-14.0, None),
+                     '047': (None, 12.0),
+                     '048': (None, 7.0),
+                     '055': (-12.0, None),
+                     '056': (-3.0, None),  # also the first 2 seconds are good
+                     '057': (-8.0, None),
+                     '063': (None, 6.0),  # also the last 6 seconds are good
+                     '069': (None, 14.0),
+                     '078': (None, 15.0)}
+
+    trial_dirs = [x[0] for x in os.walk(raw_data_dir) if x[0][-4] == 'T']
+    trial_nums = [x[-3:] for x in trial_dirs if x[-3:] not in ['001', '002']]
+
+    event = 'Calibration Pose'
+
+    tmp_file_name = '_'.join(event.lower().split(' ')) + '.h5'
+    tmp_data_path = os.path.join(processed_data_dir, tmp_file_name)
+
+    subject_data = defaultdict(list)
+
+    for trial_number in trial_nums:
+
+        dflow_data = DFlowData(*trial_file_paths(raw_data_dir,
+                                                 trial_number))
+
+        subject_id = dflow_data.meta['subject']['id']
+
+        if subject_id not in subj_with_invalid_meas:
+
+            msg = 'Computing Mass for Trial #{}, Subject #{}'
+            print(msg.format(trial_number, subject_id))
+            print('=' * len(msg))
+
+            try:
+                f = open(tmp_data_path, 'r')
+                df = pd.read_hdf(tmp_data_path, 'T' + trial_number)
+            except (IOError, KeyError):
+                print('Loading raw data files and cleaning...')
+                dflow_data.clean_data(ignore_hbm=True)
+                df = dflow_data.extract_processed_data(event=event,
+                                                       index_col='TimeStamp',
+                                                       isb_coordinates=True)
+                df.to_hdf(tmp_data_path, 'T' + trial_number)
+            else:
+                msg = 'Loading preprocessed {} data from file...'
+                print(msg.format(event))
+                f.close()
+
+            # This is the time varying mass during the calibration pose.
+            df['Mass'] = (df['FP1.ForY'] + df['FP1.ForY']) / 9.81
+
+            # This sets the slice indices so that only the portion of the
+            # time series with valid data is used to compute the mass.
+            if trial_number in time_sections:
+                start = time_sections[trial_number][0]
+                stop = time_sections[trial_number][1]
+                if start is None:
+                    stop = df.index[0] + stop
+                elif stop is None:
+                    start = df.index[-1] + start
+            else:
+                start = None
+                stop = None
+
+            valid = df['Mass'].loc[start:stop]
+
+            actual_mass = valid.mean()
+            std = valid.std()
+
+            reported_mass = dflow_data.meta['subject']['mass']
+
+            subject_data['Trial Number'].append(trial_number)
+            subject_data['Subject ID'].append(dflow_data.meta['subject']['id'])
+            subject_data['Reported Mass'].append(reported_mass)
+            subject_data['Measured Mass'].append(actual_mass)
+            subject_data['Standard Deviation'].append(std)
+            subject_data['Gender'].append(dflow_data.meta['subject']['gender'])
+
+            print("Measured mass: {} kg".format(actual_mass))
+            print("Self reported mass: {} kg".format(reported_mass))
+            print("\n")
+
+        else:
+
+            pass
+
+    subject_df = pd.DataFrame(subject_data)
+
+    grouped = subject_df.groupby('Subject ID')
+
+    mean = grouped.mean()
+
+    mean['Diff'] = mean['Measured Mass'] - mean['Reported Mass']
+
+    # This sets the grouped standard deviation to the correct value
+    # following uncertainty propagation for the mean function.
+
+    def uncert(x):
+        return np.sqrt(np.sum(x**2) / len(x))
+
+    mean['Standard Deviation'] = grouped.agg({'Standard Deviation': uncert})
+
+    return mean

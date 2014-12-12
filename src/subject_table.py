@@ -6,16 +6,16 @@ from collections import defaultdict
 import numpy as np
 import pandas as pd
 
-from utils import generate_meta_data_tables, config_paths
+import utils
 
 print('Generating subject table.')
 
 script_path = os.path.realpath(__file__)
 src_dir = os.path.dirname(script_path)
 root_dir = os.path.realpath(os.path.join(src_dir, '..'))
-raw_dir, processed_dir = config_paths(root_dir)
+raw_dir, processed_dir = utils.config_paths(root_dir)
 
-tables = generate_meta_data_tables(raw_dir)
+tables = utils.generate_meta_data_tables(raw_dir)
 
 subject_df = tables['TOP|subject']
 
@@ -55,13 +55,30 @@ formatters = {'Height [m]': lambda x: 'NA' if np.isnan(x)
 unique_subjects = unique_subjects.drop_duplicates()
 unique_subjects = unique_subjects.drop(0)  # remove null subject
 
+measured = utils.measured_subject_mass(raw_dir, processed_dir)
+
+def format_sigma(x):
+    if x[1] >= 1.0:
+        return 'dollar{:0.0f}plusminus{:0.0f}dollar'.format(*x)
+    else:
+        return 'dollar{:0.1f}plusminus{:0.1f}dollar'.format(*x)
+
+measured['Measured Mass [kg]'] = zip(measured['Measured Mass'], measured['Standard Deviation'])
+measured['Measured Mass [kg]'] = measured['Measured Mass [kg]'].map(format_sigma)
+
+unique_subjects['Measured Mass [kg]'] = measured['Measured Mass [kg]']
+new_cols.insert(4, 'Measured Mass [kg]')
+
 table_dir = os.path.join(root_dir, 'tables')
 if not os.path.exists(table_dir):
     os.makedirs(table_dir)
 
 table_path = os.path.join(table_dir, 'subjects.tex')
+tex = unique_subjects.sort().to_latex(na_rep='NA', index=False,
+                                      columns=new_cols,
+                                      formatters=formatters)
+tex = tex.replace('dollar', '$')
+tex = tex.replace('plusminus', '\pm')
 with open(table_path, 'w') as f:
-    f.write(unique_subjects.sort().to_latex(na_rep='NA', index=False,
-                                            columns=new_cols,
-                                            formatters=formatters))
+    f.write(tex)
 print('Table at: {}'.format(table_path))
