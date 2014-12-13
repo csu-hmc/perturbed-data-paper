@@ -188,12 +188,12 @@ using the following equipment:
     system.
 \end{itemize}
 
-The Cortex software delivers 3D marker trajectories from the cameras along with data
-from force
-plates and analog sensors (EMG/Accelerometer) through a National Instruments
-USB-6255 data acquisition unit. D-Flow is required to collect data from any
-digital sensors and to control the treadmill's motion (lateral, pitch, and belts). D-Flow
-can process the data in real time and/or export data to file.
+The Cortex software delivers 3D marker trajectories from the cameras along with
+data from force plates and analog sensors (EMG/Accelerometer) through a
+National Instruments USB-6255 data acquisition unit. D-Flow is required to
+collect data from any digital sensors and to control the treadmill's motion
+(lateral, pitch, and belts). D-Flow can process the data in real time and/or
+export data to file.
 
 Our motion capture system's coordinate system is such that the X coordinate
 points to the right, the Y coordinate points upwards, and the Z coordinate
@@ -201,7 +201,15 @@ follows from the right-hand-rule, i.e. points backwards with respect to a
 person walking forward on the treadmill. The camera's coordinate system is
 aligned to an origin point on treadmill's surface during camera calibration.
 The same point is used as the origin of the ground reaction force measuring
-system.
+system. Figure~\ref{fig:treadmill} shows the layout of the equiptment.
+
+\begin{figure*}
+  \centering
+  \includegraphics{figures/treadmill.png}
+  \caption{The treadmill, cameras, projection screen, and saftey rope. The
+    direction of travel is in the $-z$ direction.}
+  \label{fig:treadmill}
+\end{figure*}
 
 \section*{Protocol}
 %
