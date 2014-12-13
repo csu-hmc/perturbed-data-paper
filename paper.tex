@@ -6,10 +6,9 @@
 % - Only one space after periods.
 % - Don't worry about formatting details, just get the content in place.
 
-\documentclass[10pt,a4paper,twocolumn]{article}
-\usepackage{f1000_styles}
+\documentclass[fleqn,10pt]{wlpeerj}
 
-% graphicx is also declared in f1000_styles
+% for images: png, pdf, etc
 \usepackage{graphicx}
 
 % for nice table formatting, i.e. /toprule, /midrule, etc
@@ -20,11 +19,6 @@
 
 % for nice source code syntax highlighting, also provides Listing env
 \usepackage{minted}
-
-% I get a conflict with the todo stuff in f1000_styles if this is loaded.
-%\usepackage{todo}
-
-\begin{document}
 
 \title{An elaborate data set on human gait and the effect of mechanical
   perturbations}
@@ -37,8 +31,7 @@
   USA, 44115. j.k.moore19@csuohio.edu, s.hnat@vikes.csuohio.edu,
   a.vandenbogert@csuohio.edu}
 
-\maketitle
-\thispagestyle{fancy}
+\keywords{gait, data, perturbation}
 
 \begin{abstract}
 
@@ -57,8 +50,12 @@
   capable of simulating normal periodic gait and non-periodic, perturbed gaits.
 
 \end{abstract}
-\listoftodos[F1000Research review comments] % Ignore until review stage
-\clearpage
+
+\begin{document}
+
+\flushbottom
+\maketitle
+\thispagestyle{empty}
 
 \section*{Introduction}
 %
@@ -83,7 +80,7 @@ Biomechanics has maintained a web page (http://isbweb.org/data) since
 approximately 1995 that includes data sets for download and most unencumbered
 use. Vaughn, et. al's data~\cite{Vaughan1992} with kinematics and force plate
 measurement from several subjects. Chris Kirtley shares normative gait from
-several studies on the CGA Normative Gait Database~\cite{Kirtley} and these
+several studies on the CGA Normative Gait Database~\cite{Kirtley2014} and these
 files have influenced and been included in other studies, for
 example the average gait cycles from children used in~\cite{Bogert2003}.
 
@@ -94,7 +91,7 @@ et. al, recognized the need of a comprehensive data base for clinical gait data
 and created the Gaitabase~\cite{Tirosh2010}.  This database may contain a
 substantial amount of data but it is encumbered by a very complicated and
 restrictive license and sharing scheme. The University of Wisconsin at LaCrosse
-has a normative gait data set~\cite{Wilson} from 25 subjects with lower
+has a normative gait data set~\cite{Wilson2014} from 25 subjects with lower
 extremity marker data and force plate measurements from a single stance phase (TvdB: gait cycle?).
 
 More recent examples of biomechanists sharing their data alongside
@@ -606,7 +603,7 @@ the latest version.
     \verb|mocap-xxx.txt| files and/or the marker map in the \verb|meta-xxx.yml|
     file.}
   \centering
-  \small
+  \footnotesize
   \begin{tabular}{lrlll}
     \toprule
     Set & \# & Label & Name & Description \\
@@ -851,7 +848,6 @@ through the Wright Center for Sensor Systems Engineering (WCSSE).
 \subsection*{Acknowledgments}
 We thank Roman Boychuk and Obinna Nwanna for assistance with the experiments.
 
-{\small\bibliographystyle{unsrt}
-\bibliography{gait-data}}
+\bibliography{gait-data}
 
 \end{document}
