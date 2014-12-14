@@ -615,25 +615,21 @@ information, detailed below:
 
 \subsection*{Markers}
 %
-We make use of the full body 47 marker set described in \cite{Bogert2013}
-and presented in detail in Table \ref{tab:marker-labels}. As with all camera
-based motion capture systems, the markers sometimes go missing in the
-recording.
-
-If the data was recorded in a D-Flow version less than 3.16.2rc4 [3], D-Flow
-records the last non-missing value in all three axes until the marker is
-visible again when a marker goes missing.
-
-In D-Flow versions greater than or equal to 3.16.2rc4 the missing markers are
-indicated in the TSV file as either 0.000000 or -0.000000, which is the same as
-has been in the HBM columns in all versions of D-Flow. The D-Flow version must
-be provided in the meta data yml file, otherwise it will assume D-Flow is at
-the latest version.
-
+We make use of the full body 47 marker set described in \cite{Bogert2013} and
+presented in detail in Table \ref{tab:marker-labels}. As with all camera based
+motion capture systems, the markers sometimes go missing in the recording. When
+a marker goes missing, if the data was recorded in a D-Flow version less than
+3.16.2rc4 [3], D-Flow continues to record the last non-missing value in all
+three axes until the marker is visible again. In D-Flow versions greater than
+or equal to 3.16.2rc4, the missing markers are indicated in the TSV file as
+either \verb|0.000000| or \verb|-0.000000|, which is the same as has been in
+the HBM columns in all versions of D-Flow. The D-Flow version must be provided
+in the meta data yml file for each trial to be able to distinguish this detail.
+%
 \begin{table*}
-  \cprotect\caption{Descriptions of the 47 markers used in this study. The Set
-    column indicates whether the marker exists in the lower and/or full body
-    marker set.  The label column matches the column headers in the
+  \cprotect\caption{Descriptions of the 47 markers used in this study. The
+    ``Set'' column indicates whether the marker exists in the lower and/or full
+    body marker set. The label column matches the column headers in the
     \verb|mocap-xxx.txt| files and/or the marker map in the \verb|meta-xxx.yml|
     file.}
   \centering
