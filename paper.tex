@@ -370,37 +370,36 @@ speeds.
 \section*{Raw Data}
 %
 The raw data consists of a set of ASCII tab delimited text files output from
-both the ``mocap'' and ``record'' modules in D-Flow in addition to a YAML file
-that contains all of the necessary meta data for the given trial. These three
-files are stored in a hierarchy of directories with one trial per directory.
-The directories are named in the following fashion \verb+T001/+ where \verb+T+
-stands for ``trial'' and the following three digits are provide a unique trial
-identification number.
-
-The text file output from the mocap module in D-Flow is a tab delimited file.
-The first line is the header and contains a time stamp column, frame number
-column, marker position columns, force plate force/moment columns, force plate
-center of pressure columns, other analog columns, and potentially results from
-the real time Human Body Model \cite{Bogert2013} which is included with the
-D-Flow software. These are detailed below. The numerical values of the
-measurements are provided in decimal floating point notation with 6 decimals of
-precision, e.g. 123456.123456 [\%1.6f].
+both the ``mocap'' and ``record'' modules in D-Flow in addition to a manually
+generated YAML file that contains all of the necessary meta data for the given
+trial. These three files are stored in a hierarchy of directories with one
+trial per directory. The directories are named in the following fashion
+\verb+T001/+ where \verb+T+ stands for ``trial'' and the following three digits
+are provide a unique trial identification number.
 
 \subsection*{mocap-xxx.txt}
 
 The output from the D-Flow mocap module is stored in a tab delimited file named
 \verb+mocap-xxx.txt+ where \verb+xxx+ represents the trial id number. The file
-contains several columns:
-
+is tab delimited and contains a number of time series. The numerical values of
+the time series are provided in decimal fixed point notation with 6 decimals of
+precision, e.g. \verb|123456.123456|, regardless of the units. The first line
+of the file holds the header. The header includes time stamp column, frame
+number column, marker position columns, force plate force/moment columns, force
+plate center of pressure columns, other analog columns, and potentially results
+from the real time Human Body Model \cite{Bogert2013} which is included with
+D-Flow. The columns are further described below:
+%
 \begin{description}
   \item[TimeStamp] The monotonically increasing computer clock time when D-Flow
-    receives a frame from Cortex. These are approximately at 100 hz and given
-    in seconds.
+    receives a frame from Cortex. These are recorded at approximately at
+    100~\si{\hertz} and given in seconds.
   \item[FrameNumber] Monotonically increasing positive integers that correspond
     to each frame received from Cortex.
   \item[Marker Coordinates] Any column that ends in \verb+.PosX+, \verb+.PosY+,
     or \verb+.PosZ+ are marker coordinates expressed in Cortex's Cartesian
-    reference frame. These values are in meters.
+    reference frame. The prefixes match the marker labels given in
+    Table~\ref{tab:marker-labels}. These values are in meters.
   \item[Ground Reaction Loads] There are three ground reaction forces and three
     ground reaction moments recorded by each of the two force plates in Newtons
     and Newton-Meters, respectively. The prefix for these columns is either
@@ -408,41 +407,43 @@ contains several columns:
     (right). The suffixes are either \verb+.For[XYZ]+, \verb+.Mom[XYZ]+ for the
     forces and moments, respectively. The force plate voltages are sampled at a
     much higher frequency than the cameras, but delivered at the Cortex camera
-    sample rate, 100 Hz through the D-Flow mocap module. A force/moment
-    calibration matrix stored in Cortex converts the voltages to forces and
-    moments before sending it to D-Flow [1]. Cortex also computes the center of
-    pressure from the forces, moments, and force plate dimensions. These have
-    the same prefixes for the plate number, have the suffix \verb+.Cop[XYZ]+,
-    and are in meters.
+    sample rate, \~100~\si{\hertz} through the D-Flow mocap module. A
+    force/moment calibration matrix stored in Cortex converts the voltages to
+    forces and moments before sending it to D-Flow. Cortex also computes
+    the center of pressure from the forces, moments, and force plate
+    dimensions. These have the same prefixes for the plate number, have the
+    suffix \verb+.Cop[XYZ]+, and are given in meters.
   \item[Analog Channels] Several analog signals are recorded under column
     headers \verb+Channel[1-99].Anlg+. These correspond to analog signals
-    sampled by Cortex and correspond to the 96 analog-channel National
-    Instruments 6255 DAQ box. The first twelve are the voltages from the
+    sampled by Cortex and correspond to the 96 analog channels in the National
+    Instruments USB-6255. The first twelve are the voltages from the
     force plate load cells. We also record the acceleration of 4 points on the
-    treadmill base in channels 61-72.  TvdB: are these useful?  If so, we need to
-    provide information on how to process these channels. If not, maybe
-    not mention them at all?
+    treadmill base in analog channels 61-72 that were in place in case inertial
+    compensation for the lateral treadmill movement was required.
 \end{description}
 
 \subsection*{record-xxx.txt}
 %
-The record module also outputs a tab delimited ASCII text file. It includes a
-\verb+Time+ column which records the D-Flow system time in seconds which
-corresponds to the time recorded in the \verb+TimeStamp+ column in mocap module
-tsv file. There are two additional columns \verb+RightBeltSpeed+ and
-\verb+LeftBeltSpeed+ which provide the independent belt speeds measured in
-meters per second by an encoder in the treadmill.
+The record module also outputs a tab delimited ASCII text file with numerical
+values at six decimal digits. It includes a \verb+Time+ column which records
+the D-Flow system time in seconds. This time corresponds to the time recorded
+in the \verb+TimeStamp+ column in mocap module tsv file which is necessary for
+time synchronization. There are two additional columns \verb+RightBeltSpeed+
+and \verb+LeftBeltSpeed+ which provide the independent belt speeds measured in
+meters per second by a factory installed encoder in the treadmill.
 
-Finally, the record module is capable of recording the time at which various
-events occur, as detected or set by D-Flow. It does this by inserting commented
-(\#) lines in between the rows when the event occurred. The record files have
-several events that correspond to the phases of the protocol:
-
+Additionally, the record module is capable of recording the time at which
+various preprogrammed events occur, as detected or set by D-Flow. It does this
+by inserting commented (\verb|#|) lines in between the rows when the event
+occurred. The record files have several events that delineate the different
+phases of the protocol:
+%
 \begin{description}
-  \item[A: Force Plate Zeroing] Marks the time at which there is no load on the
-    force plates and when the voltages were zeroed.
+  \item[A: Force Plate Zeroing] Marks the time at the beginning of the trial at
+    which there is no load on the force plates and when the force plate
+    voltages were zeroed.
   \item[B: Calibration Pose] Marks the time at which the person is in the
-    T-Pose.
+    calibration pose.
   \item[C: First Normal Walking] Marks the time when the treadmill begins Phase
     1: constant belt speed.
   \item[D: Longitudinal Perturbation] Marks the time when the treadmill begins
@@ -464,18 +465,18 @@ identification number. There are three main headings in the file: \verb+study+,
 The \verb+study+ section contains identifying information for the overall
 study, an identification number, name, and description. This is the same for
 all meta data files in the study. Details are given below:
-
+%
 \begin{description}
   \item[id] An integer specifying a unique identification number of the study.
   \item[name] A string giving the name of the study.
   \item[description] A string with a basic description of the study.
 \end{description}
 
-The \verb+subject+ provides key value pairs of information about the subject in
-that trial. Each subject has a unique identification number along with basic
-anthropomorphic data. The following details the possible meta data for the
-subject:
-
+The \verb+subject+ section provides key value pairs of information about the
+subject in that trial. Each subject has a unique identification number along
+with basic anthropomorphic data. The following details the possible meta data
+for the subject:
+%
 \begin{description}
   \item[age] An integer age in years of the subject at the time of the trial.
   \item[ankle-width-left] A float specifying the width of the subjects left
@@ -487,7 +488,7 @@ subject:
   \item[id] An unique identification integer for the subject.
   \item[gender] A string specifying the gender of the subject.
   \item[height] A float specifying the measured height of the subject (with
-    shoes on) at the time of the trial.
+    shoes and hat on) at the time of the trial.
   \item[height-units] A string giving the units of the height measurement.
   \item[knee-width-left] A float specifying the width of the subjects left
     knee.
@@ -502,20 +503,22 @@ subject:
 The \verb+trial+ section contains the information about the particular trial.
 Each trial has a unique identification number along with a variety of other
 information, detailed below:
-
+%
 \begin{description}
   \item[analog-channel-map] A mapping of the strings D-Flow assigns to signals
     emitted from the analog channels of the NI USB-6255 to names the user
     desires.
   \item[cortex-version] The version of Cortex used to record the trial.
-  \item[datetime]A date formatted string giving the date of the trial in the
+  \item[datetime] A date formatted string giving the date of the trial in the
     \verb|YYYY-MM-DD| format.
   \item[dflow-version] The version of D-Flow used to record the trial.
   \item[events] A key value map which prescribes names to the alphabetic events
     recorded in the record file.
   \item[files] A key value mapping of files associated with this trial
     where the key is the D-Flow file type and the value is the path to the file
-    relative to the meta file.
+    relative to the meta file. The compensation file corresponds to an unloaded
+    trial collected on the same day that could be used for inertial
+    compensation purposes, if needed.
   \item[hardware-settings] There are tons of settings for the hardware in both
     D-Flow, Cortex, and the other software in the system. This contains any
     non-default settings.
@@ -531,20 +534,20 @@ information, detailed below:
     the trial, either full, lower, or NA.
   \item[nominal-speed] A float representing the nominal desired treadmill speed
     during the trial.
-  \item[nominal-speed-units] (string) The units of the nominal speed.
+  \item[nominal-speed-units] A string providing the units of the nominal speed.
   \item[notes] Any notes about the trial.
   \item[pitch] A boolean that indicates if the treadmill pitch degree of
     freedom was actuated during the trial.
   \item[stationary-platform] A boolean that indicates whether the treadmill
       sway or pitch motion was actuated during the trial. If this flag is
-      false, the measured ground reaction forces must be compensated for the
+      false, the measured ground reaction loads must be compensated for the
       inertial affects and be expressed in the motion capture reference frame.
   \item[subject-id] An integer corresponding to the subject in the trial.
-  \item[sway] A boolean that indicates if the treadmill lateral (sway) degree
-    of freedom was actuated during the trial.
+  \item[sway] A boolean that indicates if the treadmill lateral degree of
+    freedom was actuated during the trial.
 \end{description}
 
-\begin{listing*}
+\begin{listing}
   \small
   \begin{minted}[gobble=4]{yaml}
     study:
@@ -608,7 +611,7 @@ information, detailed below:
   \caption{A fictitious example of a YAML formatted meta data file. All of the
     possible keys in the data set are shown.}
   \label{lis:example-meta-data}
-\end{listing*}
+\end{listing}
 
 \subsection*{Markers}
 %
