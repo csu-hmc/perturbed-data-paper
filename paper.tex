@@ -20,6 +20,9 @@
 % for nice source code syntax highlighting, also provides Listing env
 \usepackage{minted}
 
+% for nice units
+\usepackage{siunitx}
+
 \title{An elaborate data set on human gait and the effect of mechanical
   perturbations}
 
@@ -178,43 +181,58 @@ in Table~\ref{tab:subjects}.
 
 \section*{Equipment}
 %
-The data were collected in the Laboratory for Human Motion and Control at Cleveland State University,
-using the following equipment:
+The data were collected in the Laboratory for Human Motion and Control at
+Cleveland State University, using the following equipment:
 
 \begin{itemize}
-  \item A ForceLink R-Mill treadmill which has dual 6 degree of freedom force
-    plates, independent belts for each foot, and motion capabilities (lateral,
-    pitch).
-  \item A 10 camera Motion Analysis motion capture system which includes Osprey
-    cameras, the Cortex software (3.1.1.1290), and hardware for collecting
-    analog and camera data simultaneously.
-  \item National Instruments USB-6255 data acquisition unit.
-  \item Four Sparkfun ADXL330 Triple Axis Accelerometer Breakout boards
-    attached to the treadmill.
-  \item Motek Medical’s D-Flow software (3.16.1 to 3.16.2) and visual display
-    system.
+  \item A R-Mill treadmill which has dual 6 degree of freedom force plates,
+    independent belts for each foot, and lateral/pitch motion capabilities
+    (Forcelink, Culemborg, Netherlands).
+  \item A 10 Osprey camera motion capture system paired with the Cortex
+    3.1.1.1290 software (Motion Analysis, Santa Rosa, CA, USA).
+  \item USB-6255 data acquisition unit (National Instruments, Austin, Texas,
+    USA).
+  \item Four ADXL330 Triple Axis Accelerometer Breakout boards attached to the
+    treadmill (Sparkfun, Niwot, Colorado, USA).
+  \item D-Flow software (versions 3.16.1 to 3.16.2) and visual display system,
+    (Motek Medical, Amsterdam, Netherlands).
 \end{itemize}
 
-The Cortex software delivers 3D marker trajectories from the cameras along with
-data from force plates and analog sensors (EMG/Accelerometer) through a
-National Instruments USB-6255 data acquisition unit. D-Flow is required to
-collect data from any digital sensors and to control the treadmill's motion
-(lateral, pitch, and belts). D-Flow can process the data in real time and/or
-export data to file.
+The Cortex software delivers high accuracy 3D marker trajectories from the
+cameras along with data from force plates and analog sensors
+(EMG/Accelerometer) through a National Instruments USB-6255 data acquisition
+unit. D-Flow is required to collect data from any digital sensors and to
+control the treadmill's motion (lateral, pitch, and belts). D-Flow can process
+the data in real time and/or export data to file.
 
 Our motion capture system's coordinate system is such that the X coordinate
 points to the right, the Y coordinate points upwards, and the Z coordinate
-follows from the right-hand-rule, i.e. points backwards with respect to a
-person walking forward on the treadmill. The camera's coordinate system is
-aligned to an origin point on treadmill's surface during camera calibration.
-The same point is used as the origin of the ground reaction force measuring
-system. Figure~\ref{fig:treadmill} shows the layout of the equiptment.
+follows from the right-hand-rule, i.e. points backwards with respect to the
+walking direction. The camera's coordinate system is aligned to an origin point
+on treadmill's surface during camera calibration. The same point is used as the
+origin of the ground reaction force measuring system.
+Figure~\ref{fig:treadmill} shows the layout of the equipment.
 
+Early on, we discovered that the factory setup of the R-Link treadmill had a
+vibration mode as low as 5 Hz that is detectable in the force measurements,
+likely due to the flexible undercarriage and pitch motion mechanism. Trials 6-8
+are affected by this vibration mode. During trials 9-15 the treadmill was
+stabilized with wooden blocks. During, the remaining trials the treadmill was
+stabilized with metal supports. See the Data Limitations Section for more
+details.
+
+The acceleration of the treadmill was measured during each trial by four
+ADXL330 accelerometers placed at the four corners of the machine. These
+accelerometers were intended to provide information for inertial compensation
+purposes when the treadmill moved laterally, but are extraneous for trials
+greater than 8 due to the treadmill being stabilized.
+%
 \begin{figure*}
   \centering
   \includegraphics{figures/treadmill.png}
-  \caption{The treadmill, cameras, projection screen, and saftey rope. The
-    direction of travel is in the $-z$ direction.}
+  \caption{The treadmill with coordinate system, cameras (circled in orange),
+    projection screen, and safety rope. The direction of travel is in the $-z$
+    direction.}
   \label{fig:treadmill}
 \end{figure*}
 
@@ -798,6 +816,9 @@ taken into account when making use of it.
     collected in other studies.
   \item Trials 37, 38, and 39 do not exist. The numbers were accidentally
     skipped.
+  \item  Trials 6-15 force measurements are affected by this and should be not
+    be used. We include the trials because the kinematic data is valid and
+    trials 6-8 include lateral perturbations in addition to the longitudinal.
   \item Trials 9, 10, and 11 used a slightly different event definition where the
     calibration poses were not explicitly tagged by an event, yet the protocol
     was the identical to the following trials.
