@@ -300,79 +300,72 @@ force plate zeroing at the end was also not explicitly recorded.
 
 \section*{Perturbation Signals}
 %
-The data set uses a testing protocol containing a segment of normal walking,
-followed by a series of pseudo-random longitudinal perturbations, and ending
-with a second segment of normal walking. Three pseudo-random speed control
-signals, with mean velocities of 0.8, 1.2, and 1.6 $m \cdot s^{-1}$, were
-generated through MATLAB and Simulink. Initially, a random acceleration signal
-was created using discrete-time Gaussian white noise and saturated at the
-maximum belt acceleration of 15 $m \cdot s^{-2}$, integrated to obtain belt
-speed, and high-pass filtered (second-order Butterworth) to eliminate velocity
-drift. Mean velocity was then added to the signal and limited between 0 and 3.6
-m/s. The cutoff frequencies of the high-pass filter, as well as the variance in
-the acceleration signal, were adjusted until the appropriate standard
-deviations for each mean velocity were obtained.
+As previously described, the protocol included a phase of normal walking,
+followed by longitudinal belt speed perturbations, and ended with a second
+segment of normal walking. Three pseudo-random belt speed control signals, with
+mean velocities of \SIlist{0.8;1.2;1.6}{\meter\per\second}, were pre-generated
+with MATLAB and Simulink (Mathworks, Natick, Massachusetts, USA).  The same
+control signal was used for all trials at that given speed.
 
-These standard deviations were determined through a trial and error method.
-Initially, perturbations of $\pm$ 10\% for each mean velocity were generated.
-However, this large deviation in the slowest mean velocity (0.8 $m \cdot
-s^{-1}$) would unintentionally reduce the treadmill speed to values close to
-zero. This would produce an undesired stopping and starting sensation.
-Alternatively, smaller standard perturbations of $\pm$ 5\% did not produce
-noticeable perturbations in the fastest trial (1.6 $m \cdot s^{-1}$).
-Therefore, standard deviations of 7.16\%, 10.23\%, and 13.1\% were selected for
-the 0.8, 1.2, and 1.6 $m \cdot s^{-1}$ speeds, respectively.  This ensured that
-the test subject was sufficiently perturbed for each speed, while remaining
-within the limits of our testing protocol.
+To create the signals, we started by generating random 100~\si{\hertz}
+acceleration signals using the Simulink discrete-time Gaussian white noise
+block followed by a saturation block set at the maximum belt acceleration of
+15~\si{\meter\per\second\squared}. The signal was then integrated to obtain
+belt speed and high-pass filtered with a second-order Butterworth filter to
+eliminate drift. One of the three mean speeds were then added to the signal and
+limited between \SIrange{0}{3.6}{\meter\per\second}. The cutoff frequencies of
+the high-pass filter, as well as the variance in the acceleration signal, were
+manually adjusted until acceptable standard deviations for each mean speed were
+obtained: \SIlist{0.06;0.12;0.21}{\meter\per\second} for the three speeds,
+respectively. These ensured that the test subjects were sufficiently perturbed
+at each speed, while remaining within the limits of our equipment and testing
+protocol.
 
-To ensure that the treadmill could follow the higher frequencies of the random
-signals, the maximum treadmill acceleration of 15 $m \cdot s^{-2}$ was used in
-the D-Flow Software. As this value remains constant throughout the experiment,
-the initial starting and stopping of the treadmill would be too rapid for test
-subjects. To eliminate this, a ramped acceleration and deceleration was
-generated and placed at the beginning and end of the entire signal,
-respectively. Other additions include the one minute segments of unperturbed
-walking at the beginning and end of the trial and 30 seconds of no movement for
-force plate zeroing and subject T-pose calibration.  The sampling rate of the
-simulation was set to 100 Hz, corresponding to the D-Flow software's
-capabilities.
+To ensure that the treadmill belts could accelerate to the desired values, the
+high performance mode in the D-Flow software was enabled. This had the side
+effect of enabling too rapid of accelerations when the belt speed changed to or
+from zero speed. To eliminate this, a suitable ramped acceleration and
+deceleration were generated for the speed transitions.
 
-The resulting output from the MATLAB script and Simulink produces a comma-
-delimited text file of six columns: time stamp, slow, normal, and fast walking
-perturbation signals, and slow and fast running signals.  These running signals
-were generated in the event the testing protocol expanded from a walking study
-to a running study, though they were not used in the data set.  The actual
-motion of the treadmill belts are compared to the original input signals as
-shown in Figure~\ref{fig:input_output}.   The standard deviations of the
-outputs were calculated at 6.07\%, 9.68\%, and 12.68\% for the 0.8, 1.2,
-and 1.6 $m \cdot s^{-1}$ speeds, respectively.
-
-\begin{figure*}
+The MATLAB script and Simulink model produce a comma-delimited text file of six
+signals: time stamp, slow, normal, and fast walking perturbation signals, and
+slow and fast running signals.~\footnote{The running signals were not used in
+the experiments presented in this paper.} The measured speed of the treadmill
+belts are compared to the control input signals in
+Figure~\ref{fig:input_output} to show the effect of the treadmill and
+controller dynamics. The system introduces a delay and seems to act as a low
+pass filter. The standard deviations of the outputs do not significantly differ
+from the desired values: \SIlist{0.05;0.12;0.2}{\meter\per\second} for the
+three speeds, respectively.
+%
+\begin{figure}
   \centering
   \includegraphics{figures/input_vs_output.pdf}
-  \caption{Treadmill belt velocity input signals (purple) and recorded output
-    velocities (blue) for average belt speeds of 0.8, 1.2, and 1.6 m/s,
-    respectively}
+  \caption{Treadmill belt speed input signals (purple) and recorded output
+    speeds (blue) for average belt speeds of
+    \SIlist{0.8;1.2;1.6}{\meter\per\second}, respectively.}
   \label{fig:input_output}
-\end{figure*}
+\end{figure}
 
-For further analysis, the input and output signals for each average speed were
-transformed into the frequency domain through the Fast Fourier algorithm, and
-the results are shown in Figure~\ref{fig:freq_analysis}. It was observed that
-for the 1.2 $m \cdot s^{-1}$ average walking speed, the amplitude of the output
-is significantly lower than the amplitude of the input signal at lower
-frequencies. Additionally, the amplitude of output signal in the 0.8 $m \cdot
-s^{-1}$ walking speed begins to attenuate around 2 Hz, which is a noticeably
-lower frequency than the other walking speeds.
-
-\begin{figure*}
+To show the effects of the treadmill dynamics and give an idea of the frequency
+content of the actual perturbations, the input and output for each speed were
+transformed into the frequency domain using the Fast Fourier algorithm, and the
+results are shown in Figure~\ref{fig:freq_analysis}. This shows that for the
+1.2~\si{\meter\per\second} walking speed, the amplitude of the output is
+significantly lower than the amplitude of the input signal at lower
+frequencies. Additionally, the amplitude of output signal in the
+0.8~\si{\meter\per\second}  walking speed begins to attenuate around
+2~\si{\hertz}, which is a noticeably lower frequency than the other walking
+speeds.
+%
+\begin{figure}
   \centering
   \includegraphics{figures/frequency_analysis.pdf}
   \caption{Frequency spectrum of the treadmill belt velocity input signal
     (purple) and the recorded output velocity (blue) for average belt speeds of
     0.8, 1.2, and 1.6 m/s, respectively}
   \label{fig:freq_analysis}
-\end{figure*}
+\end{figure}
 
 \section*{Raw Data}
 %
@@ -740,7 +733,7 @@ cleaned data:
 
 An example of the API is given in Listing~\ref{lis:dflowdata}.
 
-\begin{listing*}
+\begin{listing}
   \begin{minted}[gobble=4]{python}
     >>> from gaitanalysis.motek import DFlowData
     >>> data = DFlowData('mocap-020.txt', 'record-020.txt', 'meta-020.yml')
@@ -753,7 +746,7 @@ An example of the API is given in Listing~\ref{lis:dflowdata}.
     data cleaning process, and finally extract a Pandas \verb|DataFrame|
     containing all of the time histories for a specific event in the trial.}
   \label{lis:dflowdata}
-\end{listing*}
+\end{listing}
 
 The \verb|GaitData| class is then used to compute things such as gait landmarks
 (toe off and heel strike times), basic 2D kinematics and inverse dynamics, and to store the
