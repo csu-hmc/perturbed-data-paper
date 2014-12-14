@@ -51,7 +51,7 @@ unique_subjects.rename(columns=dict(zip(cols, new_cols)), inplace=True)
 
 formatters = {'Height [m]': lambda x: 'NA' if np.isnan(x)
               else '{:0.2f}'.format(x),
-              'Mass [kg]': lambda x: 'NA' if np.isnan(x)
+              'Self-reported mass [kg]': lambda x: 'NA' if np.isnan(x)
               else '{:0.0f}'.format(x)}
 
 unique_subjects = unique_subjects.drop_duplicates()
