@@ -227,14 +227,14 @@ accelerometers were intended to provide information for inertial compensation
 purposes when the treadmill moved laterally, but are extraneous for trials
 greater than 8 due to the treadmill being stabilized.
 %
-\begin{figure*}
+\begin{figure}
   \centering
   \includegraphics{figures/treadmill.png}
   \caption{The treadmill with coordinate system, cameras (circled in orange),
     projection screen, and safety rope. The direction of travel is in the $-z$
     direction.}
   \label{fig:treadmill}
-\end{figure*}
+\end{figure}
 
 \section*{Protocol}
 %
@@ -691,54 +691,52 @@ in the meta data yml file for each trial to be able to distinguish this detail.
 \end{table*}
 
 \section*{Processed Data}
-
-We developed a toolkit for data processing, GaitAnalysisToolKit, for common
-gait computations and provide an example processed trial to show the character
-of the data. The tool was developed in Python, is dependent on the SciPy Stack,
-and provides two main classes: one to do basic gait data cleaning,
-\verb|DFlowData|, and a second to compute common gait variables of interest,
-\verb|GaitData|.
+%
+We developed a toolkit for data processing,
+GaitAnalysisToolKit~\cite{GATK2014}, for common gait computations and provide
+an example processed trial to present the nature of the data. The tool was
+developed in Python, is dependent on the SciPy Stack and Octave, and provides
+two main classes: one to do basic gait data cleaning from D-Flow's output
+files, \verb|DFlowData|, and a second to compute common gait variables of
+interest, \verb|GaitData|.
 
 The \verb|DFlowData| class collects and stores all the raw data presented in
 the previous section and applies several ``cleaning'' operations to transform
-the data into a usable form. The cleaning process follows these basic steps:
-
+the data into a usable form. The cleaning process follows these steps:
+%
 \begin{enumerate}
-  \item Loads the meta data file into a Python dictionary.
-  \item Loads the D-Flow mocap module TSV file into Pandas \verb|DataFrame|.
-  \item Relabels the column headers to more meaningful names if this is
+  \item Load the meta data file into a Python dictionary.
+  \item Load the D-Flow mocap module TSV file into Pandas \verb|DataFrame|.
+  \item Relabel the column headers to more meaningful names if this is
     specified in the meta data.
-  \item Optionally identifies the missing values in the mocap marker data and
-    replaces them with \verb|numpy.nan|.
-  \item Optionally interpolates the missing marker values and replaces them
+  \item Optionally identify the missing values in the mocap marker data and
+    replace them with \verb|numpy.nan|.
+  \item Optionally interpolate the missing marker values and replaces them
     with interpolated estimates using a variety of interpolation methods.
-  \item Loads the D-Flow record module TSV file into a Pandas \verb|DataFrame|.
-  \item Extracts the events and creates a dictionary mapping the event names in
+  \item Load the D-Flow record module TSV file into a Pandas \verb|DataFrame|.
+  \item Extract the events and create a dictionary mapping the event names in
     the meta data to the events detected in the record module file.
-  \item Compensates the ground reaction loads based on whether the meta data
-    indicates there was treadmill motion.
-  \item Merges the data from the mocap module and record module into one data
+  \item Interially compensate the ground reaction loads based on whether the
+    meta data indicates there was treadmill motion.
+  \item Merge the data from the mocap module and record module into one data
     frame at the maximum common constant sample rate.
 \end{enumerate}
 
 Once the data is cleaned there are two methods that allow you to extract the
-cleaned data:
-
-\begin{itemize}
-  \item Extract sections of the data bounded by the events recorded in the
-    \verb|record-XXX.txt| file.
-  \item Save the cleaned data to disk.
-\end{itemize}
-
-An example of the API is given in Listing~\ref{lis:dflowdata}.
-
+cleaned data: either extract sections of the data bounded by the events
+recorded in the \verb|record-xxx.txt| file or save the cleaned data to disk.
+These operations are available as a command line application and as an
+application programming interface (API) in Python. An example of the
+\verb|DFlowData| API in use is provided in Listing~\ref{lis:dflowdata}.
+%
 \begin{listing}
   \begin{minted}[gobble=4]{python}
     >>> from gaitanalysis.motek import DFlowData
     >>> data = DFlowData('mocap-020.txt', 'record-020.txt', 'meta-020.yml')
     >>> mass = data.meta['subject']['mass']
     >>> data.clean_data()
-    >>> event_df = dflow_data.extract_processed_data(event='Longitudinal Perturbation')
+    >>> event_df = dflow_data.extract_processed_data(
+    ...     event='Longitudinal Perturbation')
   \end{minted}
   \cprotect\caption{Python interpreter session showing how one could load a
     trial into memory, extract the subject's mass from the meta data, run the
@@ -747,12 +745,14 @@ An example of the API is given in Listing~\ref{lis:dflowdata}.
   \label{lis:dflowdata}
 \end{listing}
 
-The \verb|GaitData| class is then used to compute things such as gait landmarks
-(toe off and heel strike times), basic 2D kinematics and inverse dynamics, and to store the
-data into a Pandas \verb|Panel| with each gait cycle on the main axis at a
-specified sample rate. This data is also saved to disk in HDF5 format.
-
-\begin{listing*}
+The \verb|GaitData| class is then used to compute things such as gait events
+(toe off and heel strike times), basic 2D kinematics and inverse dynamics, and
+to store the data into a Pandas \verb|Panel| with each gait cycle on the item
+axis at a specified sample rate. This object can also be serialized to disk in
+HDF5 format. An example of using the Python API is shown in
+Listing~\ref{lis:gaitdata}.
+%
+\begin{listing}
   \begin{minted}[gobble=4]{python}
     >>> from gaitanalysis.gait import GaitData
     >>> gdata = GaitData(event_df)
@@ -763,40 +763,44 @@ specified sample rate. This data is also saved to disk in HDF5 format.
     >>> gdata.plot_gait_cycles('Left Hip Joint Torque', mean=True)
     >>> gdata.save('gait-data.h5')
   \end{minted}
-  \cprotect\caption{Python interpreter session showing how one could compute
-    the inverse dynamics (joint angles and torques), identify the gait
-    landmarks (e.g. heel strikes), split the data with respect to the gait
-    landmarks in a Pandas \verb|Panel|, plot the mean and standard deviation of
-    one time history with respect to the gait cycles, and save the data to disk.}
-  \label{lis:dflowdata}
-\end{listing*}
+  \cprotect\caption{Python interpreter session showing how one could use the
+    \verb|GaitData| class to load in the result of \verb|DFlowData| and compute
+    the inverse dynamics (joint angles and torques), identify the gait event
+    (e.g. heel strikes), split the data with respect to the gait events in a
+    Pandas \verb|Panel|, plot the mean and standard deviation of one time
+    history with respect to the gait cycles, and save the data to disk.}
+  \label{lis:gaitdata}
+\end{listing}
 
 A similar work flow was used to produce Figure~\ref{fig:angle-torque-comparison}
 which compares the mean and standard deviation of saggital plane joint angles
 and torques from the perturbed gait cycles and the unperturbed gait cycles
-computed from trial 20 for 120 gait cycles. The variation in the dynamics is
-larger for the perturbed gait cycles.
-
-\begin{figure*}
+computed from trial 20. This gives an idea of the more highly variable dynamics
+required to walk while being longitudinally perturbed.
+%
+\begin{figure}
   \centering
   \includegraphics{figures/unperturbed-perturbed-comparison.pdf}
   \cprotect\caption{Mean (right: solid, left: dashed) and $3\sigma$ (shaded)
     joint angles and torques from both unperturbed (purple) and perturbed
-    (blue) gait cycles from trial 20. Produced by \verb|unperturbed_perturbed_comparison.py|.}
+    (blue) gait cycles from trial 20. Produced by
+    \verb|src/unperturbed_perturbed_comparison.py|.}
   \label{fig:angle-torque-comparison}
-\end{figure*}
+\end{figure}
 
-Figure~\ref{fig:gait-cycle-stats-comparison} compares the distribution in a few
-statistics of the unperturbed and perturbed gait cycles.
-
-\begin{figure*}
+For more insight into the difference in the unperturbed and perturbed data,
+Figure~\ref{fig:gait-cycle-stats-comparison} compares the distribution of a few
+gait cycle statistics. One can see that the perturbed strides have a much
+larger variation in frequency and length.
+%
+\begin{figure}
   \centering
   \includegraphics{figures/unperturbed-perturbed-boxplot-comparison.pdf}
   \cprotect\caption{Box plots of the average belt speed, stride frequency, and
-    stride length which compare 120 gait cycles for the unperturbed (purple) and
-    perturbed (blue). Produced by \verb|unperturbed_perturbed_comparison.py|.}
+    stride length which compare gait cycles for the unperturbed (purple) and
+    perturbed (blue). Produced by \verb|src/unperturbed_perturbed_comparison.py|.}
   \label{fig:gait-cycle-stats-comparison}
-\end{figure*}
+\end{figure}
 
 \section*{Data Limitations}
 %
