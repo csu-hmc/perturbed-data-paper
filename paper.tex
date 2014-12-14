@@ -804,51 +804,61 @@ larger variation in frequency and length.
 
 \section*{Data Limitations}
 %
-The data is provided in good faith with great attention to detail. The
-following list gives various notes and warnings about the data that should be
-taken into account when making use of it.
+The data is provided in good faith with great attention to detail but as with
+all data there are anomalies that may affect the use and interpretation of
+results emanating from the data. The following list gives various notes and
+warnings about the data that should be taken into account when making use of
+it.
 %
 \begin{itemize}
   \item Be sure to read the notes in each meta data file for details about
-    possible anomalies in that particular trial.
+    possible anomalies in that particular trial. Things such as marker dropout,
+    ghost markers, and marker movement are the more prominent notes. Details
+    about variations in the equipment on the day of the trial are also
+    mentioned.
   \item The subject identification number 0 stands for "no subject" and was
     used whenever data was collected from the system with no subject on the
     treadmill, for example during the trials that were intended to be used for
-    inertial compensation purposes if the treadmill was moving. These trials
-    play through the exact protocol as those with a human subject and the
-    matching trials are indicated in the meta data. (TvdB: can the user tell
-    which compensation file to use with which subject files?  By the date on
-    the file?)
+    inertial compensation purposes. These trials play through the exact
+    protocol as those with a human subject and the matching trials are
+    indicated in the meta data. Matching unloaded trials were recorded on the
+    same day as the loaded trials and is noted in the
+    \verb|trial:files:compensation| section of the meta data file.
   \item Trials 1 and 2 were not recorded as part of this study. Those trial
     identification numbers were reserved for early data exploration from data
     collected in other studies.
   \item Trials 37, 38, and 39 do not exist. The numbers were accidentally
     skipped.
-  \item  Trials 6-15 force measurements are affected by this and should be not
-    be used. We include the trials because the kinematic data is valid and
-    trials 6-8 include lateral perturbations in addition to the longitudinal.
   \item Trials 9, 10, and 11 used a slightly different event definition where the
     calibration poses were not explicitly tagged by an event, yet the protocol
-    was the identical to the following trials.
+    was the identical to the following trials. The calibration pose will have
+    to be determined manually.
+  \item  Trials 6-15 have force measurements are affected by the treadmill
+    vibration mode mentioned in the equipment section and the forces should be
+    not be used. We include the trials because both the kinematic data is valid
+    and trials 6-8 include lateral perturbations in addition to the
+    longitudinal.
   \item During trials 9-15 we used wooden blocks to fix the treadmill to the
-    concrete floor to eliminate the treadmill's lowest factory vibration mode
+    concrete floor to eliminate the treadmill's low vibration mode
     (~5 hz). But these blocks seem to have corrupted the force plate
     measurements by imposing frictional stresses on the system. The force plate
     measurements should not be used from these trials, but the marker data is
     fine.
-  \item We did not record unloaded compensation trials for trials 9-15.
-    Regardless, they would be useless due to the previous point.
   \item Trials 6-8 use an early experimental protocol which divided the
     perturbation sections into three sections: longitudinal perturbations,
     lateral perturbations, and a combination of each. We then learned the
     treadmill had a low vibrational mode which significantly affects the force
-    plate measurements. The force measurements during these trials are
-    corrupted by this vibrational mode and should be used with caution or not
-    at all.
-  \item Trials 6-8 use a XX lower body marker set only.
+    plate measurements, requiring us to eliminate the lateral perturbation
+    motions. The force measurements during these trials are corrupted by this
+    vibrational mode and should be used with caution or not at all.
+  \item We did not record unloaded compensation trials for trials 9-15.
+    Regardless, they would likely be useless due to the corruption from the
+    wooden blocks.
+  \item Trials 6-8 use a only the lower body marker set. The remaining trials
+    are full body.
   \item The ankle joint torques computed from subject 9's data in trials 25-27
     are abnormal and should be used with caution or not at all. We were not
-    about to locate the source of the error, but it is likely related to the
+    able to locate the source of the error, but it is likely related to the
     force calibration.
 \end{itemize}
 
