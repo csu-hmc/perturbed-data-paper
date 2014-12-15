@@ -6,7 +6,12 @@
 % - Only one space after periods.
 % - Don't worry about formatting details, just get the content in place.
 
-\documentclass[fleqn,10pt]{wlpeerj}
+% 12pt font is recommend for the preprint
+\documentclass[fleqn,12pt]{wlpeerj}
+
+% for the preprint we add line numbers
+\usepackage{lineno}
+\linenumbers
 
 % for images: png, pdf, etc
 \usepackage{graphicx}
@@ -68,37 +73,37 @@ beginning with the first motion pictures and now with modern marker based
 motion capture techniques and high fidelity ground reaction load measurements.
 Even though years of data on thousands of subjects now exist, this data is not
 widely disseminated, well organized, nor available with few or no restrictions.
-David Winter's published normative gait data~\cite{Winter1990} is widely used
+David Winter's published normative gait data, \cite{Winter1990}, is widely used
 in biomechanical studies, yet it comes from relatively few subjects and only a
 small number of gait cycles per subject. This small source has successfully
 inspired many other studies, such as powered prosthetic control
-design~\cite{Sup2008}, but success in other research fields using large sets of
-data for discovery lead one to believe that more elaborate data sets may
+design, \cite{Sup2008}, but success in other research fields using large sets
+of data for discovery lead one to believe that more elaborate data sets may
 benefit the field of human motion studies. To enable such work, biomechanical
-data needs to be shared extensively, organized, and curated to enabled
-future analysts.
+data needs to be shared extensively, organized, and curated to enabled future
+analysts.
 
 There are some notable gait data sets and databases besides Winter's
 authoritative set that are publicly available. The International Society of
 Biomechanics has maintained a web page (http://isbweb.org/data) since
 approximately 1995 that includes data sets for download and mostly unencumbered
-use. For example, Vaughn, et. al's data~\cite{Vaughan1992} with kinematics and
-force plate measurement from several subjects is available on the site. At
-another website, the CGA Normative Gait Database~\cite{Kirtley2014}, Chris
+use. For example, Vaughn, et. al's data, \cite{Vaughan1992}, with kinematics
+and force plate measurement from several subjects is available on the site. At
+another website, the CGA Normative Gait Database, \cite{Kirtley2014}, Chris
 Kirtley shares normative gait data from several studies and these files have
 influenced other studies, for example the average gait cycles from children
-used in~\cite{Bogert2003}.
+used in \cite{Bogert2003}.
 
-Chester et. al~\cite{Chester2007} report on a large gait database comparison
+Chester et. al, \cite{Chester2007}, report on a large gait database comparison
 where one database contained kinematic data of 409 gait cycles of children from
 1 to 7 years old but the data does not seem to be publicly available. This is
 unfortunately typical. But Tirosh et. al, recognized the need for a
 comprehensive data base for clinical gait data and created the
-Gaitabase~\cite{Tirosh2010}. This database may contain a substantial amount of
+Gaitabase, \cite{Tirosh2010}. This database may contain a substantial amount of
 data but it is encumbered by a very complicated and restrictive license and
 sharing scheme. However, there are examples of data with less restrictions. The
 University of Wisconsin at LaCrosse has an easily accessible normative gait
-data set~\cite{Wilson2014} from 25 subjects with lower extremity marker data
+data set, \cite{Willson2014}, from 25 subjects with lower extremity marker data
 from multiple gait cycles and force plate measurements from a single gait
 cycle.
 
@@ -145,7 +150,7 @@ force plates. The protocol for the majority of the trials included two minutes
 of normal walking and eight minutes of walking under the influence of
 pseudo-random belt speed fluctuations. The data has been organized complete
 with rich meta data and made available in the most unrestrictive form for other
-research uses following modern best practices in data sharing~\cite{White2013}.
+research uses following modern best practices in data sharing, \cite{White2013}.
 
 Furthermore, we include a small Apache licensed open source software library
 for basic gait analysis and demonstrate its use in the paper. The combination
@@ -153,7 +158,8 @@ of the open data and open software allow the results presented within to be
 computationally reproducible and instructions are included in the associated
 repository for doing so.
 
-\section*{Participants}
+\section*{Methods}
+\subsection*{Participants}
 %
 Fifteen able bodied subjects including four females and eleven males with an
 average age of $24\pm4$ years, height of $1.75\pm0.09$ m, mass of $74\pm13$ kg
@@ -179,11 +185,11 @@ in Table~\ref{tab:subjects}.
   \label{tab:subjects}
 \end{table*}
 
-\section*{Equipment}
+\subsection*{Equipment}
 %
 The data were collected in the Laboratory for Human Motion and Control at
 Cleveland State University, using the following equipment:
-
+%
 \begin{itemize}
   \item A R-Mill treadmill which has dual 6 degree of freedom force plates,
     independent belts for each foot, and lateral/pitch motion capabilities
@@ -236,7 +242,7 @@ greater than 8 due to the treadmill being stabilized.
   \label{fig:treadmill}
 \end{figure}
 
-\section*{Protocol}
+\subsection*{Protocol}
 %
 The experimental protocol consisted of both static measurements and walking on
 the treadmill for 10 minutes under unperturbed and perturbed conditions. Before
@@ -298,7 +304,7 @@ event marks the beginning of longitudinal perturbations and the ``Both'' event
 marks the beginning of combined longitudinal and lateral perturbations. The
 force plate zeroing at the end was also not explicitly recorded.
 
-\section*{Perturbation Signals}
+\subsection*{Perturbation Signals}
 %
 As previously described, the protocol included a phase of normal walking,
 followed by longitudinal belt speed perturbations, and ended with a second
@@ -366,8 +372,8 @@ speeds.
     0.8, 1.2, and 1.6 m/s, respectively}
   \label{fig:freq_analysis}
 \end{figure}
-
-\section*{Raw Data}
+\section*{Results}
+\subsection*{Raw Data}
 %
 The raw data consists of a set of ASCII tab delimited text files output from
 both the ``mocap'' and ``record'' modules in D-Flow in addition to a manually
@@ -377,7 +383,7 @@ trial per directory. The directories are named in the following fashion
 \verb+T001/+ where \verb+T+ stands for ``trial'' and the following three digits
 are provide a unique trial identification number.
 
-\subsection*{mocap-xxx.txt}
+\subsubsection*{mocap-xxx.txt}
 
 The output from the D-Flow mocap module is stored in a tab delimited file named
 \verb+mocap-xxx.txt+ where \verb+xxx+ represents the trial id number. The file
@@ -422,7 +428,7 @@ D-Flow. The columns are further described below:
     compensation for the lateral treadmill movement was required.
 \end{description}
 
-\subsection*{record-xxx.txt}
+\subsubsection*{record-xxx.txt}
 %
 The record module also outputs a tab delimited ASCII text file with numerical
 values at six decimal digits. It includes a \verb+Time+ column which records
@@ -454,7 +460,7 @@ phases of the protocol:
     plates and the belts are stationary.
 \end{description}
 
-\subsection*{meta-xxx.yml}
+\subsubsection*{meta-xxx.yml}
 
 Each trial directory contains a meta data file in the YAML format named in the
 following style \verb|meta-xxx.yml| where \verb|xxx| is the three digit trial
@@ -690,7 +696,7 @@ in the meta data yml file for each trial to be able to distinguish this detail.
   \label{tab:marker-labels}
 \end{table*}
 
-\section*{Processed Data}
+\subsection*{Processed Data}
 %
 We developed a toolkit for data processing, GaitAnalysisToolKit v0.1.2,
 \cite{Moore2014a}, for common gait computations and provide an example
@@ -802,7 +808,7 @@ larger variation in frequency and length.
   \label{fig:gait-cycle-stats-comparison}
 \end{figure}
 
-\section*{Data Limitations}
+\subsection*{Data Limitations}
 %
 The data is provided in good faith with great attention to detail but as with
 all data there are anomalies that may affect the use and interpretation of
@@ -864,19 +870,15 @@ it.
 
 \section*{Conclusion}
 %
-We have presented the details of what we believe to be a rich and elaborate
-data set of motion and ground reaction loads humans exhibit during both normal
-walking and when recovering from longitudinal perturbations. The data provides
-a very large sample of gait cycles from both unperturbed and perturbed walking
-at three different nominal speeds. The raw data is provided for reuse with
-complete meta data. In addition to the data, we provide software that can
-process the data for both cleaning purposes and to produce typical sagittal
-plane gait variables of interest. The variation of these gait variables and
-statistics are provided to give a high level picture of the character of the
-data. Among other uses, we believe the dataset is ideally suited for control
-identification purposes. Many researchers are working on mathematical models
-for control in gait and this dataset provides both a way to validate these
-models and a source for generating them.
+We have presented a rich and elaborate data set of motion and ground reaction
+loads from human subjects during both normal walking and when recovering from
+longitudinal perturbations. The raw data is provided for reuse with complete
+meta data. In addition to the data, we provide software that can process the
+data for both cleaning purposes and to produce typical sagittal plane gait
+variables of interest. Among other uses, we believe the dataset is ideally
+suited for control identification purposes. Many researchers are working on
+mathematical models for control in gait and this dataset provides both a way to
+validate these models and a source for generating them.
 
 \section*{Data Availability}
 The data set, \cite{Moore2014}, is available via the Zenodo data repository.
