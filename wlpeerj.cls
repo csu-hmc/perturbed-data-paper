@@ -25,10 +25,10 @@
 \RequirePackage{booktabs}
 \RequirePackage{authblk}
 
-\RequirePackage[left=5cm,%
-                right=2cm,%
-                top=2.25cm,%
-                bottom=2.25cm,%
+\RequirePackage[left=2.5cm,%
+                right=2.5cm,%
+                top=2.5cm,%
+                bottom=2.5cm,%
                 headheight=12pt,%
                 letterpaper]{geometry}%
                 
