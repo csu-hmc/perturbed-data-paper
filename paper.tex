@@ -554,7 +554,7 @@ information, detailed below:
 \end{description}
 
 \begin{listing}
-  \small
+  \scriptsize
   \begin{minted}[gobble=4]{yaml}
     study:
        id: 1
@@ -738,7 +738,8 @@ application programming interface (API) in Python. An example of the
 \begin{listing}
   \begin{minted}[gobble=4]{python}
     >>> from gaitanalysis.motek import DFlowData
-    >>> data = DFlowData('mocap-020.txt', 'record-020.txt', 'meta-020.yml')
+    >>> data = DFlowData('mocap-020.txt', 'record-020.txt',
+    ...                  'meta-020.yml')
     >>> mass = data.meta['subject']['mass']
     >>> data.clean_data()
     >>> event_df = dflow_data.extract_processed_data(
@@ -762,8 +763,8 @@ Listing~\ref{lis:gaitdata}.
   \begin{minted}[gobble=4]{python}
     >>> from gaitanalysis.gait import GaitData
     >>> gdata = GaitData(event_df)
-    >>> gdata.inverse_dynamics_2d(left_markers, right_markers, left_loads,
-    ...                           right_loads, mass, 6.0)
+    >>> gdata.inverse_dynamics_2d(left_markers, right_markers,
+    ...                           left_loads, right_loads, mass, 6.0)
     >>> gdata.grf_landmarks('Right Fy', 'Left Fy', threshhold=20.0)
     >>> gdata.split_at('right')
     >>> gdata.plot_gait_cycles('Left Hip Joint Torque', mean=True)
