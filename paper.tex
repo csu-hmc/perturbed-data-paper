@@ -692,13 +692,13 @@ in the meta data yml file for each trial to be able to distinguish this detail.
 
 \section*{Processed Data}
 %
-We developed a toolkit for data processing,
-GaitAnalysisToolKit~\cite{GATK2014}, for common gait computations and provide
-an example processed trial to present the nature of the data. The tool was
-developed in Python, is dependent on the SciPy Stack and Octave, and provides
-two main classes: one to do basic gait data cleaning from D-Flow's output
-files, \verb|DFlowData|, and a second to compute common gait variables of
-interest, \verb|GaitData|.
+We developed a toolkit for data processing, GaitAnalysisToolKit v0.1.2,
+\cite{Moore2014a}, for common gait computations and provide an example
+processed trial to present the nature of the data. The tool was developed in
+Python, is dependent on the SciPy Stack and Octave, and provides two main
+classes: one to do basic gait data cleaning from D-Flow's output files,
+\verb|DFlowData|, and a second to compute common gait variables of interest,
+\verb|GaitData|.
 
 The \verb|DFlowData| class collects and stores all the raw data presented in
 the previous section and applies several ``cleaning'' operations to transform
@@ -878,22 +878,36 @@ identification purposes. Many researchers are working on mathematical models
 for control in gait and this dataset provides both a way to validate these
 models and a source for generating them.
 
-\subsection*{Author contributions}
-A.v.d.B. conceived of the experiments and protocol. J.K.M and S.K.H refined the
-protocol, ran the experiments, and collected the data. J.K.M was the primary
-author of the paper with significant contributions from S.K.H and A.v.d.B. All
-authors were involved in the revision of the draft manuscript and have agreed
-to the final content.
+\section*{Data Availability}
+The data set, \cite{Moore2014}, is available via the Zenodo data repository.
+Two approximately 1.2GB gzipped tar balls contain the data and a \verb|README|
+file with a short description of the contents. The data is released under the
+Creative Commons CC0 license (http://creativecommons.org/about/cc0) following
+best practices for sharing scientific data.
 
-\subsection*{Competing interests}
-The authors have no  financial, personal, or professional competing interests
+\section*{Software Availability}
+The tables and figures in the paper can be reproduced from the source
+repository shared on Github: https://github.com/csu-hmc/perturbed-data-paper.
+Along with the source code in the repository, the computations depend on
+version 0.1.2 of the GaitAnalysisToolKit, \cite{Moore2014a}, which can be
+downloaded from Zenodo or the Python Package Index (http://pypi.python.org).
+
+\section*{Author contributions}
+A.v.d.B. conceived of the experiments and protocol. J.K.M and S.K.H refined the
+protocol, ran the experiments, collected the data, developed the software, and
+analyzed the data. J.K.M was the primary author of the paper with significant
+contributions from S.K.H and A.v.d.B. All authors were involved in the revision
+of the draft manuscript and have agreed to the final content.
+
+\section*{Competing interests}
+The authors have no financial, personal, or professional competing interests
 that could be construed to unduly influence the content of this article.
 
-\subsection*{Grant Information}
+\section*{Grant Information}
 The work was partially funded by the State of Ohio Third Frontier Commission
 through the Wright Center for Sensor Systems Engineering (WCSSE).
 
-\subsection*{Acknowledgments}
+\section*{Acknowledgments}
 We thank Roman Boychuk and Obinna Nwanna for assistance with the experiments.
 
 \bibliography{gait-data}
