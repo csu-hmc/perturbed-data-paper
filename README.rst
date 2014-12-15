@@ -125,12 +125,12 @@ website, for example for 64 bit Linux::
 
 Now create and activate a Conda environment with the main Python dependencies::
 
-   $ conda create -n gait pip numpy=1.9.1 scipy=0.14.0 \
+   $ conda create -n gait python=2.7 pip numpy=1.9.1 scipy=0.14.0 \
      matplotlib=1.4.2 pytables=3.1.1 pandas=0.15.1 pyyaml=3.11 seaborn=0.5.0 \
      pygments=2.0.1
    $ source activate gait
 
-Finally install the remaining dependencies with pip::
+Finally, install the remaining dependencies with pip::
 
    (gait)$ pip install oct2py==2.4.0
    (gait)$ pip install DynamicistToolKit==0.3.5
