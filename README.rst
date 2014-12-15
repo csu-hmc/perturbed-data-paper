@@ -26,10 +26,16 @@ Software
 
 The software used for the analysis is availabe in the ``src`` directory and as
 as an open source Python package developed for this paper. The snapshot of the
-GaitAnalysisToolKit is available via Zenodo:
+GaitAnalysisToolKit_ is available via Zenodo and PyPi:
 
 .. image:: https://zenodo.org/badge/doi/10.5281/zenodo.13159.svg
    :target: http://dx.doi.org/10.5281/zenodo.13159
+
+.. image:: https://pypip.in/version/GaitAnalysisToolKit/badge.svg
+    :target: https://pypi.python.org/pypi/GaitAnalysisToolKit/
+    :alt: Latest Version
+
+.. _GaitAnalysisToolKit: http://github.com/csu-hmc/GaitAnalysisToolKit
 
 License
 =======
