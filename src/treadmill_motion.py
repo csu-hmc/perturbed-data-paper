@@ -61,18 +61,19 @@ ax.set_xlim((0.0, 8.0))
 # Spectogram
 fig, ax = plt.subplots(2)
 ax[0].specgram(belt_speed,
-               NFFT=100,
-               Fs=100,
+               NFFT=1000,
+               Fs=100.0,
                detrend='mean',
                window=window_hanning,
-               noverlap=50)
+               noverlap=500)
+ax[0].set_xlim((0.0, 8.0))
 
 spectrum, freqs, t = specgram(belt_speed,
-                              NFFT=100,
-                              Fs=100,
+                              NFFT=1000,
+                              Fs=100.0,
                               detrend='mean',
                               window=window_hanning,
-                              noverlap=50)
+                              noverlap=500)
 
 amp = spectrum.mean(axis=1)
 ax[1].semilogy(freqs, amp)
