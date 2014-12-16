@@ -184,7 +184,7 @@ directory::
 
 The tables can be generated with::
 
-   (gait)$ python src/subject_tables.py
+   (gait)$ python src/subject_table.py
 
 This can also be performed with a make target::
 
