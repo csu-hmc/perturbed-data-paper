@@ -65,12 +65,14 @@ def trial_file_paths(trials_dir, trial_number):
     return mocap_file_path, record_file_path, meta_file_path
 
 
-def load_data(event, paths, tmp):
+def load_data(trial_num, event, paths, tmp):
     """Loads an event and processes the data, if necessary, from a trial
     into a GaitData object.
 
     Parameters
     ==========
+    trial_num : string
+        Three digit trial number.
     event : string
         A valid event for the given trial.
     paths : list of strings
@@ -86,7 +88,9 @@ def load_data(event, paths, tmp):
 
     """
 
-    file_name = '_'.join([n.lower() for n in event.split(' ')]) + '.h5'
+    parts = [n.lower() for n in event.split(' ')]
+    parts.append(trial_num)
+    file_name = '_'.join(parts) + '.h5'
 
     tmp_data_path = os.path.join(tmp, file_name)
 

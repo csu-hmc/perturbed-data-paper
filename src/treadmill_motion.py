@@ -15,7 +15,8 @@ raw_dir, tmp = utils.config_paths(root_dir)
 trial_number = '020'
 paths = utils.trial_file_paths(raw_dir, trial_number)
 
-gait_data = utils.load_data('Longitudinal Perturbation', paths, tmp)
+gait_data = utils.load_data(trial_number, 'Longitudinal Perturbation',
+                            paths, tmp)
 
 time = gait_data.data.index.values.astype(float)
 belt_speed = gait_data.data['LeftBeltSpeed'].values
