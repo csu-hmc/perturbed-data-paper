@@ -50,7 +50,6 @@ ax.legend(['FFT', 'FFT w. window'])
 plt.grid()
 
 # Periodogram
-
 belt_speed = gait_data.data['LeftBeltSpeed'].values
 f, Pxx = periodogram(belt_speed, fs=100.0, window='hamming', nfft=len(time),
                      detrend='constant')
@@ -76,7 +75,7 @@ spectrum, freqs, t = specgram(belt_speed,
                               noverlap=500)
 
 amp = spectrum.mean(axis=1)
-ax[1].semilogy(freqs, amp)
+ax[1].plot(freqs, amp)
 ax[1].set_xlim((0.0, 8.0))
 
 plt.show()
