@@ -2,8 +2,9 @@ import os
 
 import numpy as np
 import matplotlib.pyplot as plt
-from scipy.signal import hamming
+from scipy.signal import hamming, periodogram
 from scipy.fftpack import fft
+from matplotlib.mlab import specgram, window_hanning
 
 import utils
 
@@ -47,4 +48,34 @@ ax.set_xlim((0.0, 8.0))
 ax.legend(['FFT', 'FFT w. window'])
 
 plt.grid()
+
+# Periodogram
+
+belt_speed = gait_data.data['LeftBeltSpeed'].values
+f, Pxx = periodogram(belt_speed, fs=100.0, window='hamming', nfft=len(time),
+                     detrend='constant')
+fig, ax = plt.subplots()
+ax.semilogy(f, Pxx)
+ax.set_xlim((0.0, 8.0))
+
+# Spectogram
+fig, ax = plt.subplots(2)
+ax[0].specgram(belt_speed,
+               NFFT=100,
+               Fs=100,
+               detrend='mean',
+               window=window_hanning,
+               noverlap=50)
+
+spectrum, freqs, t = specgram(belt_speed,
+                              NFFT=100,
+                              Fs=100,
+                              detrend='mean',
+                              window=window_hanning,
+                              noverlap=50)
+
+amp = spectrum.mean(axis=1)
+ax[1].semilogy(freqs, amp)
+ax[1].set_xlim((0.0, 8.0))
+
 plt.show()
