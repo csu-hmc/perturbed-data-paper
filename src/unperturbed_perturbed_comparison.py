@@ -80,7 +80,7 @@ y_labels = ['Ankle Plantar Flexion',
 fig, axes = plt.subplots(3, 2, sharex=True)
 
 blue = sbn.xkcd_rgb['windows blue']
-purple = sbn.xkcd_rgb['dusty purple']
+red = sbn.xkcd_rgb['pale red']
 
 ppercent = mean_of_perturbed.index.values.astype(float)
 upercent = mean_of_unperturbed['Percent Gait Cycle']
@@ -88,7 +88,7 @@ upercent = mean_of_unperturbed['Percent Gait Cycle']
 con = [lambda x: rad2deg(x), lambda x: x]
 
 for row, angle, torque, y_label in zip(axes, angles, torques, y_labels):
-    for side, linetype in zip(['Right', 'Left'], ['-', '--']):
+    for side, linetype in zip(['Right'], ['-']):
 
         row[0].set_ylabel(y_label)
 
@@ -115,13 +115,13 @@ for row, angle, torque, y_label in zip(axes, angles, torques, y_labels):
                                 (umean - ustd).values,
                                 (umean + ustd).values,
                                 alpha=0.40,
-                                color=purple,
+                                color=red,
                                 label='_nolegend_')
             label = side + ' Perturbed, N = {}'.format(num_perturbed_cycles)
             row[i].plot(ppercent, pmean.values, linetype, color=blue,
                         label=label)
             label = side + ' Unperturbed, N = {}'.format(num_unperturbed_cycles)
-            row[i].plot(upercent, umean.values, linetype, color=purple,
+            row[i].plot(upercent, umean.values, linetype, color=red,
                         label=label)
 
 plt.subplots_adjust(top=0.85)
@@ -156,7 +156,7 @@ for col, ax, unit in zip(columns, axes.flatten(), units):
     ax.set_title('{} {}'.format(col, unit))
     u = unperturbed_gait_cycle_stats[col]
     p = perturbed_gait_data.gait_cycle_stats[col]
-    sbn.boxplot([p.values, u.values], ax=ax, color=[blue, purple],
+    sbn.boxplot([p.values, u.values], ax=ax, color=[blue, red],
                 whis='range',
                 names=['Perturbed\nN = {}'.format(num_perturbed_cycles),
                        'Unperturbed\nN = {}'.format(num_unperturbed_cycles)])
