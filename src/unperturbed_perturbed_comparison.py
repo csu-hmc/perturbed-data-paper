@@ -157,6 +157,7 @@ for col, ax, unit in zip(columns, axes.flatten(), units):
     u = unperturbed_gait_cycle_stats[col]
     p = perturbed_gait_data.gait_cycle_stats[col]
     sbn.boxplot([p.values, u.values], ax=ax, color=[blue, purple],
+                whis='range',
                 names=['Perturbed\nN = {}'.format(num_perturbed_cycles),
                        'Unperturbed\nN = {}'.format(num_unperturbed_cycles)])
 

@@ -80,7 +80,7 @@ inspired many other studies, such as powered prosthetic control
 design, \cite{Sup2008}, but success in other research fields using large sets
 of data for discovery lead one to believe that more elaborate data sets may
 benefit the field of human motion studies. To enable such work, biomechanical
-data needs to be shared extensively, organized, and curated to enabled future
+data needs to be shared extensively, organized, and curated to enable future
 analysts.
 
 There are some notable gait data sets and databases besides Winter's
@@ -89,19 +89,19 @@ Biomechanics has maintained a web page (http://isbweb.org/data) since
 approximately 1995 that includes data sets for download and mostly unencumbered
 use. For example, Vaughn, et. al's data, \cite{Vaughan1992}, with kinematics
 and force plate measurement from several subjects is available on the site. At
-another website, the CGA Normative Gait Database, \cite{Kirtley2014}, Chris
-Kirtley shares normative gait data from several studies and these files have
-influenced other studies, for example the average gait cycles from children
-used in \cite{Bogert2003}.
+another website, the CGA Normative Gait Database, \cite{Kirtley2014} shares
+normative gait data from several studies and these files have influenced other
+studies, for example the average gait cycles from children used in
+\cite{Bogert2003}.
 
-Chester et. al, \cite{Chester2007}, report on a large gait database comparison
-where one database contained kinematic data of 409 gait cycles of children from
-1 to 7 years old but the data does not seem to be publicly available. This is
+\cite{Chester2007} report on a large gait database comparison where one
+database contained kinematic data of 409 gait cycles of children from 1 to 7
+years old but the data does not seem to be publicly available. This is
 unfortunately typical. But Tirosh et. al, recognized the need for a
-comprehensive data base for clinical gait data and created the
-Gaitabase, \cite{Tirosh2010}. This database may contain a substantial amount of
-data but it is encumbered by a very complicated and restrictive license and
-sharing scheme. However, there are examples of data with less restrictions. The
+comprehensive data base for clinical gait data and created the Gaitabase,
+\cite{Tirosh2010}. This database may contain a substantial amount of data but
+it is encumbered by a very complicated and restrictive license and sharing
+scheme. However, there are examples of data with less restrictions. The
 University of Wisconsin at LaCrosse has an easily accessible normative gait
 data set, \cite{Willson2014}, from 25 subjects with lower extremity marker data
 from multiple gait cycles and force plate measurements from a single gait
@@ -223,7 +223,7 @@ Early on, we discovered that the factory setup of the R-Link treadmill had a
 vibration mode as low as 5\si{\hertz} that is detectable in the force measurements,
 likely due to the flexible undercarriage and pitch motion mechanism. Trials 6-8
 are affected by this vibration mode. During trials 9-15 the treadmill was
-stabilized with wooden blocks. During, the remaining trials the treadmill was
+stabilized with wooden blocks. During the remaining trials the treadmill was
 stabilized with metal supports. See the Data Limitations Section for more
 details.
 
@@ -333,16 +333,16 @@ effect of enabling too rapid of accelerations when the belt speed changed to or
 from zero speed. To eliminate this, a suitable ramped acceleration and
 deceleration were generated for the speed transitions.
 
-The MATLAB script and Simulink model produce a comma-delimited text file of six
-signals: time stamp, slow, normal, and fast walking perturbation signals, and
-slow and fast running signals.~\footnote{The running signals were not used in
-the experiments presented in this paper.} The measured speed of the treadmill
-belts are compared to the control input signals in
-Figure~\ref{fig:input_output} to show the effect of the treadmill and
-controller dynamics. The system introduces a delay and seems to act as a low
-pass filter. The standard deviations of the outputs do not significantly differ
-from the desired values: \SIlist{0.05;0.12;0.2}{\meter\per\second} for the
-three speeds, respectively.
+The MATLAB script and Simulink model produce a comma-delimited text file of
+five desired belt speed signals indexed by the time stamp. There are slow, normal,
+and fast walking speeds and slow and fast running speeds.~\footnote{The running
+signals were not used in the experiments presented in this paper.} The measured
+speed of the treadmill belts are compared to these commanded treadmill control
+input signals in Figure~\ref{fig:input_output} to show the effect of the
+treadmill and controller dynamics. The system introduces a delay and seems to
+act as a low pass filter. The standard deviations of the measured speeds do not
+significantly differ from the desired values:
+\SIlist{0.05;0.12;0.2}{\meter\per\second} for the three speeds, respectively.
 %
 \begin{figure}
   \centering
@@ -360,7 +360,7 @@ results are shown in Figure~\ref{fig:freq_analysis}. This shows that for the
 1.2~\si{\meter\per\second} walking speed, the amplitude of the output is
 significantly lower than the amplitude of the input signal at lower
 frequencies. Additionally, the amplitude of output signal in the
-0.8~\si{\meter\per\second}  walking speed begins to attenuate around
+0.8~\si{\meter\per\second} walking speed begins to attenuate around
 2~\si{\hertz}, which is a noticeably lower frequency than the other walking
 speeds.
 %
@@ -804,8 +804,10 @@ larger variation in frequency and length.
   \centering
   \includegraphics{figures/unperturbed-perturbed-boxplot-comparison.pdf}
   \cprotect\caption{Box plots of the average belt speed, stride frequency, and
-    stride length which compare gait cycles for the unperturbed (purple) and
-    perturbed (blue). Produced by \verb|src/unperturbed_perturbed_comparison.py|.}
+    stride length which compare unperturbed (purple) and perturbed (blue) gait
+    cycles. The median is given with the box bounding the first and third
+    quartiles and the whiskers bound the range of the data. Produced by
+    \verb|src/unperturbed_perturbed_comparison.py|.}
   \label{fig:gait-cycle-stats-comparison}
 \end{figure}
 
@@ -847,10 +849,10 @@ it.
     longitudinal.
   \item During trials 9-15 we used wooden blocks to fix the treadmill to the
     concrete floor to eliminate the treadmill's low vibration mode
-    (\~5\si{\hertz}). But these blocks seem to have corrupted the force plate
-    measurements by imposing frictional stresses on the system. The force plate
-    measurements should not be used from these trials, but the marker data is
-    fine.
+    (approximately 5\si{\hertz}). But these blocks seem to have corrupted the
+    force plate measurements by imposing frictional stresses on the system. The
+    force plate measurements should not be used from these trials, but the
+    marker data is fine.
   \item Trials 6-8 use an early experimental protocol which divided the
     perturbation sections into three sections: longitudinal perturbations,
     lateral perturbations, and a combination of each. We then learned the
