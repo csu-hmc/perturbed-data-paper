@@ -354,15 +354,10 @@ significantly differ from the desired values:
 \end{figure}
 
 To show the effects of the treadmill dynamics and give an idea of the frequency
-content of the actual perturbations, the input and output for each speed were
-transformed into the frequency domain using the Fast Fourier algorithm, and the
-results are shown in Figure~\ref{fig:freq_analysis}. This shows that for the
-1.2~\si{\meter\per\second} walking speed, the amplitude of the output is
-significantly lower than the amplitude of the input signal at lower
-frequencies. Additionally, the amplitude of output signal in the
-0.8~\si{\meter\per\second} walking speed begins to attenuate around
-2~\si{\hertz}, which is a noticeably lower frequency than the other walking
-speeds.
+content of the actual perturbations, spectral density plots were created 
+by averaging a spectrogram over twenty seconds in the Hamming window, shown 
+in Figure~\ref{fig:freq_analysis}. For all speeds, the frequency content of the
+commanded and measured belt speeds were noticeably similar.  
 %
 \begin{figure}
   \centering

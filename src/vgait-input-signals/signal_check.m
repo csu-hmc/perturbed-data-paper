@@ -32,6 +32,7 @@ clc
     ti = get(gca,'TightInset');
     set(gca,'Position',[ti(1) ti(2) 1-ti(3)-ti(1) 1-ti(4)-ti(2)]);
     set(gca,'units','centimeters')
+    %set(gca,'Fontsize',10)
     pos = get(gca,'Position');
     ti = get(gca,'TightInset');
     set(gcf, 'PaperUnits','centimeters');
@@ -41,16 +42,16 @@ clc
 
     figure(1)
         subplot(3,1,1)
-        plot(time_input, inputs(:,1),'Color',[0.5098 0.3725 0.5294])
+        plot(time_input, inputs(:,1),'Color',[0.815 0.3294 0.3020])
         hold on
         plot(output_slow_time, output_slow,'Color',[0.2157 0.4706 0.7490])
-        legend('Input','Output')
+        legend('Commanded','Measured')
         xlim([305 310]); 
         ylabel('Speed (m/s)','Fontweight','bold')
         title('Slow Walking (0.8 m/s)','Fontweight','bold')
     
         subplot(3,1,2)
-        plot(time_input, inputs(:,2),'Color',[0.5098 0.3725 0.5294])
+        plot(time_input, inputs(:,2),'Color',[0.815 0.3294 0.3020])
         hold on
         plot(output_normal_time, output_normal,'Color',[0.2157 0.4706 0.7490])
         ylabel('Speed (m/s)','Fontweight','bold')
@@ -58,7 +59,7 @@ clc
         title('Normal Walking (1.2 m/s)','Fontweight','bold')
     
         subplot(3,1,3)
-        plot(time_input,inputs(:,3),'Color',[0.5098 0.3725 0.5294])
+        plot(time_input,inputs(:,3),'Color',[0.815 0.3294 0.3020])
         hold on
         plot(output_fast_time,output_fast,'Color',[0.2157 0.4706 0.7490])
         ylabel('Speed (m/s)','Fontweight','bold')
@@ -66,4 +67,4 @@ clc
         title('Fast Walking (1.6 m/s)','Fontweight','bold')
         
         h=figure(1);
-        saveas(h,'input_vs_output.pdf');
+        saveas(h,'input_vs_output.pdf')
