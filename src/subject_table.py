@@ -74,8 +74,7 @@ unique_subjects['mass'] = measured['Mass']
 # for each subject who has an NA for the measured mass, replace that with
 # the self reported mass and an asterik
 na_idx = unique_subjects['mass'].isnull()
-unique_subjects['mass'][na_idx] = \
-    unique_subjects['self-reported mass'][na_idx].astype(str)
+unique_subjects['mass'][na_idx] = unique_subjects['self-reported mass'][na_idx]
 
 # Make nicer column names.
 cols = ['id', 'gender', 'age', 'height', 'mass', '0.8 m/s', '1.2 m/s',
@@ -86,7 +85,8 @@ unique_subjects.rename(columns=dict(zip(cols, new_cols)), inplace=True)
 
 
 formatters = {'Height [m]': lambda x: 'NA' if np.isnan(x)
-              else '{:0.2f}'.format(x)}
+              else '{:0.2f}'.format(x),
+              'Mass [kg]': lambda x: '{:0.0f}'.format(x) if isinstance(x, float) else x}
 
 table_dir = os.path.join(root_dir, 'tables')
 if not os.path.exists(table_dir):
