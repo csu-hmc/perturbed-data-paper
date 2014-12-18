@@ -62,9 +62,9 @@ clc
             titles={'Slow Walking (0.8 m/s)','Normal Walking (1.2 m/s)','Fast Walking (1.6 m/s)'};
             figure(1)
                 subplot(speeds,1,i)
-                semilogy(f_input,p_input_mean,'Color',[0.5098 0.3725 0.5294])
+                semilogy(f_input,p_input_mean,'Color',[0.815 0.3294 0.3020])
                 hold on
-                semilogy(f_output,p_output_mean,'Color',[0.815 0.3294 0.3020])
+                semilogy(f_output,p_output_mean,'Color',[0.2157 0.4706 0.7490])
                 ylabel('PSD (v^2/Hz)')
                 xlim([0 8]); ylim([10^-5 10^0])
                 title(titles{i})
