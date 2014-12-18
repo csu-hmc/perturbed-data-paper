@@ -42,7 +42,7 @@ for (subject_id, speed), trial_ids in grouped_by_id_speed.groups.items():
 
 # This reduces down to individual subjects indexed by id.
 unique_subjects = subject_df.drop_duplicates()
-unique_subjects.index = unique_subjects['id']
+unique_subjects.index = unique_subjects['id'].astype(int)
 
 for speed, trials in trials_per.items():
     speed_key = '{:1.1f} m/s'.format(speed)
@@ -51,6 +51,7 @@ for speed, trials in trials_per.items():
 unique_subjects.rename(columns={'mass': 'self-reported mass'}, inplace=True)
 
 unique_subjects = unique_subjects.drop_duplicates()
+subject_zero_trials = unique_subjects.loc[0, :][['0.8 m/s', '1.2 m/s', '1.6 m/s']]  # trial lists for subject 0
 unique_subjects = unique_subjects.drop(0)  # remove null subject
 
 # This computes the measured value of the mass from force plate data from
@@ -101,4 +102,22 @@ tex = tex.replace('plusminus', '\pm')
 tex = tex.replace('rlrrllll', 'rlrrrrrr')
 with open(table_path, 'w') as f:
     f.write(tex)
+print('Table at: {}'.format(table_path))
+
+# This creates a table of the calibration trials.
+table = (r'\begin{tabular}{rr}' '\n'
+          r'\toprule' '\n'
+          r'Speed & Trial Numbers \\' '\n'
+          r'\midrule' '\n')
+for i, trials in enumerate(subject_zero_trials):
+    speed = subject_zero_trials.index[i]
+    table += r'{} & {} \\'.format(speed, trials)
+    table += '\n'
+table += (r'\bottomrule' '\n' r'\end{tabular}')
+
+table_path = os.path.join(table_dir, 'compensation_trials.tex')
+
+with open(table_path, 'w') as f:
+    f.write(table)
+
 print('Table at: {}'.format(table_path))
