@@ -11,8 +11,8 @@ clc
 %-------------------------------------------------------------------------
 %Declaring Variables
 %-------------------------------------------------------------------------
-    time_input=0:0.0033:round(input_signals(end,1));
-    new_time=0:0.01:round(time_input(end)); 
+    time_input=0:0.0033:round(input_signals(end,1));     %Create new input time to eliminate repeated values from original file
+    new_time=0:0.01:round(time_input(end));         
     output_slow_time=output_slow(:,1)-output_slow(1,1); 
     output_normal_time=output_normal(:,1)-output_normal(1,1);
     output_fast_time=output_fast(:,1)-output_fast(1,1);
@@ -64,14 +64,14 @@ clc
             titles={'Slow Walking (0.8 m/s)','Normal Walking (1.2 m/s)','Fast Walking (1.6 m/s)'};
             figure(1)
                 subplot(speeds,1,i)
-                plot(f_input,p_input_mean,'Color',[0.5098 0.3725 0.5294])
+                semilogy(f_input,p_input_mean,'Color',[0.5098 0.3725 0.5294])
                 hold on
-                plot(f_output,p_output_mean,'Color',[0.815 0.3294 0.3020])
+                semilogy(f_output,p_output_mean,'Color',[0.815 0.3294 0.3020])
                 ylabel('PSD (v^2/Hz)')
                 xlim([0 8])
                 title(titles{i})
                 if i==1
-                    legend('Commanded','Measured')
+                    legend('Commanded','Measured','Location','southeast')
                 end
                 if i==3
                     xlabel('Frequency (Hz)');
