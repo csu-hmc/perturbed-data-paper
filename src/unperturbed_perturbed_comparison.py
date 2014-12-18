@@ -88,41 +88,42 @@ upercent = mean_of_unperturbed['Percent Gait Cycle']
 con = [lambda x: rad2deg(x), lambda x: x]
 
 for row, angle, torque, y_label in zip(axes, angles, torques, y_labels):
-    for side, linetype in zip(['Right'], ['-']):
+    side = 'Right'
+    linetype = '-'
 
-        row[0].set_ylabel(y_label)
+    row[0].set_ylabel(y_label)
 
-        for i, col in enumerate([angle, torque]):
+    for i, col in enumerate([angle, torque]):
 
-            col_name = side + '.' + col
+        col_name = side + '.' + col
 
-            sigma_mul = 3.0
+        sigma_mul = 3.0
 
-            pmean = con[i](mean_of_perturbed[col_name])
-            pstd = sigma_mul * con[i](std_of_perturbed[col_name])
+        pmean = con[i](mean_of_perturbed[col_name])
+        pstd = sigma_mul * con[i](std_of_perturbed[col_name])
 
-            umean = con[i](mean_of_unperturbed[col_name])
-            ustd = sigma_mul * con[i](std_of_unperturbed[col_name])
+        umean = con[i](mean_of_unperturbed[col_name])
+        ustd = sigma_mul * con[i](std_of_unperturbed[col_name])
 
-            row[i].fill_between(ppercent,
-                                (pmean - pstd).values,
-                                (pmean + pstd).values,
-                                alpha=0.25,
-                                color=blue,
-                                label='_nolegend_')
+        row[i].fill_between(ppercent,
+                            (pmean - pstd).values,
+                            (pmean + pstd).values,
+                            alpha=0.25,
+                            color=blue,
+                            label='_nolegend_')
 
-            row[i].fill_between(upercent,
-                                (umean - ustd).values,
-                                (umean + ustd).values,
-                                alpha=0.40,
-                                color=red,
-                                label='_nolegend_')
-            label = side + ' Perturbed, N = {}'.format(num_perturbed_cycles)
-            row[i].plot(ppercent, pmean.values, linetype, color=blue,
-                        label=label)
-            label = side + ' Unperturbed, N = {}'.format(num_unperturbed_cycles)
-            row[i].plot(upercent, umean.values, linetype, color=red,
-                        label=label)
+        row[i].fill_between(upercent,
+                            (umean - ustd).values,
+                            (umean + ustd).values,
+                            alpha=0.40,
+                            color=red,
+                            label='_nolegend_')
+        label = 'Perturbed, N = {}'.format(num_perturbed_cycles)
+        row[i].plot(ppercent, pmean.values, linetype, color=blue,
+                    label=label)
+        label = 'Unperturbed, N = {}'.format(num_unperturbed_cycles)
+        row[i].plot(upercent, umean.values, linetype, color=red,
+                    label=label)
 
 plt.subplots_adjust(top=0.85)
 
@@ -132,7 +133,7 @@ axes[-1, 0].xaxis.set_major_formatter(_percent_formatter)
 axes[-1, 1].xaxis.set_major_formatter(_percent_formatter)
 axes[-1, 0].set_xlabel('Percent Right Gait Cycle')
 axes[-1, 1].set_xlabel('Percent Right Gait Cycle')
-axes[0, 0].legend(loc='upper left', ncol=2, bbox_to_anchor=(0.15, 1.75))
+axes[0, 0].legend(loc='upper left', ncol=2, bbox_to_anchor=(0.30, 1.65))
 
 fig_dir = os.path.join(root_dir, 'figures')
 if not os.path.exists(fig_dir):
