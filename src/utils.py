@@ -249,7 +249,6 @@ def measured_subject_mass(raw_data_dir, processed_data_dir):
         self reported mass, and indexed by subject id.
 
     """
-
     # Subject 0 is for the null subject. For subject 1 we use the self
     # reported value because there is no "Calibration Pose" event. For
     # subject 11 and subject 4, we use the self reported mass because the
@@ -281,6 +280,9 @@ def measured_subject_mass(raw_data_dir, processed_data_dir):
 
     tmp_file_name = '_'.join(event.lower().split(' ')) + '.h5'
     tmp_data_path = os.path.join(processed_data_dir, tmp_file_name)
+
+    if not os.path.exists(processed_data_dir):
+        os.makedirs(processed_data_dir)
 
     subject_data = defaultdict(list)
 
@@ -337,9 +339,9 @@ def measured_subject_mass(raw_data_dir, processed_data_dir):
 
             subject_data['Trial Number'].append(trial_number)
             subject_data['Subject ID'].append(dflow_data.meta['subject']['id'])
-            subject_data['Reported Mass'].append(reported_mass)
-            subject_data['Measured Mass'].append(actual_mass)
-            subject_data['Standard Deviation'].append(std)
+            subject_data['Self Reported Mass'].append(reported_mass)
+            subject_data['Mean Measured Mass'].append(actual_mass)
+            subject_data['Measured Mass Std. Dev.'].append(std)
             subject_data['Gender'].append(dflow_data.meta['subject']['gender'])
 
             print("Measured mass: {} kg".format(actual_mass))
@@ -356,7 +358,7 @@ def measured_subject_mass(raw_data_dir, processed_data_dir):
 
     mean = grouped.mean()
 
-    mean['Diff'] = mean['Measured Mass'] - mean['Reported Mass']
+    mean['Diff'] = mean['Mean Measured Mass'] - mean['Self Reported Mass']
 
     # This sets the grouped standard deviation to the correct value
     # following uncertainty propagation for the mean function.
@@ -364,6 +366,7 @@ def measured_subject_mass(raw_data_dir, processed_data_dir):
     def uncert(x):
         return np.sqrt(np.sum(x**2) / len(x))
 
-    mean['Standard Deviation'] = grouped.agg({'Standard Deviation': uncert})
+    mean['Measured Mass Std. Dev.'] = \
+        grouped.agg({'Measured Mass Std. Dev.': uncert})
 
     return mean
