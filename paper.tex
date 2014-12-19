@@ -848,39 +848,36 @@ it.
   \item Trials 1 and 2 were not recorded as part of this study. Those trial
     identification numbers were reserved for early data exploration from data
     collected in other studies.
-  \item Trials 37, 38, and 39 do not exist. The numbers were accidentally
-    skipped.
+  \item Trials 6-8 use a only the lower body marker set. The remaining trials
+    are full body.
+  \item Trials 6-8 use an early experimental protocol which divided the
+    perturbation sections into three sections: longitudinal perturbations,
+    lateral perturbations, and a combination of each. The calibration pose and
+    zeroing are present in the data but not identified explicitly by an event.
+  \item  Trials 6-8's force measurements are affected by the treadmill
+    vibration mode mentioned in the equipment section and the force plate data
+    should not be used. We include the trials because both the kinematic data
+    is valid and it includes lateral perturbations in addition to the
+    longitudinal.
   \item Trials 9, 10, and 11 used a slightly different event definition where the
     calibration poses were not explicitly tagged by an event, yet the protocol
     was identical to the following trials. The calibration pose will have to be
     determined manually.
-  \item  Trials 6-15 have force measurements are affected by the treadmill
-    vibration mode mentioned in the equipment section and the forces should be
-    not be used. We include the trials because both the kinematic data is valid
-    and trials 6-8 include lateral perturbations in addition to the
-    longitudinal.
-  \item During trials 9-15 we used wooden blocks to fix the treadmill to the
+  \item During trials 9-15, we used wooden blocks to fix the treadmill to the
     concrete floor to eliminate the treadmill's low vibration mode
     (approximately 5\si{\hertz}). But these blocks seem to have corrupted the
     force plate measurements by imposing frictional stresses on the system. The
     force plate measurements should not be used from these trials, but the
     marker data is fine.
-  \item Trials 6-8 use an early experimental protocol which divided the
-    perturbation sections into three sections: longitudinal perturbations,
-    lateral perturbations, and a combination of each. We then learned the
-    treadmill had a low vibrational mode which significantly affects the force
-    plate measurements, requiring us to eliminate the lateral perturbation
-    motions. The force measurements during these trials are corrupted by this
-    vibrational mode and should be used with caution or not at all.
   \item We did not record unloaded compensation trials for trials 9-15.
     Regardless, they would likely be useless due to the corruption from the
     wooden blocks.
-  \item Trials 6-8 use a only the lower body marker set. The remaining trials
-    are full body.
   \item The ankle joint torques computed from subject 9's data in trials 25-27
     are abnormal and should be used with caution or not at all. We were not
     able to locate the source of the error, but it is likely related to the
     force calibration.
+  \item Trials 37, 38, and 39 do not exist. The numbers were accidentally
+    skipped.
 \end{itemize}
 
 \section*{Conclusion}
