@@ -48,7 +48,7 @@
   of normal walking and 480 seconds of walking while being longitudinally
   perturbed during each stance phase with pseudo-random fluctuations in the
   speed of the treadmill belt. A total of approximately 1.5 hours of normal
-  walking ($>5000$ gait cycles) and 6 hours of perturbed walking ($>20,000$
+  walking ($>$~5000 gait cycles) and 6 hours of perturbed walking ($>$~20,000
   gait cycles) is included in the data set. We provide full body marker
   trajectories and ground reaction loads in addition to a presentation of
   processed data that includes gait events, 2D joint angles, angular rates, and
@@ -74,59 +74,56 @@ motion capture techniques and high fidelity ground reaction load measurements.
 Even though years of data on thousands of subjects now exist, this data is not
 widely disseminated, well organized, nor available with few or no restrictions.
 David Winter's published normative gait data, \cite{Winter1990}, is widely used
-in biomechanical studies, yet it comes from relatively few subjects and only a
-small number of gait cycles per subject. This small source has successfully
-inspired many other studies, such as powered prosthetic control
-design, \cite{Sup2008}, but success in other research fields using large sets
-of data for discovery lead one to believe that more elaborate data sets may
-benefit the field of human motion studies. To enable such work, biomechanical
-data needs to be shared extensively, organized, and curated to enable future
-analysts.
+in biomechanical studies, yet it comes from few subjects and only a small
+number of gait cycles per subject. This small source has successfully enabled
+many other studies, such as powered prosthetic control design, \cite{Sup2008},
+but success in other research fields using large sets of data for discovery
+lead one to believe that more elaborate data sets may benefit the field of
+human motion studies. To enable such work, biomechanical data needs to be
+shared extensively, organized, and curated to enable future analysts.
 
 There are some notable gait data sets and databases besides Winter's
 authoritative set that are publicly available. The International Society of
 Biomechanics has maintained a web page (http://isbweb.org/data) since
 approximately 1995 that includes data sets for download and mostly unencumbered
-use. For example, Vaughn, et. al's data, \cite{Vaughan1992}, with kinematics
-and force plate measurement from several subjects is available on the site. At
-another website, the CGA Normative Gait Database, \cite{Kirtley2014} shares
-normative gait data from several studies and these files have influenced other
-studies, for example the average gait cycles from children used in
-\cite{Bogert2003}.
+use. For example, the kinematic and force plate measurements from several
+subjects from \cite{Vaughan1992} is available on the site. At another website,
+the CGA Normative Gait Database, \cite{Kirtley2014} shares normative gait data
+from several studies and these files have influenced other studies, for example
+the average gait cycles from children used in \cite{Bogert2003}.
 
 \cite{Chester2007} report on a large gait database comparison where one
 database contained kinematic data of 409 gait cycles of children from 1 to 7
-years old but the data does not seem to be publicly available. This is
-unfortunately typical. But Tirosh et. al, recognized the need for a
-comprehensive data base for clinical gait data and created the Gaitabase,
-\cite{Tirosh2010}. This database may contain a substantial amount of data but
-it is encumbered by a very complicated and restrictive license and sharing
-scheme. However, there are examples of data with less restrictions. The
-University of Wisconsin at LaCrosse has an easily accessible normative gait
-data set, \cite{Willson2014}, from 25 subjects with lower extremity marker data
-from multiple gait cycles and force plate measurements from a single gait
-cycle.
+years old but the data does not seem to be publicly available. This is,
+unfortunately, typical. Tirosh et. al, recognized the need for a comprehensive
+data base for clinical gait data and created the Gaitabase, \cite{Tirosh2010}.
+This database may contain a substantial amount of data but it is encumbered by
+a complicated and restrictive license and sharing scheme. However, there
+are examples of data with less restrictions. The University of Wisconsin at
+LaCrosse has an easily accessible normative gait data set, \cite{Willson2014},
+from 25 subjects with lower extremity marker data from multiple gait cycles and
+force plate measurements from a single gait cycle.
 
 More recent examples of biomechanists sharing their data alongside publications
 are: \cite{Bogert2013} which includes full body joint kinematics and kinetics
-from eleven subjects walking for a small number of gait cycles and
-\cite{Wang2014} who includes a larger set of data from ten subjects walking for
-five minutes each at three different speeds but only a small set of lower
-extremity markers are present. The second is notable because it publishes the
-data in Dryad, a modern citable data repository.
+from eleven subjects walking on an instrumented treadmill and \cite{Wang2014}
+who includes a larger set of data from ten subjects walking for five minutes
+each at three different speeds but only a small set of lower extremity markers
+are present. The second is notable because it publishes the data in Dryad, a
+modern citable data repository.
 
-The publicly available gait data is small compared to the number of gait
-studies that have been performed over the years. The data that is available
-generally suffers from limitations such as few subjects, few gait cycles, few
-markers, highly clinical, no raw data, limited force plate measurements, lack
-of meta data, non-standard formats, and restrictive licensing. To help with
-this situation we are making the data we collected for our research purposes
-publicly available and free of the previously mentioned deficiencies. Not only
-do we provide a larger set of normative gait data that has been previously
-available, we also include an even larger set of data in which the subject is
-being perturbed, something that does not currently exist. We believe both of
-these sets of data can serve a variety of use cases and hope that we can save
-time and effort for future researchers by sharing it.
+The amount of publicly available gait data is small compared to the number of
+gait studies that have been performed over the years. The data that is
+available generally suffers from limitations such as few subjects, few gait
+cycles, few markers, highly clinical, no raw data, limited force plate
+measurements, lack of meta data, non-standard formats, and restrictive
+licensing. To help with this situation we are making the data we collected for
+our research purposes publicly available and free of the previously mentioned
+deficiencies. Not only do we provide a larger set of normative gait data that
+has been previously available, we also include an even larger set of data in
+which the subject is being perturbed, something that does not currently exist.
+We believe both of these sets of data can serve a variety of use cases and hope
+that we can save time and effort for future researchers by sharing it.
 
 Our use case for the data is centered around the need of bio-inspired control
 systems for emerging powered prosthetics and orthotics. Ideally, a powered
@@ -171,31 +168,19 @@ assigned to each subject. A selection of the meta data collected for each
 subject is shown in Table~\ref{tab:subjects}.
 %
 \begin{table}
-  \cprotect\caption{Information about the 15 participants. The final three
-    columns provide the trial numbers associated with each nominal treadmill
-    speed. The measured mass is computed from the mean total vertical ground
-    reaction force just after the calibration pose event, if possible. If the
-    mass is reported without an accompanying standard deviation, it is the
-    subject's self-reported mass. Additional trials found in the data set with
-    a subject identification number 0 are trials with no subject, i.e.
+  \cprotect\caption{Information about the 15 study participants. The final
+    three columns provide the trial numbers associated with each nominal
+    treadmill speed. The measured mass is computed from the mean total vertical
+    ground reaction force just after the calibration pose event, if possible.
+    If the mass is reported without an accompanying standard deviation, it is
+    the subject's self-reported mass. Additional trials found in the data set
+    with a subject identification number 0 are trials with no subject, i.e.
     unloaded trials that can be used for inertial compensation purposes, and
-    are not shown in the table. Generated
-    by \verb|src/subject_table.py|.}
+    are not shown in the table. Generated by \verb|src/subject_table.py|.}
   \centering
   \small
   \input{tables/subjects.tex}
   \label{tab:subjects}
-\end{table}
-%
-\begin{table}
-  \cprotect\caption{A list of unloaded trials collected for each speed. Each
-    loaded trial includes a compensation file listed in its meta data which
-    matches it to these unloaded trials. Generated by
-    \verb|src/subject_table.py|.}
-  \centering
-  \small
-  \input{tables/compensation_trials.tex}
-  \label{tab:comptrials}
 \end{table}
 
 \subsection*{Equipment}
@@ -243,8 +228,9 @@ details.
 The acceleration of the treadmill was measured during each trial by four
 ADXL330 accelerometers placed at the four corners of the machine. These
 accelerometers were intended to provide information for inertial compensation
-purposes when the treadmill moved laterally, but are extraneous for trials
-greater than 8 due to the treadmill being stabilized.
+purposes when the treadmill moved laterally or in pitch, but are extraneous for
+trials greater than number 8 due to the treadmill being stabilized in those
+degrees of freedom.
 %
 \begin{figure}
   \centering
@@ -259,22 +245,17 @@ greater than 8 due to the treadmill being stabilized.
 %
 The experimental protocol consisted of both static measurements and walking on
 the treadmill for 10 minutes under unperturbed and perturbed conditions. Before
-a set of trials on the same day the following happened:
-%
-\begin{itemize}
-  \item Calibration of the motion capture system using the manufacturer's
-    recommended procedure.
-  \item Subject changes into athletic shoes, shorts, sports bra, baseball
-    cap, and rock climbing harness.
-  \item All 47 markers are applied directly to the skin except for the heel,
-    toe, and head markers, which were placed on the respective article of
-    clothing.~\footnote{The sacrum and rear pelvic markers may have been placed
-    on the shorts for a small number of the subjects}.
-  \item Subjects self-reported age, gender, and mass.
-  \item Height was measured by the experimentalist.
-  \item Four reference photographs (front, back, right, left) were taken of
-    subject's marker locations.
-\end{itemize}
+a set of trials on the same day, the motion capture system was calibrated using
+the manufacturer's recommended procedure. Before each subject's gait data were
+collected, the subject changed into athletic shoes, shorts, a sports bra,
+a baseball cap, and a rock climbing harness. All 47 markers were applied
+directly to the skin at the landmarks noted in Table~\ref{tab:marker-labels}
+except for the heel, toe, and head markers, which were placed on the respective
+article of clothing.~\footnote{The sacrum and rear pelvic markers may have been
+placed on the shorts for a small number of the subjects.} Then the subject
+self-reported their age, gender, and mass. Finally, their height was measured
+by the experimentalist and four reference photographs (front, back, right,
+left) were taken of subject's marker locations.
 
 After obtaining informed consent and a briefing by the experimentalist on the
 trial protocol, the subject followed the verbal instructions of the
@@ -350,10 +331,11 @@ The MATLAB script and Simulink model produce a comma-delimited text file of
 five desired belt speed signals indexed by the time stamp. There are slow, normal,
 and fast walking speeds and slow and fast running speeds.~\footnote{The running
 signals were not used in the experiments presented in this paper.} The measured
-speed of the treadmill belts are compared to these commanded treadmill control
-input signals in Figure~\ref{fig:input_output} to show the effect of the
-treadmill and controller dynamics. The system introduces a delay and seems to
-act as a low pass filter. The standard deviations of the measured speeds do not
+speed of the treadmill belts from unloaded trials (79, 80, 81) are compared to
+these commanded treadmill control input signals in
+Figure~\ref{fig:input_output} to show the effect of the treadmill and
+controller dynamics. The system introduces a delay and seems to act as a low
+pass filter. The standard deviations of the measured speeds do not
 significantly differ from the desired values:
 \SIlist{0.05;0.12;0.2}{\meter\per\second} for the three speeds, respectively.
 %
@@ -367,10 +349,11 @@ significantly differ from the desired values:
 \end{figure}
 
 To show the effects of the treadmill dynamics and give an idea of the frequency
-content of the actual perturbations, spectral density plots were created 
-by averaging a spectrogram over twenty seconds in the Hamming window, shown 
+content of the actual perturbations, spectral density plots were created
+by averaging a spectrogram of twenty second Hamming window, shown
 in Figure~\ref{fig:freq_analysis}. For all speeds, the frequency content of the
-commanded and measured belt speeds were noticeably similar.  
+commanded and measured time series show similarity below 4~\si{\hertz} and
+attenuation in the measured spectral density above 4~\si{\hertz}.
 %
 \begin{figure}
   \centering
@@ -380,6 +363,30 @@ commanded and measured belt speeds were noticeably similar.
     0.8, 1.2, and 1.6 m/s, respectively}
   \label{fig:freq_analysis}
 \end{figure}
+
+When belt speed is not constant, the inertia of the rollers and motor will
+induce error in the force plate $x$ axis moment, and hence, the
+anterior-posterior coordinate ($z$ axis) of the center of pressure that is
+measured by the instrumentation in the treadmill. If needed, this error can be
+compensated by a linear model as shown by \cite{Hnat2014}. The model
+coefficients can be identified from the unloaded trials given in
+Table~\ref{tab:comptrials}. The error due to inertia is random and does not
+affect the averaged joint moments presented in
+Figure~\ref{fig:angle-torque-comparison}. Compensation should, however, be done
+if joint moments from individual gait cycles are of interest rather than the
+ensemble average.
+%
+\begin{table}
+  \cprotect\caption{A list of unloaded trials collected for each speed. Each
+    loaded trial includes a compensation file listed in its meta data which
+    matches it to these unloaded trials. Generated by
+    \verb|src/subject_table.py|.}
+  \centering
+  \small
+  \input{tables/compensation_trials.tex}
+  \label{tab:comptrials}
+\end{table}
+
 \section*{Results}
 \subsection*{Raw Data}
 %
@@ -392,22 +399,21 @@ trial per directory. The directories are named in the following fashion
 are provide a unique trial identification number.
 
 \subsubsection*{mocap-xxx.txt}
-
-The output from the D-Flow mocap module is stored in a tab delimited file named
-\verb+mocap-xxx.txt+ where \verb+xxx+ represents the trial id number. The file
-is tab delimited and contains a number of time series. The numerical values of
-the time series are provided in decimal fixed point notation with 6 decimals of
+%
+The output from the D-Flow mocap module is stored in a tab separated value
+(TSV) file named \verb+mocap-xxx.txt+ where \verb+xxx+ represents the trial id
+number. The file contains a number of time series. The numerical values of the
+time series are provided in decimal fixed point notation with 6 decimals of
 precision, e.g. \verb|123456.123456|, regardless of the units. The first line
 of the file holds the header. The header includes time stamp column, frame
 number column, marker position columns, force plate force/moment columns, force
-plate center of pressure columns, other analog columns, and potentially results
-from the real time Human Body Model \cite{Bogert2013} which is included with
-D-Flow. The columns are further described below:
+plate center of pressure columns, and other analog columns. The columns are
+further described below:
 %
 \begin{description}
   \item[TimeStamp] The monotonically increasing computer clock time when D-Flow
-    receives a frame from Cortex. These are recorded at approximately at
-    100~\si{\hertz} and given in seconds.
+    receives a frame from Cortex. These are recorded approximately at
+    100~\si{\hertz} sampling rate and given in seconds.
   \item[FrameNumber] Monotonically increasing positive integers that correspond
     to each frame received from Cortex.
   \item[Marker Coordinates] Any column that ends in \verb+.PosX+, \verb+.PosY+,
@@ -423,7 +429,7 @@ D-Flow. The columns are further described below:
     much higher frequency than the cameras, but delivered at the Cortex camera
     sample rate, \~100~\si{\hertz} through the D-Flow mocap module. A
     force/moment calibration matrix stored in Cortex converts the voltages to
-    forces and moments before sending it to D-Flow. Cortex also computes
+    forces and moments before sending it to D-Flow. The software also computes
     the center of pressure from the forces, moments, and force plate
     dimensions. These have the same prefixes for the plate number, have the
     suffix \verb+.Cop[XYZ]+, and are given in meters.
@@ -441,7 +447,7 @@ D-Flow. The columns are further described below:
 The record module also outputs a tab delimited ASCII text file with numerical
 values at six decimal digits. It includes a \verb+Time+ column which records
 the D-Flow system time in seconds. This time corresponds to the time recorded
-in the \verb+TimeStamp+ column in mocap module tsv file which is necessary for
+in the \verb+TimeStamp+ column in mocap module TSV file which is necessary for
 time synchronization. There are two additional columns \verb+RightBeltSpeed+
 and \verb+LeftBeltSpeed+ which provide the independent belt speeds measured in
 meters per second by a factory installed encoder in the treadmill.
@@ -633,12 +639,11 @@ We make use of the full body 47 marker set described in \cite{Bogert2013} and
 presented in detail in Table \ref{tab:marker-labels}. As with all camera based
 motion capture systems, the markers sometimes go missing in the recording. When
 a marker goes missing, if the data was recorded in a D-Flow version less than
-3.16.2rc4 [3], D-Flow continues to record the last non-missing value in all
+3.16.2rc4, D-Flow continues to record the last non-missing value in all
 three axes until the marker is visible again. In D-Flow versions greater than
 or equal to 3.16.2rc4, the missing markers are indicated in the TSV file as
-either \verb|0.000000| or \verb|-0.000000|, which is the same as has been in
-the HBM columns in all versions of D-Flow. The D-Flow version must be provided
-in the meta data yml file for each trial to be able to distinguish this detail.
+either \verb|0.000000| or \verb|-0.000000|. The D-Flow version must be provided
+in the meta data YAML file to be able to distinguish this detail.
 %
 \begin{table*}
   \cprotect\caption{Descriptions of the 47 markers used in this study. The
@@ -647,7 +652,7 @@ in the meta data yml file for each trial to be able to distinguish this detail.
     \verb|mocap-xxx.txt| files and/or the marker map in the \verb|meta-xxx.yml|
     file.}
   \centering
-  \footnotesize
+  \scriptsize
   \begin{tabular}{lrlll}
     \toprule
     Set & \# & Label & Name & Description \\
@@ -709,10 +714,10 @@ in the meta data yml file for each trial to be able to distinguish this detail.
 We developed a toolkit for data processing, GaitAnalysisToolKit v0.1.2,
 \cite{Moore2014a}, for common gait computations and provide an example
 processed trial to present the nature of the data. The tool was developed in
-Python, is dependent on the SciPy Stack and Octave, and provides two main
-classes: one to do basic gait data cleaning from D-Flow's output files,
-\verb|DFlowData|, and a second to compute common gait variables of interest,
-\verb|GaitData|.
+Python, is dependent on the SciPy Stack (NumPy, SciPy, matplotlib, Pandas, etc)
+and Octave, and provides two main classes: one to do basic gait data cleaning
+from D-Flow's output files, \verb|DFlowData|, and a second to compute common
+gait variables of interest, \verb|GaitData|.
 
 The \verb|DFlowData| class collects and stores all the raw data presented in
 the previous section and applies several ``cleaning'' operations to transform
@@ -736,8 +741,8 @@ the data into a usable form. The cleaning process follows these steps:
     frame at the maximum common constant sample rate.
 \end{enumerate}
 
-Once the data is cleaned there are two methods that allow you to extract the
-cleaned data: either extract sections of the data bounded by the events
+Once the data is cleaned there are two methods that allow the user to extract
+the cleaned data: either extract sections of the data bounded by the events
 recorded in the \verb|record-xxx.txt| file or save the cleaned data to disk.
 These operations are available as a command line application and as an
 application programming interface (API) in Python. An example of the
@@ -760,12 +765,11 @@ application programming interface (API) in Python. An example of the
   \label{lis:dflowdata}
 \end{listing}
 
-The \verb|GaitData| class is then used to compute things such as gait events
-(toe off and heel strike times), basic 2D kinematics and inverse dynamics, and
-to store the data into a Pandas \verb|Panel| with each gait cycle on the item
-axis at a specified sample rate. This object can also be serialized to disk in
-HDF5 format. An example of using the Python API is shown in
-Listing~\ref{lis:gaitdata}.
+The \verb|GaitData| class is then used to compute gait events (toe off and heel
+strike times), basic 2D kinematics and inverse dynamics, and to store the data
+into a Pandas \verb|Panel| with each gait cycle on the item axis at a specified
+sampling rate. This object can also be serialized to disk in HDF5 format. An
+example of using the Python API is shown in Listing~\ref{lis:gaitdata}.
 %
 \begin{listing}
   \begin{minted}[gobble=4]{python}
@@ -892,6 +896,7 @@ mathematical models for control in gait and this dataset provides both a way to
 validate these models and a source for generating them.
 
 \section*{Data Availability}
+%
 The data set, \cite{Moore2014}, is available via the Zenodo data repository.
 Two approximately 1.2GB gzipped tar balls contain the data and a \verb|README|
 file with a short description of the contents. The data is released under the
@@ -899,7 +904,8 @@ Creative Commons CC0 license (http://creativecommons.org/about/cc0) following
 best practices for sharing scientific data.
 
 \section*{Software Availability}
-The tables and figures in the paper can be reproduced from the source
+%
+The tables, figures, and the paper can be reproduced from the source
 repository shared on Github: https://github.com/csu-hmc/perturbed-data-paper.
 Along with the source code in the repository, the computations depend on
 version 0.1.2 of the GaitAnalysisToolKit, \cite{Moore2014a}, which can be
