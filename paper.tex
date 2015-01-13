@@ -722,10 +722,12 @@ information, detailed below:
 We developed a toolkit for data processing, GaitAnalysisToolKit v0.1.2,
 \cite{Moore2014a}, for common gait computations and provide an example
 processed trial to present the nature of the data. The tool was developed in
-Python, is dependent on the SciPy Stack (NumPy, SciPy, matplotlib, Pandas, etc)
-and Octave, and provides two main classes: one to do basic gait data cleaning
-from D-Flow's output files, \verb|DFlowData|, and a second to compute common
-gait variables of interest, \verb|GaitData|.
+Python, is dependent on the SciPy Stack [NumPy~\citep{Walt2011},
+SciPy~\citep{Jones2001}, matplotlib~\citep{Hunter2007},
+Pandas~\citep{McKinney2010}, etc] and Octave~\citep{Octave2014}, and provides
+two main classes: one to do basic gait data cleaning from D-Flow's output
+files, \verb|DFlowData|, and a second to compute common gait variables of
+interest, \verb|GaitData|.
 
 The \verb|DFlowData| class collects and stores all the raw data presented in
 the previous section and applies several ``cleaning'' operations to transform
