@@ -156,6 +156,11 @@ computationally reproducible and instructions are included in the associated
 repository for doing so.
 
 \section*{Methods}
+%
+In this section, we describe our experimental design beginning with
+descriptions of the participants and equipment. This is then followed by the
+protocol details and specifics on the perturbation design.
+
 \subsection*{Participants}
 %
 Fifteen able bodied subjects including four females and eleven males with an
@@ -342,8 +347,8 @@ significantly differ from the desired values:
 \begin{figure}
   \centering
   \includegraphics{figures/input_vs_output.pdf}
-  \caption{Treadmill belt speed input signals (purple) and recorded output
-    speeds (blue) for average belt speeds of
+  \caption{Commanded treadmill belt speed (red) and the recorded
+    speed (blue) for average belt speeds of
     \SIlist{0.8;1.2;1.6}{\meter\per\second}, respectively.}
   \label{fig:input_output}
 \end{figure}
@@ -358,9 +363,9 @@ attenuation in the measured spectral density above 4~\si{\hertz}.
 \begin{figure}
   \centering
   \includegraphics{figures/frequency_analysis.pdf}
-  \caption{Frequency spectrum of the treadmill belt velocity input signal
-    (purple) and the recorded output velocity (blue) for average belt speeds of
-    0.8, 1.2, and 1.6 m/s, respectively}
+  \caption{Power spectral density of the commanded treadmill belt speed
+    (red) and the recorded speed (blue) for average belt speeds of
+    \SIlist{0.8;1.2;1.6}{\meter\per\second}, respectively}
   \label{fig:freq_analysis}
 \end{figure}
 
@@ -388,6 +393,11 @@ ensemble average.
 \end{table}
 
 \section*{Results}
+%
+Here we present some basic results. We first provide a detailed description of
+the raw data followed by an overview of several computed variables that give an
+idea of the characteristics of both the unperturbed and perturbed gait.
+
 \subsection*{Raw Data}
 %
 The raw data consists of a set of ASCII tab delimited text files output from
@@ -442,6 +452,80 @@ further described below:
     compensation for the lateral treadmill movement was required.
 \end{description}
 
+We make use of the full body 47 marker set described in \cite{Bogert2013} and
+presented in detail in Table \ref{tab:marker-labels}. As with all camera based
+motion capture systems, the markers sometimes go missing in the recording. When
+a marker goes missing, if the data was recorded in a D-Flow version less than
+3.16.2rc4, D-Flow continues to record the last non-missing value in all
+three axes until the marker is visible again. In D-Flow versions greater than
+or equal to 3.16.2rc4, the missing markers are indicated in the TSV file as
+either \verb|0.000000| or \verb|-0.000000|. The D-Flow version must be provided
+in the meta data YAML file to be able to distinguish this detail.
+%
+\begin{table*}
+  \cprotect\caption{Descriptions of the 47 markers used in this study. The
+    ``Set'' column indicates whether the marker exists in the lower and/or full
+    body marker set. The label column matches the column headers in the
+    \verb|mocap-xxx.txt| files and/or the marker map in the \verb|meta-xxx.yml|
+    file.}
+  \centering
+  \scriptsize
+  \begin{tabular}{lrlll}
+    \toprule
+    Set & \# & Label & Name & Description \\
+    \midrule
+    F   & 1  & LHEAD & Left head                             & Just above the ear, in the middle. \\
+    F   & 2  & THEAD & Top head                              & On top of the head, in line with the LHEAD and RHEAD. \\
+    F   & 3  & RHEAD & Right head                            & Just above the ear, in the middle. \\
+    F   & 4  & FHEAD & Forehead                              & Between line LHEAD/RHEAD and THEAD a bit right from center. \\
+    L/F & 5  & C7    & C7                                    & On the 7th cervical vertebrae. \\
+    L/F & 6  & T10   & T10                                   & On the 10th thoracic vertbrae. \\
+    L/F & 7  & SACR  & Sacrum bone                           & On the sacral bone. \\
+    L/F & 8  & NAVE  & Navel                                 & On the navel. \\
+    L/F & 9  & XYPH  & Xiphoid process                       & Xiphoid process of the sternum. \\
+    F   & 10 & STRN  & Sternum                               & On the jugular notch of the sternum. \\
+    F   & 11 & BBAC  & Scapula                               & On the inferior angle fo the right scapular. \\
+    F   & 12 & LSHO  & Left shoulder                         & Left acromion. \\
+    F   & 13 & LDELT & Left deltoid muscle                   & Apex of the deltoid muscle. \\
+    F   & 14 & LLEE  & Left lateral elbow                    & Left lateral epicondyle of the elbow. Upper one in the T-Pose. \\
+    F   & 15 & LMEE  & Left medial elbow                     & Left medial epicondyle of the elbow. Lower on in the T-Pose. \\
+    F   & 16 & LFRM  & Left forearm                          & On 2/3 on the line between the LLEE and LMW. \\
+    F   & 17 & LMW   & Left medial wrist                     & On styloid process radius, thumb side. \\
+    F   & 18 & LLW   & Left lateral wrist                    & On styloid process ulna, pinky side. \\
+    F   & 19 & LFIN  & Left fingers                          & Center of the hand. Caput metatarsal 3. \\
+    F   & 20 & RSHO  & Right shoulder                        & Right acromion. \\
+    F   & 21 & RDELT & Right deltoid muscle                  & Apex of deltoid muscle. \\
+    F   & 22 & RLEE  & Right lateral elbow                   & Right lateral epicondyle of the elbow. Lower one in the T-pose. \\
+    F   & 23 & RMEE  & Right medial elbow                    & Right medial epicondyle of the elbow. Lower one in the T-pose. \\
+    F   & 24 & RFRM  & Right forearm                         & On 1/3 on the line between the RLEE and RMW. \\
+    F   & 25 & RMW   & Right medial wrist                    & On styloid process radius, thumb side. \\
+    F   & 26 & RLW   & Right lateral wrist                   & On styloid process ulna, pinky side. \\
+    F   & 27 & RFIN  & Right fingers                         & Center of the hand. Caput metatarsal 3. \\
+    L/F & 28 & LASIS & Pelvic bone left front                & Left anterior superior iliac spine. \\
+    L/F & 29 & RASIS & Pelvic bone right front               & Right anterior superior iliac spine. \\
+    L/F & 30 & LPSIS & Pelvic bone left back                 & Left posterior superio iliac spine. \\
+    L/F & 31 & RPSIS & Pelvic bone right back                & Right posterior superior iliac spine. \\
+    L/F & 32 & LGTRO & Left greater trochanter of the femur  & On the cetner of the left greater trochanter. \\
+    L/F & 33 & FLTHI & Left thigh                            & On 1/3 on the line between the LFTRO and LLEK. \\
+    L/F & 34 & LLEK  & Left lateral epicondyle of the knee   & On the lateral side of the joint axis. \\
+    L/F & 35 & LATI  & Left anterior of the tibia            & On 2/3 on the line between the LLEK and LLM. \\
+    L/F & 36 & LLM   & Left lateral malleoulus of the ankle  & The center of the heel at the same height as the toe. \\
+    L/F & 37 & LHEE  & Left heel                             & Center of the heel at the same height as the toe. \\
+    L/F & 38 & LTOE  & Left toe                              & Tip of big toe. \\
+    L/F & 39 & LMT5  & Left 5th metatarsal                   & Caput of the 5th metatarsal bone, on joint line midfoot/toes. \\
+    L/F & 40 & RGTRO & Right greater trochanter of the femur & On the cetner of the right greater trochanter. \\
+    L/F & 41 & FRTHI & Right thigh                           & On 2/3 on the line between the RFTRO and RLEK. \\
+    L/F & 42 & RLEK  & Right lateral epicondyle of the knee  & On the lateral side of the joint axis. \\
+    L/F & 43 & RATI  & Right anterior of the tibia           & On 1/3 on the line between the RLEK and RLM. \\
+    L/F & 44 & RLM   & Right lateral malleoulus of the ankle & The center of the heel at the same height as the toe. \\
+    L/F & 45 & RHEE  & Right heel                            & Center of the heel at the same height as the toe. \\
+    L/F & 46 & RTOE  & Right toe                             & Tip of big toe. \\
+    L/F & 47 & RMT5  & Right 5th metatarsal                  & Caput of the 5th metatarsal bone, on joint line midfoot/toes. \\
+    \bottomrule
+  \end{tabular}
+  \label{tab:marker-labels}
+\end{table*}
+
 \subsubsection*{record-xxx.txt}
 %
 The record module also outputs a tab delimited ASCII text file with numerical
@@ -479,8 +563,8 @@ phases of the protocol:
 Each trial directory contains a meta data file in the YAML format named in the
 following style \verb|meta-xxx.yml| where \verb|xxx| is the three digit trial
 identification number. There are three main headings in the file: \verb+study+,
-\verb+subject+, and \verb+trial+. An example meta data file is shown in Listing
-\ref{lis:example-meta-data}.
+\verb+subject+, and \verb+trial+. An example meta data file is shown in
+Listing~\ref{lis:example-meta-data}.
 
 The \verb+study+ section contains identifying information for the overall
 study, an identification number, name, and description. This is the same for
@@ -633,82 +717,6 @@ information, detailed below:
   \label{lis:example-meta-data}
 \end{listing}
 
-\subsection*{Markers}
-%
-We make use of the full body 47 marker set described in \cite{Bogert2013} and
-presented in detail in Table \ref{tab:marker-labels}. As with all camera based
-motion capture systems, the markers sometimes go missing in the recording. When
-a marker goes missing, if the data was recorded in a D-Flow version less than
-3.16.2rc4, D-Flow continues to record the last non-missing value in all
-three axes until the marker is visible again. In D-Flow versions greater than
-or equal to 3.16.2rc4, the missing markers are indicated in the TSV file as
-either \verb|0.000000| or \verb|-0.000000|. The D-Flow version must be provided
-in the meta data YAML file to be able to distinguish this detail.
-%
-\begin{table*}
-  \cprotect\caption{Descriptions of the 47 markers used in this study. The
-    ``Set'' column indicates whether the marker exists in the lower and/or full
-    body marker set. The label column matches the column headers in the
-    \verb|mocap-xxx.txt| files and/or the marker map in the \verb|meta-xxx.yml|
-    file.}
-  \centering
-  \scriptsize
-  \begin{tabular}{lrlll}
-    \toprule
-    Set & \# & Label & Name & Description \\
-    \midrule
-    F   & 1  & LHEAD & Left head                             & Just above the ear, in the middle. \\
-    F   & 2  & THEAD & Top head                              & On top of the head, in line with the LHEAD and RHEAD. \\
-    F   & 3  & RHEAD & Right head                            & Just above the ear, in the middle. \\
-    F   & 4  & FHEAD & Forehead                              & Between line LHEAD/RHEAD and THEAD a bit right from center. \\
-    L/F & 5  & C7    & C7                                    & On the 7th cervical vertebrae. \\
-    L/F & 6  & T10   & T10                                   & On the 10th thoracic vertbrae. \\
-    L/F & 7  & SACR  & Sacrum bone                           & On the sacral bone. \\
-    L/F & 8  & NAVE  & Navel                                 & On the navel. \\
-    L/F & 9  & XYPH  & Xiphoid process                       & Xiphoid process of the sternum. \\
-    F   & 10 & STRN  & Sternum                               & On the jugular notch of the sternum. \\
-    F   & 11 & BBAC  & Scapula                               & On the inferior angle fo the right scapular. \\
-    F   & 12 & LSHO  & Left shoulder                         & Left acromion. \\
-    F   & 13 & LDELT & Left deltoid muscle                   & Apex of the deltoid muscle. \\
-    F   & 14 & LLEE  & Left lateral elbow                    & Left lateral epicondyle of the elbow. Upper one in the T-Pose. \\
-    F   & 15 & LMEE  & Left medial elbow                     & Left medial epicondyle of the elbow. Lower on in the T-Pose. \\
-    F   & 16 & LFRM  & Left forearm                          & On 2/3 on the line between the LLEE and LMW. \\
-    F   & 17 & LMW   & Left medial wrist                     & On styloid process radius, thumb side. \\
-    F   & 18 & LLW   & Left lateral wrist                    & On styloid process ulna, pinky side. \\
-    F   & 19 & LFIN  & Left fingers                          & Center of the hand. Caput metatarsal 3. \\
-    F   & 20 & RSHO  & Right shoulder                        & Right acromion. \\
-    F   & 21 & RDELT & Right deltoid muscle                  & Apex of deltoid muscle. \\
-    F   & 22 & RLEE  & Right lateral elbow                   & Right lateral epicondyle of the elbow. Lower one in the T-pose. \\
-    F   & 23 & RMEE  & Right medial elbow                    & Right medial epicondyle of the elbow. Lower one in the T-pose. \\
-    F   & 24 & RFRM  & Right forearm                         & On 1/3 on the line between the RLEE and RMW. \\
-    F   & 25 & RMW   & Right medial wrist                    & On styloid process radius, thumb side. \\
-    F   & 26 & RLW   & Right lateral wrist                   & On styloid process ulna, pinky side. \\
-    F   & 27 & RFIN  & Right fingers                         & Center of the hand. Caput metatarsal 3. \\
-    L/F & 28 & LASIS & Pelvic bone left front                & Left anterior superior iliac spine. \\
-    L/F & 29 & RASIS & Pelvic bone right front               & Right anterior superior iliac spine. \\
-    L/F & 30 & LPSIS & Pelvic bone left back                 & Left posterior superio iliac spine. \\
-    L/F & 31 & RPSIS & Pelvic bone right back                & Right posterior superior iliac spine. \\
-    L/F & 32 & LGTRO & Left greater trochanter of the femur  & On the cetner of the left greater trochanter. \\
-    L/F & 33 & FLTHI & Left thigh                            & On 1/3 on the line between the LFTRO and LLEK. \\
-    L/F & 34 & LLEK  & Left lateral epicondyle of the knee   & On the lateral side of the joint axis. \\
-    L/F & 35 & LATI  & Left anterior of the tibia            & On 2/3 on the line between the LLEK and LLM. \\
-    L/F & 36 & LLM   & Left lateral malleoulus of the ankle  & The center of the heel at the same height as the toe. \\
-    L/F & 37 & LHEE  & Left heel                             & Center of the heel at the same height as the toe. \\
-    L/F & 38 & LTOE  & Left toe                              & Tip of big toe. \\
-    L/F & 39 & LMT5  & Left 5th metatarsal                   & Caput of the 5th metatarsal bone, on joint line midfoot/toes. \\
-    L/F & 40 & RGTRO & Right greater trochanter of the femur & On the cetner of the right greater trochanter. \\
-    L/F & 41 & FRTHI & Right thigh                           & On 2/3 on the line between the RFTRO and RLEK. \\
-    L/F & 42 & RLEK  & Right lateral epicondyle of the knee  & On the lateral side of the joint axis. \\
-    L/F & 43 & RATI  & Right anterior of the tibia           & On 1/3 on the line between the RLEK and RLM. \\
-    L/F & 44 & RLM   & Right lateral malleoulus of the ankle & The center of the heel at the same height as the toe. \\
-    L/F & 45 & RHEE  & Right heel                            & Center of the heel at the same height as the toe. \\
-    L/F & 46 & RTOE  & Right toe                             & Tip of big toe. \\
-    L/F & 47 & RMT5  & Right 5th metatarsal                  & Caput of the 5th metatarsal bone, on joint line midfoot/toes. \\
-    \bottomrule
-  \end{tabular}
-  \label{tab:marker-labels}
-\end{table*}
-
 \subsection*{Processed Data}
 %
 We developed a toolkit for data processing, GaitAnalysisToolKit v0.1.2,
@@ -815,7 +823,7 @@ larger variation in frequency and length.
   \centering
   \includegraphics{figures/unperturbed-perturbed-boxplot-comparison.pdf}
   \cprotect\caption{Box plots of the average belt speed, stride frequency, and
-    stride length which compare unperturbed (purple) and perturbed (blue) gait
+    stride length which compare unperturbed (red) and perturbed (blue) gait
     cycles. The median is given with the box bounding the first and third
     quartiles and the whiskers bound the range of the data. Produced by
     \verb|src/unperturbed_perturbed_comparison.py|.}
