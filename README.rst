@@ -139,8 +139,8 @@ provided by each of the following software packages for your operating system.
   management of Python packages.
 - Various Python packages: pip, numpy 1.9.1, scipy 0.14.0, matplotlib 1.4.2,
   pytables 3.1.1, pandas 0.15.1, pyyaml 3.11, seaborn 0.5.0, pygments 2.0.1,
-  oct2py 2.4.0, DynamicistToolKit 0.3.5, GaitAnalysisToolKit 0.1.2
-- Octave_ >= 3.6.4
+  oct2py 2.4.2, DynamicistToolKit 0.3.5, GaitAnalysisToolKit 0.1.2
+- Octave_ 3.8.1
 - A LaTeX distribution which includes pdflatex. For example: MikTeX_ [Win],
   `TeX Live`_ [Linux], MacTeX_ [Mac].
 - Various LaTeX Packages [#]_: minted_, lineno, graphicx, booktabs, cprotect,
@@ -245,7 +245,7 @@ On Windows, the last command does not need to be prepended with ``source``::
 Finally, install the remaining dependencies with pip [#]_ which grabs the
 correct versions from the `Python Package Index`_ (PyPi)::
 
-   (gait)$ pip install oct2py==2.4.0
+   (gait)$ pip install oct2py==2.4.2
    (gait)$ pip install DynamicistToolKit==0.3.5
    (gait)$ pip install GaitAnalysisToolKit==0.1.2
 
