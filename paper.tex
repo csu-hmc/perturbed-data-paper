@@ -335,14 +335,15 @@ deceleration were generated for the speed transitions.
 The MATLAB script and Simulink model produce a comma-delimited text file of
 five desired belt speed signals indexed by the time stamp. There are slow, normal,
 and fast walking speeds and slow and fast running speeds.~\footnote{The running
-signals were not used in the experiments presented in this paper.} The measured
-speed of the treadmill belts from unloaded trials (79, 80, 81) are compared to
-the commanded treadmill control input signals in
-Figure~\ref{fig:input_output} to show the effect of the treadmill and
-controller dynamics. The system introduces a delay and seems to act as a low
-pass filter. The standard deviations of the measured speeds do not
-significantly differ from the desired values:
-\SIlist{0.05;0.12;0.2}{\meter\per\second} for the three speeds, respectively.
+signals were not used in the experiments presented in this paper.}
+
+Figure~\ref{fig:input_output} gives an idea of the effect of the treadmill and
+controller dynamics by plotting the measured speed of the treadmill belts from
+unloaded trials (79, 80, 81) against the commanded treadmill control input
+signal. The system introduces a delay and seems to act as a low pass filter.
+The standard deviations of the measured speeds do not significantly differ from
+the desired values: \SIlist{0.05;0.12;0.2}{\meter\per\second} for the three
+speeds, respectively.
 %
 \begin{figure}
   \centering
@@ -353,12 +354,12 @@ significantly differ from the desired values:
   \label{fig:input_output}
 \end{figure}
 
-To show the effects of the treadmill dynamics and give an idea of the frequency
-content of the actual perturbations, spectral density plots were created
-by averaging a spectrogram of a twenty second Hamming window, shown
-in Figure~\ref{fig:freq_analysis}. For all speeds, the frequency content of the
-commanded and measured time series show similarity below 4~\si{\hertz} and
-attenuation in the measured spectral density above 4~\si{\hertz}.
+Figure~\ref{fig:freq_analysis} gives a frequency domain view of the effects of
+the treadmill dynamics. These spectral density plots were created by averaging
+a spectrogram of a twenty second Hamming window. For all speeds, the frequency
+content of the commanded and measured time series show similarity below
+4~\si{\hertz} and attenuation in the measured spectral density above
+4~\si{\hertz}.
 %
 \begin{figure}
   \centering
