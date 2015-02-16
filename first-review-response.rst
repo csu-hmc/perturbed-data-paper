@@ -39,7 +39,7 @@ focuses on the experimental methods and data description, but we kindly
 disagree with your opinion that this does not "represent a 'unit of
 publication'". Data papers are not yet common, but also not rare. The Wikipedia
 entry (http://en.wikipedia.org/wiki/Data_paper) gives some context to the
-relatievely new push for recognizing "Data Papers" as a valid "unit of
+relatively new push for recognizing "Data Papers" as a valid "unit of
 publication". This of course is being discussed and implemented by academic
 communities, journals, and granting agencies. For example, the NSF which
 partially funded this work now requires submissions to include a "data
@@ -47,7 +47,7 @@ management plan". PeerJ does not seem to have an official stance on whether it
 publishes Data Papers, but the editorial office approved the scope of this
 paper when I enquired before submitting. We are intentionally not including
 analyses, results, and findings from this data in this paper but will be
-publishing those in subsquent papers which will cite portions of the dataset
+publishing those in subsequent papers which will cite portions of the dataset
 herein.
 
    I suspect these data were collected for a purpose but this purpose is absent
@@ -87,12 +87,12 @@ Thank you for pointing this out. We had not seen this on the PeerJ website.
 
 Before submitting the paper we enquired with the editorial office as to whether
 a "Data Paper" was appropriate for PeerJ and they said that it was, so we
-submitted. We intentionaly are not including data anaylysis and hypthoesis
-testing because we beleive the data can be used to test many hypotheses and
+submitted. We intentionally are not including data analysis and hypothesis
+testing because we believe the data can be used to test many hypotheses and
 support more analyses than we can ever do. We do have some hypotheses of our
-own but plan to publish the related results in a seperate publication. We agree
+own but plan to publish the related results in a separate publication. We agree
 one should not be allowed to extract the methods section of just any paper and
-publish seperately, but we beleive that we have gone much further than any
+publish separately, but we believe that we have gone much further than any
 typical methods section in the description of our experiments and the data and
 thus this is suitable to stand on its own.
 
@@ -124,10 +124,10 @@ may be useful to future researchers.
 We attached three markers to the subjects' head. For the marker protocol used,
 these markers are best suited to locations that are typically covered by the
 subject hair. Ideally, we'd shave the subject's hair and attached the marker
-directly to the skin but we felt this was unecessary because our research
+directly to the skin but we felt this was unnecessary because our research
 motivations are primarily rooted in discovery control mechanisms and we do not
 have strong evidence that the head orientation is a major contributor. So we
-decided, to collect the head marker data but sacrafice accurarcy and place them
+decided, to collect the head marker data but sacrifice accuracy and place them
 on a securely fitting baseball cap.
 
    Page 15, line 374. Why didn't the authors recode the trial numbers from 40
@@ -136,5 +136,5 @@ on a securely fitting baseball cap.
 The trial numbers were not recoded because our protocol for raw data is to
 leave it as is. The more raw data is manipulated, the more likely errors are
 introduced. We wanted to provide the public as "raw" a view of the data as
-possible. The trial numbers provided have not cause us any issues in
-processing and we do not see it as a major issue.
+possible. The trial numbers provided have not cause us any issues in processing
+and we do not see it as a major issue.
