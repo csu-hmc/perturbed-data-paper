@@ -2,7 +2,8 @@ Dear Editor and Reviewers,
 
 Thank you for accepting the article with minor revisions for publication in
 PeerJ. We appreciate the thorough feedback and are happy to make the next
-revision of the paper that much better. Below we address all of the comments.
+revision of the paper that much better. Below we address all of the comments
+from the Editor and Reviewers.
 
 Editor Comments
 ===============
@@ -14,7 +15,7 @@ Editor Comments
 
 We have expanded the paragraph in the first version to clarify the context and
 objective of the work. The research questions and hypotheses we had in mind
-when designing the experiments are now included.
+when designing the experiments are now described more specifically.
 
    Please address R2 and R3's specific comments to authors.
 
@@ -34,18 +35,19 @@ communities.
    However, I do not think the proposed manuscript represent a 'unit of
    publication'.
 
-We understand that this manuscript is not a typical submission because it only
-focuses on the experimental methods and data description, but we kindly
+We understand that this manuscript is not a typical submission in this field as
+it only focuses on the experimental methods and data description, but we kindly
 disagree with your opinion that this does not "represent a 'unit of
-publication'". Data papers are not yet common, but also not rare. The Wikipedia
-entry (http://en.wikipedia.org/wiki/Data_paper) gives some context to the
-relatively new push for recognizing "Data Papers" as a valid "unit of
-publication". This of course is being discussed and implemented by academic
+publication'". Data papers are not yet widespread, but also not rare. The
+Wikipedia entry (http://en.wikipedia.org/wiki/Data_paper) gives some context to
+the relatively new push for recognizing "Data Papers" as a valid "unit of
+publication". Many journals and academic communities do accept these as valid.
+The validity, of course, is being discussed and implemented by academic
 communities, journals, and granting agencies. For example, the NSF which
 partially funded this work now requires submissions to include a "data
 management plan". PeerJ does not seem to have an official stance on whether it
-publishes Data Papers, but the editorial office approved the scope of this
-paper when I enquired before submitting. We are intentionally not including
+publishes data papers, but the editorial office approved the scope of this
+paper when we enquired before submitting. We are intentionally not including
 analyses, results, and findings from this data in this paper but will be
 publishing those in subsequent papers which will cite portions of the dataset
 herein.
@@ -57,8 +59,8 @@ Our introduction went into great detail about the two main purposes for
 collecting the data:
 
 1. To add a substantial amount of open and unrestricted data to the public.
-2. To collect enough gait data rich in varied motion so that it may be useful
-   for control identification and learning methods.
+2. To collect gait data rich in varied motion so that it may be useful for
+   control identification and learning methods.
 
 Nevertheless, we have worked to improve the description of the purpose of
 collecting the data and been more specific about our research questions and
@@ -86,14 +88,14 @@ Reviewer #2 (Paul Lee)
 Thank you for pointing this out. We had not seen this on the PeerJ website.
 
 Before submitting the paper we enquired with the editorial office as to whether
-a "Data Paper" was appropriate for PeerJ and they said that it was, so we
-submitted. We intentionally are not including data analysis and hypothesis
+a "data paper" was appropriate for PeerJ and they said that it was, so we
+submitted. We are intentionally not including data analysis and hypothesis
 testing because we believe the data can be used to test many hypotheses and
 support more analyses than we can ever do. We do have some hypotheses of our
-own but plan to publish the related results in a separate publication. We agree
+own but plan to publish the related results in separate publications. We agree
 one should not be allowed to extract the methods section of just any paper and
 publish separately, but we believe that we have gone much further than any
-typical methods section in the description of our experiments and the data and
+typical methods section in the description of our experiments and the data;
 thus this is suitable to stand on its own.
 
    The submission must describe original primary research within the Scope of
@@ -107,34 +109,36 @@ thus this is suitable to stand on its own.
 
 As mentioned above, PeerJ approved the scope of our paper before we submitted
 it. Our work is original and if the Wikipedia definition of "primary research"
-is correct, we believe it also meets that:
+is correct, we believe our paper also meets that:
 http://en.wikipedia.org/wiki/Primary_research.
 
    Table 1. Why subject ID 1 trialled 1.2 m/s for three times but did not
    trialled 0.8 m/s and 1.6 m/s?
 
-Subject 1 was a preliminary subject and was used to see if the protocol worked
-and the data collected was satisfactory. We only recorded data for one speed,
-but did three trials. We included this dataset because they are the only trials
-that included lateral perturbations and we felt that the valid kinematic data
-may be useful to future researchers.
+Subject 1 was a preliminary subject and was used to verifyif the protocol
+worked and the data collected was satisfactory. We only recorded data for one
+speed, but did three trials. We included this dataset because the trials are
+the only ones that included lateral perturbations and we felt that the valid
+kinematic data may be useful to future researchers. Our initial intentions
+were to collect data with lateral and longitudinal perturbations for all of the
+subjects, but that was thwarted by the equipment issues described in the paper.
 
    Page 4, line 120. Why the participants were required to wear a baseball cap?
 
 We attached three markers to the subjects' head. For the marker protocol used,
-these markers are best suited to locations that are typically covered by the
-subject hair. Ideally, we'd shave the subject's hair and attached the marker
-directly to the skin but we felt this was unnecessary because our research
-motivations are primarily rooted in discovery control mechanisms and we do not
-have strong evidence that the head orientation is a major contributor. So we
-decided, to collect the head marker data but sacrifice accuracy and place them
-on a securely fitting baseball cap.
+these markers were best suited to locations that are typically covered by the
+subject's hair. Ideally, we'd have shaved the subject's hair and attached the
+markers directly to the skin but we felt this was unnecessary because our
+research motivations are primarily driven with by the need to discover control
+mechanisms. The methods we intended to use for data analyses did not take into
+account head orientation. So we decided to collect the head marker data but
+sacrifice accuracy and place them on a securely fitting baseball cap.
 
    Page 15, line 374. Why didn't the authors recode the trial numbers from 40
    onwards to 37, 38, ...?
 
 The trial numbers were not recoded because our protocol for raw data is to
-leave it as is. The more raw data is manipulated, the more likely errors are
-introduced. We wanted to provide the public as "raw" a view of the data as
-possible. The trial numbers provided have not cause us any issues in processing
-and we do not see it as a major issue.
+leave it as is. That is why it is called "raw" data. The more raw data is
+manipulated, the more likely errors are introduced. We wanted to provide the
+public as "raw" a view of the data as possible. The trial numbers provided have
+not caused us any issues in processing and we do not see it as a major issue.
