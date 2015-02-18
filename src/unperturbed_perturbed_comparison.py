@@ -7,7 +7,7 @@ basic gait stats for perturbed and unperturbed gait cycles."""
 
 import os
 
-from numpy import rad2deg, hstack
+from numpy import rad2deg
 from scipy.constants import golden
 import matplotlib.pyplot as plt
 import pandas
@@ -159,25 +159,20 @@ for col, ax, unit in zip(columns, axes[:-1], units):
     p = perturbed_gait_data.gait_cycle_stats[col]
     sbn.boxplot([p.values, u.values], ax=ax, color=[blue, red],
                 whis='range',
-                names=['Perturbed\nN = {}'.format(num_perturbed_cycles),
-                       'Unperturbed\nN = {}'.format(num_unperturbed_cycles)])
+                names=['P', 'U'])
 
-perturbed_stride_width = (perturbed_gait_data.data['RHEE.PosZ'] -
-                          perturbed_gait_data.data['LHEE.PosZ'])
+unperturbed_stride_widths = \
+    (unperturbed_gait_cycles[:, :, 'RHEE.PosZ'] -
+     unperturbed_gait_cycles[:, :, 'LHEE.PosZ']).values.flatten()
+perturbed_stride_widths = \
+    (perturbed_gait_data.gait_cycles[:, :, 'RHEE.PosZ'] -
+     perturbed_gait_data.gait_cycles[:, :, 'LHEE.PosZ']).values.flatten()
 
-unperturbed_stride_width_1 = (unperturbed_gait_data_1.data['RHEE.PosZ'].iloc[500:] -
-                              unperturbed_gait_data_1.data['LHEE.PosZ'].iloc[500:])
-
-unperturbed_stride_width_2 = (unperturbed_gait_data_2.data['RHEE.PosZ'].iloc[:5500] -
-                              unperturbed_gait_data_2.data['LHEE.PosZ'].iloc[:5500])
-
-sbn.boxplot([perturbed_stride_width.values,
-             hstack((unperturbed_stride_width_1.values,
-                     unperturbed_stride_width_2.values))],
-             ax=axes[-1],
-             color=[blue, red],
-             whis='range',
-             names=['Perturbed', 'Unperturbed'])
+sbn.boxplot([perturbed_stride_widths, unperturbed_stride_widths],
+            ax=axes[-1],
+            color=[blue, red],
+            whis='range',
+            names=['P', 'U'])
 axes[-1].set_title('Stride Width [m]'.format(col, unit))
 
 plt.tight_layout()
