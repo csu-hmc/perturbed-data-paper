@@ -403,11 +403,13 @@ idea of the characteristics of both the unperturbed and perturbed gait.
 %
 The raw data consists of a set of ASCII tab delimited text files output from
 both the ``mocap'' and ``record'' modules in D-Flow in addition to a manually
-generated YAML file that contains all of the necessary meta data for the given
-trial. These three files are stored in a hierarchy of directories with one
-trial per directory. The directories are named in the following fashion
-\verb+T001/+ where \verb+T+ stands for ``trial'' and the following three digits
-are provide a unique trial identification number.
+generated YAML~\footnote{YAML is a human readable data serialization format.
+See Listing~\ref{lis:example-meta-data} for an example.} file that contains all
+of the necessary meta data for the given trial. These three files are stored
+in a hierarchy of directories with one trial per directory. The directories are
+named in the following fashion \verb+T001/+ where \verb+T+ stands for ``trial''
+and the following three digits are provide a unique trial identification
+number.
 
 \subsubsection*{mocap-xxx.txt}
 %
@@ -713,8 +715,8 @@ information, detailed below:
            record: record-058.txt
            meta: meta-058.yml
   \end{minted}
-  \caption{A fictitious example of a YAML formatted meta data file. All of the
-    possible keys in the data set are shown.}
+  \caption{A fictitious example of a YAML formatted meta data file. Examples of
+    all of the possible keys in the data set are shown.}
   \label{lis:example-meta-data}
 \end{listing}
 
