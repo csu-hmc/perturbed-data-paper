@@ -154,12 +154,12 @@ columns = ['Average Belt Speed', 'Stride Frequency', 'Stride Length']
 units = ['[m/s]', '[Hz]', '[m]']
 
 for col, ax, unit in zip(columns, axes[:-1], units):
-    ax.set_title('{} {}'.format(col, unit))
+    ax.set_title('{} {}'.format(col, unit), y=1.08)
     u = unperturbed_gait_cycle_stats[col]
     p = perturbed_gait_data.gait_cycle_stats[col]
-    sbn.boxplot([p.values, u.values], ax=ax, color=[blue, red],
+    sbn.boxplot([u.values, p.values], ax=ax, color=[red, blue],
                 whis='range',
-                names=['P', 'U'])
+                names=['U', 'P'])
 
 unperturbed_stride_widths = \
     (unperturbed_gait_cycles[:, :, 'RHEE.PosZ'] -
@@ -168,12 +168,12 @@ perturbed_stride_widths = \
     (perturbed_gait_data.gait_cycles[:, :, 'RHEE.PosZ'] -
      perturbed_gait_data.gait_cycles[:, :, 'LHEE.PosZ']).values.flatten()
 
-sbn.boxplot([perturbed_stride_widths, unperturbed_stride_widths],
+sbn.boxplot([unperturbed_stride_widths, perturbed_stride_widths],
             ax=axes[-1],
-            color=[blue, red],
+            color=[red, blue],
             whis='range',
-            names=['P', 'U'])
-axes[-1].set_title('Stride Width [m]'.format(col, unit))
+            names=['U', 'P'])
+axes[-1].set_title('Stride Width [m]'.format(col, unit), y=1.08)
 
 plt.tight_layout()
 
