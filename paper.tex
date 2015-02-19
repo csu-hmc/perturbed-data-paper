@@ -822,16 +822,19 @@ required to walk while being longitudinally perturbed.
 For more insight into the difference in the unperturbed and perturbed data,
 Figure~\ref{fig:gait-cycle-stats-comparison} compares the distribution of a few
 gait cycle statistics. One can see that the perturbed strides have a much
-larger variation in frequency and length.
+larger variation in frequency and length and even larger variation in stride
+width.
 %
 \begin{figure}
   \centering
   \includegraphics{figures/unperturbed-perturbed-boxplot-comparison.pdf}
-  \cprotect\caption{Box plots of the average belt speed, stride frequency, and
-    stride length which compare unperturbed (red) and perturbed (blue) gait
-    cycles. The median is given with the box bounding the first and third
-    quartiles and the whiskers bound the range of the data. Produced by
-    \verb|src/unperturbed_perturbed_comparison.py|.}
+  % NOTE : Make sure to update these values (120, 519) if anything in the
+  % script changes.
+  \cprotect\caption{Box plots of the average belt speed, stride frequency,
+    stride length, and stride width which compare 120 unperturbed (U: red) and
+    519 perturbed (P: blue) gait cycles. The median is given with the box
+    bounding the first and third quartiles and the whiskers bound the range of
+    the data. Produced by \verb|src/unperturbed_perturbed_comparison.py|.}
   \label{fig:gait-cycle-stats-comparison}
 \end{figure}
 

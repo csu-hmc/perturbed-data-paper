@@ -148,19 +148,32 @@ print('Time series plot at: {}'.format(file_path))
 # length.
 print('Generating the box plot comparison.')
 
-fig, axes = plt.subplots(1, 3)
+fig, axes = plt.subplots(1, 4)
 
 columns = ['Average Belt Speed', 'Stride Frequency', 'Stride Length']
 units = ['[m/s]', '[Hz]', '[m]']
 
-for col, ax, unit in zip(columns, axes.flatten(), units):
+for col, ax, unit in zip(columns, axes[:-1], units):
     ax.set_title('{} {}'.format(col, unit))
     u = unperturbed_gait_cycle_stats[col]
     p = perturbed_gait_data.gait_cycle_stats[col]
     sbn.boxplot([p.values, u.values], ax=ax, color=[blue, red],
                 whis='range',
-                names=['Perturbed\nN = {}'.format(num_perturbed_cycles),
-                       'Unperturbed\nN = {}'.format(num_unperturbed_cycles)])
+                names=['P', 'U'])
+
+unperturbed_stride_widths = \
+    (unperturbed_gait_cycles[:, :, 'RHEE.PosZ'] -
+     unperturbed_gait_cycles[:, :, 'LHEE.PosZ']).values.flatten()
+perturbed_stride_widths = \
+    (perturbed_gait_data.gait_cycles[:, :, 'RHEE.PosZ'] -
+     perturbed_gait_data.gait_cycles[:, :, 'LHEE.PosZ']).values.flatten()
+
+sbn.boxplot([perturbed_stride_widths, unperturbed_stride_widths],
+            ax=axes[-1],
+            color=[blue, red],
+            whis='range',
+            names=['P', 'U'])
+axes[-1].set_title('Stride Width [m]'.format(col, unit))
 
 plt.tight_layout()
 
