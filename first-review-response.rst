@@ -142,3 +142,152 @@ leave it as is. That is why it is called "raw" data. The more raw data is
 manipulated, the more likely errors are introduced. We wanted to provide the
 public as "raw" a view of the data as possible. The trial numbers provided have
 not caused us any issues in processing and we do not see it as a major issue.
+
+Reviewer #3 (Manoj Srinivasan)
+==============================
+
+   This article is an important (if unconventional) addition to the
+   biomechanics literature. The article is a wonderful example of attention to
+   detail in presenting the protocol and experiment used, in describing
+   formatting and reliability of the data, and in providing simple
+   computational tools (that do not require any proprietary data) for simple
+   processing of the data. I believe that this article will be important in the
+   field, and I hope that other researchers will follow Moore et al’s lead in
+   sharing and documenting their data — that this is not a one-off but
+   something everyone does.
+
+Thank you for the compliment. We definitely hope that others follow suit.
+
+   The authors could refer to new/emerging guidelines by some funding agencies
+   (NSF, etc.) and some journals (Royal Society journals) that insist on making
+   available all data funded by them or published by them. And your example
+   could be a good model for such ‘required’ publication of data.
+
+Thanks for the suggestion, we have mentioned some of the new requirements form
+funders and journals in this regard.
+
+   The citation style seems a bit unorthodox, is this the Peerj recommendation?
+   For instance, “David Winter’s published normative gait data, Winter (1990),
+   is widely used in biomechanical studies …” could be: “David Winter’s
+   published normative gait data (Winter, 1990) is widely used in biomechanical
+   studies …”
+
+Thanks for cacthing that. We were using the incorrect natbib citation style for
+some of the citations. It is now fixed.
+
+   “At another website, the CGA Normative Gait Database, Kirtley (2014) shares
+   normative gait data from several studies …” Perhaps this sentence could be
+   edited to avoid the possible misunderstanding that Kirtley conducted all
+   these several studies. Might it be worth also citing the original studies
+   from which the data is taken? This might be appropriate and feasible if you
+   citations with numbers like [5-10].
+
+PeerJ does not allow the [5-10] citation style and it isn't entirely clear what
+the correct citation for each dataset in the database should be so we opted for
+simply clarifying that Kirtley is a curator of the data from other
+labs/studies.
+
+   Physionet (http://www.physionet.org/), the Carnegie Mellon mocap database (
+   http://mocap.cs.cmu.edu/ ), the Ohio State mocap database, the OU-ISIR
+   database ( http://www.am.sanken.osaka-u.ac.jp/BiometricDB/GaitTM.html ),
+   KIST database ( http://www.me.utexas.edu/~reneu/res/gait_toolbox.html ) are
+   some other sources of public data of aspects of human movement, but again,
+   all these either suffer from some of the issues that the authors point out,
+   or mainly meant for video games, animations, or biometry rather than for
+   detailed biomechanical analyses.  Please include some such databases in your
+   introductory discussion (ones that seem most relevant).
+
+We were aware of most of these but intentionally left out the graphics and
+abritrary motions datasets/bases because we are more concerned with gait. But
+we've added these in to be more complete, thanks for the suggestion.
+
+   Line 110. “Acceleration of treadmill” . Perhaps say “acceleration of
+   treadmill base” or something so as to distinguish from the belt
+   accelerations?
+
+Fixed.
+
+   page 6. The description of the ‘perturbation signals’ on page 6 does not
+   explain what, if any, lateral movements of the treadmill base were imposed.
+   Line 151 alludes to the possibility of ‘both’ longitudinal and lateral
+   perturbations.
+
+   Are the lateral perturbations used only in trials 6-8? I did not see the
+   ‘both’ event for treadmill perturbations in the few other trial YAML files I
+   looked at. Perhaps make an explicit note of this.
+
+We have clarified that only one subject's trials included lateral motion and
+have given a description of that motion.
+
+   If the perturbations are only in the fore-aft direction, it is possible that
+   the data set is insufficiently rich to infer the human walking control
+   system; but it is also possible that the data set is rich enough due to
+   sufficient coupling of the various degrees of freedom (fore-aft and sideways
+   degrees of systems, to be a bit colloquial).
+
+Yes, this data may only be suitable for longitudinal control studies. We had
+hoped to have longitudinal and lateral perturbations but were foiled by the
+unforseen equipment limitations. But we have added the stride width comparisons
+between unperturbed and perturbed data and there is an increase in stride
+width. So it may be useful for some lateral control studies.
+
+   Line 184-185. “When belt speed is not constant, the inertia of the rollers
+   and motor will induce error in the force plate x axis moment, and hence, the
+   anterior-posterior coordinate (z axis) of the center of pressure that is
+   measured by the instrumentation in the treadmill.” This comment by the
+   authors creates doubt in the reader’s mind as to whether the other force
+   values are reliable. Perhaps the authors could add an explicit note allaying
+   any such doubts.
+
+We've added a bit more explaining how this can be remedied with the cited
+paper.
+
+   Line 194. The abbreviation ‘YAML’ is used without previous definition. While
+   ASCII is a common-enough word, I’d suggest that YAML is not. Perhaps the
+   authors could explain what YAML is in the following sentence, and then refer
+   to one of their YAML listings (Listing 1.) in that sentence. Please look for
+   other uncommon abbreviations to clarify throughout the paper.
+
+YAML is now defined in a footnote.
+
+   232. TSV (tab separated file). perhaps the expansion in parenthesis.
+
+We defined TSV at the first mention of it, so we did not add any more
+definitions.
+
+   Figure 4, caption. Perhaps indicate in your caption what the ‘zero’ for your
+   angles correspond to? Alternatively, what does the ‘calibration pose’
+   correspond to? I believe that the convention used is different from, for
+   instance, David Winter’s data (which is, of course, fine). I believe -90
+   degrees ankle corresponds to quite standing in this figure, whereas in
+   Winter’s data, 0 degrees ankle is close to quiet standing.
+
+We've added clarification of the nominal configuration, i.e. joint angles = 0.
+
+   374. Is there a reason why the authors did not re-arrange the trial numbers
+   for publication — ignoring accidentally skipped trials, etc?
+
+See the explanation given for reviewer #2's same question.
+
+   Figure 5. Nice figure. It would be interesting to see step width
+   distributions as well, comparing perturbed and unperturbed, as it would
+   answer my question of whether people’s sideways dynamics were substantially
+   affected as well. This is not absolutely necessary for the point that the
+   authors wish to make, but could be a quick easy thing for the authors to
+   generate from their data (especially given that they have already estimated
+   the stride-length, step width is probably only a couple of lines of code!).
+
+We've added the stride width and are happy to report that there is some
+increase in stride width given longitudinal perturbations.
+
+   pages 16-17. I especially liked the ‘Data Limitations’ section. But I would
+   suggest that all of these limitations be included as part of the meta data
+   in the corresponding YAML files. For instance, in lines 378-381, you state
+   that the force measurements should not be trusted in trials 6-15. I checked
+   the YAML file for trial 6 and 15 (T006 and T015) to see if its ‘notes’
+   contained the same note, and it did not (unless I missed something). I think
+   this would be very useful. Of course, I do see that other types of
+   limitations or explanations are in the ‘notes’ section of the YAML file.
+
+We've gone through an updated all of the YAML files with the data limitation
+notes.
