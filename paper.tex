@@ -278,9 +278,9 @@ protocol for a single trial was as follows:
     not touch the force plates and the force plate signals are zeroed. This
     corresponds to the ``Force Plate Zeroing'' event.
   \item Once notified by the video display, the subject stood in the
-    initialization pose: standing straight up, looking forward, arms out by
-    their sides (~45 degrees) and the event, ``Calibration Pose'', was manually
-    recorded by the operator.
+    calibration pose: standing straight up, looking forward, arms out by their
+    sides (approximately 45 degree abduction) and the event, ``Calibration
+    Pose'', was manually recorded by the operator.
   \item A countdown to the first normal walking phase was displayed. At the end
     of the countdown the event ``First Normal Walking'' was recorded and the
     treadmill ramped up to the specified speed and the subject was instructed
@@ -491,16 +491,16 @@ in the meta data YAML file to be able to distinguish this detail.
     F   & 11 & BBAC  & Scapula                               & On the inferior angle fo the right scapular. \\
     F   & 12 & LSHO  & Left shoulder                         & Left acromion. \\
     F   & 13 & LDELT & Left deltoid muscle                   & Apex of the deltoid muscle. \\
-    F   & 14 & LLEE  & Left lateral elbow                    & Left lateral epicondyle of the elbow. Upper one in the T-Pose. \\
-    F   & 15 & LMEE  & Left medial elbow                     & Left medial epicondyle of the elbow. Lower on in the T-Pose. \\
+    F   & 14 & LLEE  & Left lateral elbow                    & Left lateral epicondyle of the elbow. \\
+    F   & 15 & LMEE  & Left medial elbow                     & Left medial epicondyle of the elbow. \\
     F   & 16 & LFRM  & Left forearm                          & On 2/3 on the line between the LLEE and LMW. \\
     F   & 17 & LMW   & Left medial wrist                     & On styloid process radius, thumb side. \\
     F   & 18 & LLW   & Left lateral wrist                    & On styloid process ulna, pinky side. \\
     F   & 19 & LFIN  & Left fingers                          & Center of the hand. Caput metatarsal 3. \\
     F   & 20 & RSHO  & Right shoulder                        & Right acromion. \\
     F   & 21 & RDELT & Right deltoid muscle                  & Apex of deltoid muscle. \\
-    F   & 22 & RLEE  & Right lateral elbow                   & Right lateral epicondyle of the elbow. Lower one in the T-pose. \\
-    F   & 23 & RMEE  & Right medial elbow                    & Right medial epicondyle of the elbow. Lower one in the T-pose. \\
+    F   & 22 & RLEE  & Right lateral elbow                   & Right lateral epicondyle of the elbow. \\
+    F   & 23 & RMEE  & Right medial elbow                    & Right medial epicondyle of the elbow. \\
     F   & 24 & RFRM  & Right forearm                         & On 1/3 on the line between the RLEE and RMW. \\
     F   & 25 & RMW   & Right medial wrist                    & On styloid process radius, thumb side. \\
     F   & 26 & RLW   & Right lateral wrist                   & On styloid process ulna, pinky side. \\
@@ -816,7 +816,10 @@ required to walk while being longitudinally perturbed.
   \includegraphics{figures/unperturbed-perturbed-comparison.pdf}
   \cprotect\caption{Right leg mean and $3\sigma$ (shaded) joint angles and
     torques from both unperturbed (red) and perturbed (blue) gait cycles
-    from trial 20. Produced by \verb|src/unperturbed_perturbed_comparison.py|.}
+    from trial 20. We define the nominal configuration, i.e. all joint angles
+    equal to zero, such that the vectors from the shoulder to the hip, the hip
+    to the knee, the knee to the ankle, and the heel to the toe are all aligned.
+    Produced by \verb|src/unperturbed_perturbed_comparison.py|.}
   \label{fig:angle-torque-comparison}
 \end{figure}
 
