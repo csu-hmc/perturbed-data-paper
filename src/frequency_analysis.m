@@ -5,9 +5,9 @@ clc
 %Loading Files
 %-------------------------------------------------------------------------
     input_signals = importdata('Longitudinal_Perturbation_2.4.2014.txt');
-    output_slow_file = fopen('record-076_0001.txt');
-    output_normal_file = fopen('record-077_0001.txt');
-    output_fast_file = fopen('record-078_0001.txt');
+    output_slow_file = fopen('record-076.txt');
+    output_normal_file = fopen('record-077.txt');
+    output_fast_file = fopen('record-078.txt');
 %-------------------------------------------------------------------------
 %Parse Events from Files
 %-------------------------------------------------------------------------
