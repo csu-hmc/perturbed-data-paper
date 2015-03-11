@@ -812,14 +812,14 @@ application programming interface (API) in Python. An example of the
 \verb|DFlowData| API in use is provided in Listing~\ref{lis:dflowdata}.
 %
 \begin{listing}
-  \begin{minted}[gobble=4]{python}
-    >>> from gaitanalysis.motek import DFlowData
-    >>> data = DFlowData('mocap-020.txt', 'record-020.txt',
-    ...                  'meta-020.yml')
-    >>> mass = data.meta['subject']['mass']
-    >>> data.clean_data()
-    >>> event_df = data.extract_processed_data(
-    ...     event='Longitudinal Perturbation')
+  \begin{minted}{pycon}
+>>> from gaitanalysis.motek import DFlowData
+>>> data = DFlowData('mocap-020.txt', 'record-020.txt',
+...                  'meta-020.yml')
+>>> mass = data.meta['subject']['mass']
+>>> data.clean_data()
+>>> event_df = data.extract_processed_data(
+...     event='Longitudinal Perturbation')
   \end{minted}
   \cprotect\caption{Python interpreter session showing how one could load a
     trial into memory, extract the subject's mass from the meta data, run the
@@ -835,15 +835,15 @@ sampling rate. This object can also be serialized to disk in HDF5 format. An
 example of using the Python API is shown in Listing~\ref{lis:gaitdata}.
 %
 \begin{listing}
-  \begin{minted}[gobble=4]{python}
-    >>> from gaitanalysis.gait import GaitData
-    >>> gdata = GaitData(event_df)
-    >>> gdata.inverse_dynamics_2d(left_markers, right_markers,
-    ...                           left_loads, right_loads, mass, 6.0)
-    >>> gdata.grf_landmarks('Right Fy', 'Left Fy', threshhold=20.0)
-    >>> gdata.split_at('right')
-    >>> gdata.plot_gait_cycles('Left Hip Joint Torque', mean=True)
-    >>> gdata.save('gait-data.h5')
+  \begin{minted}{pycon}
+>>> from gaitanalysis.gait import GaitData
+>>> gdata = GaitData(event_df)
+>>> gdata.inverse_dynamics_2d(left_markers, right_markers,
+...                           left_loads, right_loads, mass, 6.0)
+>>> gdata.grf_landmarks('Right Fy', 'Left Fy', threshhold=20.0)
+>>> gdata.split_at('right')
+>>> gdata.plot_gait_cycles('Left Hip Joint Torque', mean=True)
+>>> gdata.save('gait-data.h5')
   \end{minted}
   \cprotect\caption{Python interpreter session showing how one could use the
     \verb|GaitData| class to load in the result of \verb|DFlowData| and compute
