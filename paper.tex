@@ -73,12 +73,12 @@ beginning with the first motion pictures and now with modern marker based
 motion capture techniques and high fidelity ground reaction load measurements.
 Even though years of data on thousands of subjects now exist, this data is not
 widely disseminated, well organized, nor available with few or no restrictions.
-David Winter's published normative gait data \citep{Winter1990} is widely used
+David Winter's published normative gait data~\citep{Winter1990} is widely used
 in biomechanical studies, yet it comes from few subjects and only a small
 number of gait cycles per subject. This small source has successfully enabled
-many other studies, such as powered prosthetic control design \citep{Sup2008}
+many other studies, such as powered prosthetic control design~\citep{Sup2008}
 but success in other research fields using large sets of data for discovery
-lead one to believe that more elaborate data sets may benefit the field of
+lead us to believe that more elaborate data sets may benefit the field of
 human motion studies. To enable such work, biomechanical data needs to be
 shared extensively, organized, and curated to enable future analysts.
 
@@ -126,8 +126,19 @@ which the subject is being perturbed, something that does not currently exist.
 We believe both of these sets of data can serve a variety of use cases and hope
 that we can save time and effort for future researchers by sharing it.
 
-Our use case for the data is centered around the need of bio-inspired control
-systems for emerging powered prosthetics and orthotics. Ideally, a powered
+But our reasons are not entirely altruistic, as governments and granting
+agencies are also encouraging researchers to share data with recent policy
+changes. For example, the \cite{EuropeanCommission2012} has outlined publicly
+funded data's role in innovation and the \cite{WhiteHouse2013} laid out a plan
+for public access to publications and data in 2013. The National Science
+Foundation, which partially funds this work, was ahead of the White House and
+required all grants to include a data management plan in 2011. This work is a
+partial fulfillment of the grant requirements laid out in our grant's data
+management plan and we hope that this work can be a good model for
+dissemination of biomechanical data.
+
+Our use case for the data is centered around the need for bio-inspired control
+systems in emerging powered prosthetics and orthotics. Ideally, a powered
 prosthetic would behave in such a way that the user would feel like their limb
 was never disabled. There are a variety of approaches to developing
 bio-inspired control systems, some of which aim to mimic the reactions and
@@ -136,9 +147,14 @@ of kinematic, kinetic, and physiological data from humans during gait. This
 data can potentially be used to drive the design of the human-mimicking
 controller. With a rich enough data set, one may be able to identify control
 mechanisms used during a human's natural gait and recovery from perturbations.
-We have collected data that is richer than previous gait data sets and may be
-rich enough for control identification. The data can also be used for
-verification purposes for controllers that have been designed in other manners.
+We hypothesize that by forcing the human to recover from external
+perturbations, the resulting reactive actions can be used along with system
+identification techniques to expose the feedback related relationships among
+the human's sensors and actuators. We have collected data that is richer than
+previous gait data sets and may be rich enough for control identification. The
+data can also be used for verification purposes for controllers that have been
+designed in other manners, such as those constructed from first principles
+\citep{Geyer2010}.
 
 With all of this in mind, we collected over seven and half hours of gait data
 from fifteen able bodied subjects which amounts to over 25,000 gait cycles. The

@@ -40,8 +40,11 @@ it only focuses on the experimental methods and data description, but we kindly
 disagree with your opinion that this does not "represent a 'unit of
 publication'". Data papers are not yet widespread, but also not rare. The
 Wikipedia entry (http://en.wikipedia.org/wiki/Data_paper) gives some context to
-the relatively new push for recognizing "Data Papers" as a valid "unit of
-publication". Many journals and academic communities do accept these as valid.
+the push for recognizing "Data Papers" as a valid "unit of
+publication". Also see articles like DOI: 10.1371/journal.pone.0021101
+for example which discuss current data sharing practices.
+
+Many journals and academic communities do accept these as valid.
 The validity, of course, is being discussed and implemented by academic
 communities, journals, and granting agencies. For example, the NSF which
 partially funded this work now requires submissions to include a "data
@@ -64,7 +67,11 @@ collecting the data:
 
 Nevertheless, we have worked to improve the description of the purpose of
 collecting the data and been more specific about our research questions and
-hypotheses.
+hypotheses. It is also important to note that the National Science Foundation,
+which partially funded this work, started requiring a data management plan in
+2011. Our data management plan requires us to share all of the data and
+software created during the project. This paper is a partial fullfillment of
+that grant requirement.
 
    As mentioned in basic reporting, there is no research question and therefore
    I do not think it can join the scholarly literature as is. I would strongly
