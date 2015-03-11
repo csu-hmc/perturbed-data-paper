@@ -368,7 +368,7 @@ signals were not used in the experiments presented in this paper.}
 
 Figure~\ref{fig:input_output} gives an idea of the effect of the treadmill and
 controller dynamics by plotting the measured speed of the treadmill belts from
-unloaded trials (79, 80, 81) against the commanded treadmill control input
+loaded trials (76, 77, 78) against the commanded treadmill control input
 signal. The system introduces a delay and seems to act as a low pass filter.
 The standard deviations of the measured speeds do not significantly differ from
 the desired values: \SIlist{0.05;0.12;0.2}{\meter\per\second} for the three
@@ -422,6 +422,26 @@ ensemble average.
   \input{tables/compensation_trials.tex}
   \label{tab:comptrials}
 \end{table}
+
+In addition to the longitudinal perturbations, lateral perturbations were also
+prescribed for a duration of four minutes for one subject in earlier trials
+(6,7,8). Figure~\ref{fig:lateral_perturbation} shows the effect of the lateral
+control of the treadmill by plotting the commanded and measured treadmill
+positions. These signals were generated in a similar manner using MATLAB and
+Simulink in which a Gaussian white noise block that twice integrated to obtain
+the lateral position. The signal was then high-pass filtered with a
+second-order Butterworth filter to eliminate drift and then saturated so that
+the signal remained within the 5~\si{\centi\meter} lateral range of the
+physical hardware.  The same perturbation signal was used for each of the three
+trials.
+%
+\begin{figure}
+  \centering
+  \includegraphics{figures/lateral_perturbation.pdf}
+  \caption{Commanded treadmill lateral deviation (red) and the recorded
+    deviation (blue) for the trials 6, 7, and 8.}
+  \label{fig:lateral_perturbation}
+\end{figure}
 
 \section*{Results}
 %
