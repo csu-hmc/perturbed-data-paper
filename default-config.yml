@@ -1,2 +1,4 @@
 raw_data_dir: raw-data
 processed_data_dir: processed-data
+figures_dir: figures
+tables_dir: tables
