@@ -28,13 +28,14 @@ clc
         set(gcf, 'PaperPositionMode', 'manual');
         set(gcf, 'PaperPosition',[0 0 pos(3)+ti(1)+ti(3) pos(4)+ti(2)+ti(4)]); 
     %Plot
-        plot(signal_input,'Color',[0.815 0.3294 0.3020])
+        plot(time_input, signal_input,'Color',[0.815 0.3294 0.3020])
         hold on
-        plot(signal_output,'Color',[0.2157 0.4706 0.7490])
+        plot(time_input,signal_output,'Color',[0.2157 0.4706 0.7490])
         xlabel('Time (s)')
         ylabel('Lateral Position (m)')
         title('Lateral Perturbation Signal')
         legend('Commanded','Measured')
+        xlim([100 200])
     %Saving
         h=figure(1);
         saveas(h,'lateral_perturbation.pdf');
