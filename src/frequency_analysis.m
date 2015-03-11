@@ -4,10 +4,34 @@ clc
 %-------------------------------------------------------------------------
 %Loading Files
 %-------------------------------------------------------------------------
-    input_signals=load('Longitudinal_Perturbation_2.4.2014.txt');
-    output_slow=load('record-079_0001.txt');
-    output_normal=load('record-080_0001.txt');
-    output_fast=load('record-081_0001.txt');
+    input_signals = importdata('Longitudinal_Perturbation_2.4.2014.txt');
+    output_slow_file = fopen('record-076_0001.txt');
+    output_normal_file = fopen('record-077_0001.txt');
+    output_fast_file = fopen('record-078_0001.txt');
+%-------------------------------------------------------------------------
+%Parse Events from Files
+%-------------------------------------------------------------------------
+    %Remove Lines Starting with #
+        output_slow_parse = textscan(output_slow_file,'%s', 'Delimiter', '\n', 'CommentStyle', '#');
+        output_slow_parse = output_slow_parse{:};
+        output_normal_parse = textscan(output_normal_file,'%s', 'Delimiter', '\n', 'CommentStyle', '#');
+        output_normal_parse = output_normal_parse{:};
+        output_fast_parse = textscan(output_fast_file,'%s', 'Delimiter', '\n', 'CommentStyle', '#');
+        output_fast_parse = output_fast_parse{:};
+    %Preallocating
+        output_slow = zeros(length(output_slow_parse)-1,4);
+        output_normal = zeros(length(output_normal_parse)-1,4);
+        output_fast = zeros(length(output_fast_parse)-1,4);
+    %Recreate Matrices 
+        for i = 2:length(output_slow_parse)
+            output_slow(i-1,:) = str2num(output_slow_parse{i,:});
+        end
+        for i = 2:length(output_normal_parse)
+            output_normal(i-1,:) = str2num(output_normal_parse{i,:});
+        end
+        for i = 2:length(output_fast_parse)
+            output_fast(i-1,:) = str2num(output_fast_parse{i,:});
+        end
 %-------------------------------------------------------------------------
 %Declaring Variables
 %-------------------------------------------------------------------------
@@ -65,7 +89,7 @@ clc
                 semilogy(f_input,p_input_mean,'Color',[0.815 0.3294 0.3020])
                 hold on
                 semilogy(f_output,p_output_mean,'Color',[0.2157 0.4706 0.7490])
-                ylabel('PSD (v^2/Hz)')
+                ylabel('PSD (m^2s^{-2}/Hz)')
                 xlim([0 8]); ylim([10^-5 10^0])
                 title(titles{i})
                 if i==1

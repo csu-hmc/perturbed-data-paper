@@ -148,6 +148,7 @@ provided by each of the following software packages for your operating system.
   amsmath, amsfonts, amssymb, xcolor, authblk, geometry, caption, natbib,
   fancyhdr, lastpage, titlesec, enumitem, bibtex
 - Git_ (optional)
+- MATLAB Version 7.9 (R2009b) and Simulink Toolbox Version 7.4
 
 .. [#] These are available by default in Linux distributions, provided by Xcode
    on the Mac, and can be obtained via Cygwin, MinGW, or individual install on
