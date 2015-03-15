@@ -269,8 +269,10 @@ download, and unpack::
    (gait)$ cd raw-data
    (gait)$ wget https://zenodo.org/record/13030/files/perturbed-walking-data-01.tar.gz
    (gait)$ wget https://zenodo.org/record/13030/files/perturbed-walking-data-02.tar.gz
+   (gait)$ wget https://zenodo.org/record/16064/files/perturbation-signals.tar.gz
    (gait)$ tar -zxvf perturbed-walking-data-01.tar.gz
    (gait)$ tar -zxvf perturbed-walking-data-02.tar.gz
+   (gait)$ tar -zxvf perturbation-signals.tar.gz
    (gait)$ rm perturbed-walking-data-01.tar.gz
    (gait)$ rm perturbed-walking-data-02.tar.gz
    (gait)$ cd ..
