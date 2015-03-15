@@ -8,10 +8,13 @@ download:
 	mkdir raw-data
 	wget -O raw-data/perturbed-walking-data-01.tar.gz https://zenodo.org/record/13030/files/perturbed-walking-data-01.tar.gz
 	wget -O raw-data/perturbed-walking-data-02.tar.gz https://zenodo.org/record/13030/files/perturbed-walking-data-02.tar.gz
+	wget -O raw-data/perturbation-signals.tar.gz https://zenodo.org/record/16064/files/perturbation-signals.tar.gz
 	tar -C raw-data -zxf perturbed-walking-data-01.tar.gz
 	tar -C raw-data -zxf perturbed-walking-data-02.tar.gz
+	tar -C raw-data -zxf perturbation-signals.tar.gz
 	rm raw-data/perturbed-walking-data-01.tar.gz
 	rm raw-data/perturbed-walking-data-02.tar.gz
+	rm raw-data/perturbation-signals.tar.gz
 defaultconfig:
 	cp default-config.yml config.yml
 figures: config.yml raw-data/README.rst raw-data/T020/meta-020.yml raw-data/T020/mocap-020.txt raw-data/T020/record-020.txt
