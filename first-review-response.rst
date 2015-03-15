@@ -3,8 +3,9 @@ Dear Editor and Reviewers,
 Thank you for agreeing to accept the article for publication in PeerJ with a
 minor revision. We appreciate the thorough feedback and are happy to make the
 next revision of the paper that much better. Below we address all of the
-comments from the Editor and Reviewers. All of the changes since the version we
-first submitted can be viewed here:
+comments from the Editor and Reviewers. All of the changes to the paper source
+since the version we first submitted can be viewed here (click the "Files
+changed" tab):
 
 https://github.com/csu-hmc/perturbed-data-paper/compare/v0.2...master
 
@@ -13,8 +14,8 @@ was not helpful.  Is there a way to generate a PDF of the full paper to
 highlight the new text in any way?  Or, in this response, at each item you could
 say something like: "the revised text now reads: ..."
 
-and we have also noted the individual Github pull requests that address each
-item below.
+and we have also noted the individual Github pull requests (source diffs) that
+address each item below.
 
 Editor (Arti Ahluwalia)
 =======================
@@ -30,7 +31,7 @@ the experiments is now described more specifically. We also added a paragraph
 explaining our grant's data sharing requirements. The specific changes can be
 viewed here:
 
-https://github.com/csu-hmc/perturbed-data-paper/pull/145
+https://github.com/csu-hmc/perturbed-data-paper/pull/145/files
 
 TvdB: again, not helpful for me...
 
@@ -70,7 +71,7 @@ during the project. This paper is a partial fulfillment of that grant
 requirement. We have now noted this in the paper to be clear. The specific
 changes can be viewed here:
 
-https://github.com/csu-hmc/perturbed-data-paper/pull/145
+https://github.com/csu-hmc/perturbed-data-paper/pull/145/files
 
 PeerJ does not seem to have an official stance on whether it publishes data
 papers, but the editorial office approved the scope of this paper when we
@@ -85,7 +86,7 @@ We have revised the Introduction to improve the description of the purpose of
 collecting the data and have been more specific about our research questions and
 hypotheses. The specific changes can be seen here:
 
-https://github.com/csu-hmc/perturbed-data-paper/pull/145
+https://github.com/csu-hmc/perturbed-data-paper/pull/145/files
 
    As mentioned in basic reporting, there is no research question and therefore
    I do not think it can join the scholarly literature as is. I would strongly
@@ -146,7 +147,7 @@ intentions were to collect data with lateral and longitudinal perturbations for
 all of the subjects, but that was thwarted by the equipment issues described in
 the paper. We've noted this in the "Data Limitations" section. See:
 
-https://github.com/csu-hmc/perturbed-data-paper/pull/142
+https://github.com/csu-hmc/perturbed-data-paper/pull/142/files
 
 TvdB: If we remove this subject, the response would simply that we eliminated
 this concern by removing this subject from the study.
@@ -163,7 +164,7 @@ account head orientation. So we decided to collect the head marker data but
 sacrifice accuracy and place them on a securely fitting baseball cap. This has
 been noted in the paper, see:
 
-https://github.com/csu-hmc/perturbed-data-paper/pull/143
+https://github.com/csu-hmc/perturbed-data-paper/pull/143/files
 
    Page 15, line 374. Why didn't the authors recode the trial numbers from 40
    onwards to 37, 38, ...?
@@ -199,7 +200,7 @@ others follow suit.
 Thanks for the suggestion, we have now mentioned some of the new requirements
 form funders and journals in this regard. See:
 
-https://github.com/csu-hmc/perturbed-data-paper/pull/145
+https://github.com/csu-hmc/perturbed-data-paper/pull/145/files
 
    The citation style seems a bit unorthodox, is this the Peerj recommendation?
    For instance, “David Winter’s published normative gait data, Winter (1990),
@@ -210,7 +211,7 @@ https://github.com/csu-hmc/perturbed-data-paper/pull/145
 Thanks for catching that. We were using the incorrect natbib citation style for
 some of the citations. It is now fixed. See:
 
-https://github.com/csu-hmc/perturbed-data-paper/pull/138
+https://github.com/csu-hmc/perturbed-data-paper/pull/138/files
 
    “At another website, the CGA Normative Gait Database, Kirtley (2014) shares
    normative gait data from several studies …” Perhaps this sentence could be
@@ -224,7 +225,7 @@ the correct citation for each dataset in the database should be so we opted for
 simply clarifying that Kirtley is a curator of the data from other
 labs/studies. See:
 
-https://github.com/csu-hmc/perturbed-data-paper/pull/139
+https://github.com/csu-hmc/perturbed-data-paper/pull/139/files
 
    Physionet (http://www.physionet.org/), the Carnegie Mellon mocap database (
    http://mocap.cs.cmu.edu/ ), the Ohio State mocap database, the OU-ISIR
@@ -241,7 +242,7 @@ arbitrary motions datasets/bases because we are more concerned with gait. But
 we have now added most of these into the introduction be more complete, thanks for
 the suggestion. See:
 
-https://github.com/csu-hmc/perturbed-data-paper/pull/148
+https://github.com/csu-hmc/perturbed-data-paper/pull/148/files
 
    Line 110. “Acceleration of treadmill” . Perhaps say “acceleration of
    treadmill base” or something so as to distinguish from the belt
@@ -262,7 +263,7 @@ We have clarified that only one subject's trials included lateral motion and
 have given a description of that motion including a graph showing the time
 history of the lateral deviation. See:
 
-https://github.com/csu-hmc/perturbed-data-paper/pull/151
+https://github.com/csu-hmc/perturbed-data-paper/pull/151/files
 
    If the perturbations are only in the fore-aft direction, it is possible that
    the data set is insufficiently rich to infer the human walking control
@@ -277,7 +278,7 @@ stride width comparisons between unperturbed and perturbed data when only
 longitudinal perturbations are applied and it turns out there is a relative
 increase in stride width. So it may be useful for lateral control studies. See:
 
-https://github.com/csu-hmc/perturbed-data-paper/pull/136
+https://github.com/csu-hmc/perturbed-data-paper/pull/136/files
 
    Line 184-185. “When belt speed is not constant, the inertia of the rollers
    and motor will induce error in the force plate x axis moment, and hence, the
@@ -290,7 +291,7 @@ https://github.com/csu-hmc/perturbed-data-paper/pull/136
 We've added a bit more explaining how this can be remedied with the cited
 paper. See:
 
-https://github.com/csu-hmc/perturbed-data-paper/pull/147
+https://github.com/csu-hmc/perturbed-data-paper/pull/147/files
 
    Line 194. The abbreviation ‘YAML’ is used without previous definition. While
    ASCII is a common-enough word, I’d suggest that YAML is not. Perhaps the
@@ -300,7 +301,7 @@ https://github.com/csu-hmc/perturbed-data-paper/pull/147
 
 YAML is now defined in a footnote. See:
 
-https://github.com/csu-hmc/perturbed-data-paper/pull/137
+https://github.com/csu-hmc/perturbed-data-paper/pull/137/files
 
    232. TSV (tab separated file). perhaps the expansion in parenthesis.
 
@@ -317,7 +318,7 @@ definitions.
 We've added clarification of the nominal configuration, i.e. joint angles = 0.
 See:
 
-https://github.com/csu-hmc/perturbed-data-paper/pull/140
+https://github.com/csu-hmc/perturbed-data-paper/pull/140/files
 
    374. Is there a reason why the authors did not re-arrange the trial numbers
    for publication — ignoring accidentally skipped trials, etc?
@@ -336,7 +337,7 @@ We've added the stride width and are happy to report that there is some
 increase in stride width given longitudinal perturbations. And yes, it only
 took a few more lines of code. See:
 
-https://github.com/csu-hmc/perturbed-data-paper/pull/136
+https://github.com/csu-hmc/perturbed-data-paper/pull/136/files
 
    pages 16-17. I especially liked the ‘Data Limitations’ section. But I would
    suggest that all of these limitations be included as part of the meta data
