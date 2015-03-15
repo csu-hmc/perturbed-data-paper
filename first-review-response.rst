@@ -8,6 +8,11 @@ first submitted can be viewed here:
 
 https://github.com/csu-hmc/perturbed-data-paper/compare/v0.2...master
 
+TvdB: This may technically allow someone to view the changes, but for me this
+was not helpful.  Is there a way to generate a PDF of the full paper to
+highlight the new text in any way?  Or, in this response, at each item you could
+say something like: "the revised text now reads: ..."
+
 and we have also noted the individual Github pull requests that address each
 item below.
 
@@ -26,6 +31,8 @@ explaining our grant's data sharing requirements. The specific changes can be
 viewed here:
 
 https://github.com/csu-hmc/perturbed-data-paper/pull/145
+
+TvdB: again, not helpful for me...
 
    Please address R2 and R3's specific comments to authors.
 
@@ -74,14 +81,7 @@ in subsequent papers which will cite portions of the dataset herein.
    I suspect these data were collected for a purpose but this purpose is absent
    from the manuscript.
 
-We felt our introduction went into great detail about the two main purposes for
-collecting the data:
-
-1. To provide a substantial amount of open and unrestricted data to the public.
-2. To collect gait data rich in varied motion so that it may be useful for
-   control identification methods.
-
-Nevertheless, we have worked to improve the description of the purpose of
+We have revised the Introduction to improve the description of the purpose of
 collecting the data and have been more specific about our research questions and
 hypotheses. The specific changes can be seen here:
 
@@ -148,6 +148,9 @@ the paper. We've noted this in the "Data Limitations" section. See:
 
 https://github.com/csu-hmc/perturbed-data-paper/pull/142
 
+TvdB: If we remove this subject, the response would simply that we eliminated
+this concern by removing this subject from the study.
+
    Page 4, line 120. Why the participants were required to wear a baseball cap?
 
 We attached three markers to the subjects' head. For the marker protocol used,
@@ -155,7 +158,7 @@ these markers were best suited to locations that are typically covered by the
 subject's hair. Ideally, we'd have shaved the subjects' hair and attached the
 markers directly to the skin but we felt this was unnecessary because our
 research motivations are primarily driven with by the need to discover control
-mechanisms. The methods we intended to use for data analyses did not take into
+mechanisms for gait. The methods we intended to use for data analyses did not take into
 account head orientation. So we decided to collect the head marker data but
 sacrifice accuracy and place them on a securely fitting baseball cap. This has
 been noted in the paper, see:
@@ -235,7 +238,7 @@ https://github.com/csu-hmc/perturbed-data-paper/pull/139
 
 We were aware of most of these but intentionally left out the graphics and
 arbitrary motions datasets/bases because we are more concerned with gait. But
-we've added most of these into the introduction be more complete, thanks for
+we have now added most of these into the introduction be more complete, thanks for
 the suggestion. See:
 
 https://github.com/csu-hmc/perturbed-data-paper/pull/148
@@ -348,3 +351,5 @@ The only thing that is not included the YAML files are our recommendations to
 avoid using the ground reaction loads for trials 6-15. But these are included
 in the README file that is included in both of the compressed data files. We
 have opted to leave this as is to avoid creating a new version of the dataset.
+
+TvdB: This would be moot if we removed subjects 1,4,11.
