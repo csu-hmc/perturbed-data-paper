@@ -102,6 +102,10 @@ Creative Commons CC0 license.
 .. image:: https://zenodo.org/badge/doi/10.5281/zenodo.13030.svg
    :target: http://dx.doi.org/10.5281/zenodo.13030
 
+
+.. image:: https://zenodo.org/badge/doi/10.5281/zenodo.16064.svg
+   :target: http://dx.doi.org/10.5281/zenodo.16064
+
 Software
 ========
 
@@ -148,9 +152,9 @@ provided by each of the following software packages for your operating system.
   amsmath, amsfonts, amssymb, xcolor, authblk, geometry, caption, natbib,
   fancyhdr, lastpage, titlesec, enumitem, bibtex
 - Git_ (optional)
-- MATLAB Version 7.9 (R2009b) and Simulink Toolbox Version 7.4, including 
-  the Signal Processing Blockset Version 6.10 and Communications Blockset 
-  Version 4.3
+- MATLAB Version 7.9 (R2009b) and Simulink Toolbox Version 7.4, including the
+  Signal Processing Blockset Version 6.10 and Communications Blockset Version
+  4.3
 
 .. [#] These are available by default in Linux distributions, provided by Xcode
    on the Mac, and can be obtained via Cygwin, MinGW, or individual install on
