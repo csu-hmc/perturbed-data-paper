@@ -90,8 +90,8 @@ use. For example, the kinematic and force plate measurements from several
 subjects from \cite{Vaughan1992} is available on the site. At another website,
 the CGA Normative Gait Database, \cite{Kirtley2014} curates and shares
 normative clinical gait data collected from multiple labs and these datasets
-have influenced other studies, for example the average gait cycles from
-children used in \cite{Bogert2003}.
+have influenced other studies, for example \cite{Bogert2003} made use of the
+average gait cycles from the child subjects.
 
 \cite{Chester2007} report on a large gait database comparison where one
 database contained kinematic data of 409 gait cycles of children from 1 to 7
@@ -160,27 +160,29 @@ mechanisms used during a human's natural gait and recovery from perturbations.
 We hypothesize that by forcing the human to recover from external
 perturbations, the resulting reactive actions can be used along with system
 identification techniques to expose the feedback related relationships among
-the human's sensors and actuators. We have collected data that is richer than
-previous gait data sets and may be rich enough for control identification. The
-data can also be used for verification purposes for controllers that have been
-designed in other manners, such as those constructed from first principles
-\citep{Geyer2010}.
+the human's sensors and actuators. With this in mind, we have collected data
+that is richer than previous gait data sets and may be rich enough for control
+identification. The data can also be used for verification purposes for
+controllers that have been designed in other manners, such as those constructed
+from first principles \citep{Geyer2010}.
 
-With all of this in mind, we collected over seven and half hours of gait data
+With all of this in mind, we collected over seven and a half hours of gait data
 from fifteen able bodied subjects which amounts to over 25,000 gait cycles. The
 subjects walked at three different speeds on an instrumented treadmill while we
 collected full body marker locations and ground reaction loads from a pair of
-force plates. The protocol for the majority of the trials included two minutes
-of normal walking and eight minutes of walking under the influence of
+force plates. The final protocol for the majority of the trials included two
+minutes of normal walking and eight minutes of walking under the influence of
 pseudo-random belt speed fluctuations. The data has been organized complete
 with rich meta data and made available in the most unrestrictive form for other
-research uses following modern best practices in data sharing \citep{White2013}.
+research uses following modern best practices in data sharing
+\citep{White2013}.
 
 Furthermore, we include a small Apache licensed open source software library
 for basic gait analysis and demonstrate its use in the paper. The combination
 of the open data and open software allow the results presented within to be
 computationally reproducible and instructions are included in the associated
-repository for doing so.
+repository~\footnote{https://github.com/csu-hmc/perturbed-data-paper} for
+reproducing the results.
 
 \section*{Methods}
 %
@@ -222,8 +224,8 @@ Cleveland State University, using the following equipment:
 %
 \begin{itemize}
   \item A R-Mill treadmill which has dual 6 degree of freedom force plates,
-    independent belts for each foot, and lateral/pitch motion capabilities
-    (Forcelink, Culemborg, Netherlands).
+    independent belts for each foot, along with lateral translation and pitch
+    rotation capabilities (Forcelink, Culemborg, Netherlands).
   \item A 10 Osprey camera motion capture system paired with the Cortex
     3.1.1.1290 software (Motion Analysis, Santa Rosa, CA, USA).
   \item USB-6255 data acquisition unit (National Instruments, Austin, Texas,
@@ -235,11 +237,12 @@ Cleveland State University, using the following equipment:
 \end{itemize}
 
 The Cortex software delivers high accuracy 3D marker trajectories from the
-cameras along with data from force plates and analog sensors
-(EMG/Accelerometer) through a National Instruments USB-6255 data acquisition
-unit. D-Flow is required to collect data from any digital sensors and to
-control the treadmill's motion (lateral, pitch, and belts). D-Flow can process
-the data in real time and/or export data to file.
+cameras along with data from the force plates and analog sensors (e.g.
+EMG/Accelerometer) through a National Instruments USB-6255 data acquisition
+unit. D-Flow then receives streaming data from Cortex and any other digital
+sensors. It is also responsible for controlling the treadmill's motion
+(lateral, pitch, belts). D-Flow can process the data in real time and/or export
+data to file.
 
 Our motion capture system's coordinate system is such that the X coordinate
 points to the right, the Y coordinate points upwards, and the Z coordinate
@@ -250,12 +253,14 @@ origin of the ground reaction force measuring system.
 Figure~\ref{fig:treadmill} shows the layout of the equipment.
 
 Early on, we discovered that the factory setup of the R-Link treadmill had a
-vibration mode as low as 5\si{\hertz} that is detectable in the force measurements,
-likely due to the flexible undercarriage and pitch motion mechanism. Trials 6-8
-are affected by this vibration mode. During trials 9-15 the treadmill was
-stabilized with wooden blocks. During the remaining trials the treadmill was
-stabilized with metal supports. See the Data Limitations Section for more
-details.
+vibration mode as low as 5\si{\hertz} that was detectable in the force
+measurements, likely due to the flexible undercarriage and pitch motion
+mechanism. Trials 6-8 are affected by this vibration mode. During trials 9-15
+the treadmill was stabilized with wooden blocks. During the remaining trials
+the treadmill was stabilized with metal supports; both in-house fabricated ones
+and vendor supplied ones. These supports aimed to improve the stiffness and
+frequency response of the force plate system. See the Data Limitations Section
+for more details.
 
 The acceleration of the treadmill base was measured during each trial by four
 ADXL330 accelerometers placed at the four corners of the machine. These
@@ -279,17 +284,81 @@ The experimental protocol consisted of both static measurements and walking on
 the treadmill for 10 minutes under unperturbed and perturbed conditions. Before
 a set of trials on the same day, the motion capture system was calibrated using
 the manufacturer's recommended procedure. Before each subject's gait data were
-collected, the subject changed into athletic shoes, shorts, a sports bra,
-a baseball cap~\footnote{A cap was used to avoid having to shave participants'
-hair but at the expense of accuracy.}, and a rock climbing harness. All 47 markers
-were applied directly to the skin at the landmarks noted in
+collected, the subject changed into athletic shoes, shorts, a sports bra, a
+baseball cap~\footnote{A cap was used to avoid having to shave participants'
+hair but at the expense of accuracy.}, and a rock climbing harness. All 47
+markers were applied directly to the skin at the landmarks noted in
 Table~\ref{tab:marker-labels} except for the heel, toe, and head markers, which
 were placed on the respective article of clothing.~\footnote{The sacrum and
-rear pelvic markers may have been placed on the shorts for a small number of
-the subjects.} Then the subject self-reported their age, gender, and mass.
+rear pelvic markers were placed on the shorts for a small number of the
+subjects.} Then the subject self-reported their age, gender, and mass.
 Finally, their height was measured by the experimentalist and four reference
 photographs (front, back, right, left) were taken of subject's marker
 locations.
+%
+\begin{table*}
+  \cprotect\caption{Descriptions of the 47 markers used in this study. The
+    ``Set'' column indicates whether the marker exists in the lower and/or full
+    body marker set. The label column matches the column headers in the
+    \verb|mocap-xxx.txt| files and/or the marker map in the \verb|meta-xxx.yml|
+    file.}
+  \centering
+  \scriptsize
+  \begin{tabular}{lrlll}
+    \toprule
+    Set & \# & Label & Name & Description \\
+    \midrule
+    F   & 1  & LHEAD & Left head                             & Just above the ear, in the middle. \\
+    F   & 2  & THEAD & Top head                              & On top of the head, in line with the LHEAD and RHEAD. \\
+    F   & 3  & RHEAD & Right head                            & Just above the ear, in the middle. \\
+    F   & 4  & FHEAD & Forehead                              & Between line LHEAD/RHEAD and THEAD a bit right from center. \\
+    L/F & 5  & C7    & C7                                    & On the 7th cervical vertebrae. \\
+    L/F & 6  & T10   & T10                                   & On the 10th thoracic vertbrae. \\
+    L/F & 7  & SACR  & Sacrum bone                           & On the sacral bone. \\
+    L/F & 8  & NAVE  & Navel                                 & On the navel. \\
+    L/F & 9  & XYPH  & Xiphoid process                       & Xiphoid process of the sternum. \\
+    F   & 10 & STRN  & Sternum                               & On the jugular notch of the sternum. \\
+    F   & 11 & BBAC  & Scapula                               & On the inferior angle fo the right scapular. \\
+    F   & 12 & LSHO  & Left shoulder                         & Left acromion. \\
+    F   & 13 & LDELT & Left deltoid muscle                   & Apex of the deltoid muscle. \\
+    F   & 14 & LLEE  & Left lateral elbow                    & Left lateral epicondyle of the elbow. \\
+    F   & 15 & LMEE  & Left medial elbow                     & Left medial epicondyle of the elbow. \\
+    F   & 16 & LFRM  & Left forearm                          & On 2/3 on the line between the LLEE and LMW. \\
+    F   & 17 & LMW   & Left medial wrist                     & On styloid process radius, thumb side. \\
+    F   & 18 & LLW   & Left lateral wrist                    & On styloid process ulna, pinky side. \\
+    F   & 19 & LFIN  & Left fingers                          & Center of the hand. Caput metatarsal 3. \\
+    F   & 20 & RSHO  & Right shoulder                        & Right acromion. \\
+    F   & 21 & RDELT & Right deltoid muscle                  & Apex of deltoid muscle. \\
+    F   & 22 & RLEE  & Right lateral elbow                   & Right lateral epicondyle of the elbow. \\
+    F   & 23 & RMEE  & Right medial elbow                    & Right medial epicondyle of the elbow. \\
+    F   & 24 & RFRM  & Right forearm                         & On 1/3 on the line between the RLEE and RMW. \\
+    F   & 25 & RMW   & Right medial wrist                    & On styloid process radius, thumb side. \\
+    F   & 26 & RLW   & Right lateral wrist                   & On styloid process ulna, pinky side. \\
+    F   & 27 & RFIN  & Right fingers                         & Center of the hand. Caput metatarsal 3. \\
+    L/F & 28 & LASIS & Pelvic bone left front                & Left anterior superior iliac spine. \\
+    L/F & 29 & RASIS & Pelvic bone right front               & Right anterior superior iliac spine. \\
+    L/F & 30 & LPSIS & Pelvic bone left back                 & Left posterior superio iliac spine. \\
+    L/F & 31 & RPSIS & Pelvic bone right back                & Right posterior superior iliac spine. \\
+    L/F & 32 & LGTRO & Left greater trochanter of the femur  & On the cetner of the left greater trochanter. \\
+    L/F & 33 & FLTHI & Left thigh                            & On 1/3 on the line between the LFTRO and LLEK. \\
+    L/F & 34 & LLEK  & Left lateral epicondyle of the knee   & On the lateral side of the joint axis. \\
+    L/F & 35 & LATI  & Left anterior of the tibia            & On 2/3 on the line between the LLEK and LLM. \\
+    L/F & 36 & LLM   & Left lateral malleoulus of the ankle  & The center of the heel at the same height as the toe. \\
+    L/F & 37 & LHEE  & Left heel                             & Center of the heel at the same height as the toe. \\
+    L/F & 38 & LTOE  & Left toe                              & Tip of big toe. \\
+    L/F & 39 & LMT5  & Left 5th metatarsal                   & Caput of the 5th metatarsal bone, on joint line midfoot/toes. \\
+    L/F & 40 & RGTRO & Right greater trochanter of the femur & On the cetner of the right greater trochanter. \\
+    L/F & 41 & FRTHI & Right thigh                           & On 2/3 on the line between the RFTRO and RLEK. \\
+    L/F & 42 & RLEK  & Right lateral epicondyle of the knee  & On the lateral side of the joint axis. \\
+    L/F & 43 & RATI  & Right anterior of the tibia           & On 1/3 on the line between the RLEK and RLM. \\
+    L/F & 44 & RLM   & Right lateral malleoulus of the ankle & The center of the heel at the same height as the toe. \\
+    L/F & 45 & RHEE  & Right heel                            & Center of the heel at the same height as the toe. \\
+    L/F & 46 & RTOE  & Right toe                             & Tip of big toe. \\
+    L/F & 47 & RMT5  & Right 5th metatarsal                  & Caput of the 5th metatarsal bone, on joint line midfoot/toes. \\
+    \bottomrule
+  \end{tabular}
+  \label{tab:marker-labels}
+\end{table*}
 
 After obtaining informed consent and a briefing by the experimentalist on the
 trial protocol, the subject followed the verbal instructions of the
@@ -300,8 +369,8 @@ protocol for a single trial was as follows:
   \item Subject stepped onto the treadmill and markers were identified with
     Cortex.
   \item The safety rope was attached loosely to the rock climbing harness such
-    that no undue forces were acting on the subject during walking, but that
-    the harness would prevent a full fall.
+    that no forces were acting on the subject during walking, but that the
+    harness would prevent a full fall.
   \item The subject started by stepping on sides of treadmill so that feet did
     not touch the force plates and the force plate signals are zeroed. This
     corresponds to the ``Force Plate Zeroing'' event.
@@ -342,10 +411,10 @@ with MATLAB and Simulink (Mathworks, Natick, Massachusetts, USA) and are
 available for download from Zenodo~\citep{Hnat2015}. The same control signal
 was used for all trials at that given speed.
 
-To create the signals, we started by generating random 100~\si{\hertz}
-acceleration signals using the Simulink discrete-time Gaussian white noise
-block followed by a saturation block set at the maximum belt acceleration of
-15~\si{\meter\per\second\squared}. The signal was then integrated to obtain
+To create the signals, we started by generating random acceleration signals,
+sampled at 100~\si{\hertz}, using the Simulink discrete-time Gaussian white
+noise block followed by a saturation block set at the maximum belt acceleration
+of 15~\si{\meter\per\second\squared}. The signal was then integrated to obtain
 belt speed and high-pass filtered with a second-order Butterworth filter to
 eliminate drift. One of the three mean speeds were then added to the signal and
 limited between \SIrange{0}{3.6}{\meter\per\second}. The cutoff frequencies of
@@ -354,26 +423,18 @@ manually adjusted until acceptable standard deviations for each mean speed were
 obtained: \SIlist{0.06;0.12;0.21}{\meter\per\second} for the three speeds,
 respectively. These ensured that the test subjects were sufficiently perturbed
 at each speed, while remaining within the limits of our equipment and testing
-protocol.
-
-To ensure that the treadmill belts could accelerate to the desired values, the
-high performance mode in the D-Flow software was enabled. This had the side
-effect of enabling too rapid of accelerations when the belt speed changed to or
-from zero speed. To eliminate this, a suitable ramped acceleration and
-deceleration were generated for the speed transitions.
-
-The MATLAB script and Simulink model produce a comma-delimited text file of
-five desired belt speed signals indexed by the time stamp. There are slow, normal,
-and fast walking speeds and slow and fast running speeds.~\footnote{The running
-signals were not used in the experiments presented in this paper.}
+protocol. To ensure that the treadmill belts could accelerate to the desired
+values, the high performance mode in the D-Flow software was enabled. The
+MATLAB script and Simulink model produce a comma-delimited text file of with
+the desired belt speed signals indexed by the time stamp.
 
 Figure~\ref{fig:input_output} gives an idea of the effect of the treadmill and
 controller dynamics by plotting the measured speed of the treadmill belts from
 loaded trials (76, 77, 78) against the commanded treadmill control input
 signal. The system introduces a delay and seems to act as a low pass filter.
 The standard deviations of the measured speeds do not significantly differ from
-the desired values: \SIlist{0.05;0.12;0.2}{\meter\per\second} for the three
-speeds, respectively.
+those of the commanded speeds: \SIlist{0.05;0.12;0.2}{\meter\per\second} for
+the three speeds, respectively.
 %
 \begin{figure}
   \centering
@@ -517,70 +578,6 @@ three axes until the marker is visible again. In D-Flow versions greater than
 or equal to 3.16.2rc4, the missing markers are indicated in the TSV file as
 either \verb|0.000000| or \verb|-0.000000|. The D-Flow version must be provided
 in the meta data YAML file to be able to distinguish this detail.
-%
-\begin{table*}
-  \cprotect\caption{Descriptions of the 47 markers used in this study. The
-    ``Set'' column indicates whether the marker exists in the lower and/or full
-    body marker set. The label column matches the column headers in the
-    \verb|mocap-xxx.txt| files and/or the marker map in the \verb|meta-xxx.yml|
-    file.}
-  \centering
-  \scriptsize
-  \begin{tabular}{lrlll}
-    \toprule
-    Set & \# & Label & Name & Description \\
-    \midrule
-    F   & 1  & LHEAD & Left head                             & Just above the ear, in the middle. \\
-    F   & 2  & THEAD & Top head                              & On top of the head, in line with the LHEAD and RHEAD. \\
-    F   & 3  & RHEAD & Right head                            & Just above the ear, in the middle. \\
-    F   & 4  & FHEAD & Forehead                              & Between line LHEAD/RHEAD and THEAD a bit right from center. \\
-    L/F & 5  & C7    & C7                                    & On the 7th cervical vertebrae. \\
-    L/F & 6  & T10   & T10                                   & On the 10th thoracic vertbrae. \\
-    L/F & 7  & SACR  & Sacrum bone                           & On the sacral bone. \\
-    L/F & 8  & NAVE  & Navel                                 & On the navel. \\
-    L/F & 9  & XYPH  & Xiphoid process                       & Xiphoid process of the sternum. \\
-    F   & 10 & STRN  & Sternum                               & On the jugular notch of the sternum. \\
-    F   & 11 & BBAC  & Scapula                               & On the inferior angle fo the right scapular. \\
-    F   & 12 & LSHO  & Left shoulder                         & Left acromion. \\
-    F   & 13 & LDELT & Left deltoid muscle                   & Apex of the deltoid muscle. \\
-    F   & 14 & LLEE  & Left lateral elbow                    & Left lateral epicondyle of the elbow. \\
-    F   & 15 & LMEE  & Left medial elbow                     & Left medial epicondyle of the elbow. \\
-    F   & 16 & LFRM  & Left forearm                          & On 2/3 on the line between the LLEE and LMW. \\
-    F   & 17 & LMW   & Left medial wrist                     & On styloid process radius, thumb side. \\
-    F   & 18 & LLW   & Left lateral wrist                    & On styloid process ulna, pinky side. \\
-    F   & 19 & LFIN  & Left fingers                          & Center of the hand. Caput metatarsal 3. \\
-    F   & 20 & RSHO  & Right shoulder                        & Right acromion. \\
-    F   & 21 & RDELT & Right deltoid muscle                  & Apex of deltoid muscle. \\
-    F   & 22 & RLEE  & Right lateral elbow                   & Right lateral epicondyle of the elbow. \\
-    F   & 23 & RMEE  & Right medial elbow                    & Right medial epicondyle of the elbow. \\
-    F   & 24 & RFRM  & Right forearm                         & On 1/3 on the line between the RLEE and RMW. \\
-    F   & 25 & RMW   & Right medial wrist                    & On styloid process radius, thumb side. \\
-    F   & 26 & RLW   & Right lateral wrist                   & On styloid process ulna, pinky side. \\
-    F   & 27 & RFIN  & Right fingers                         & Center of the hand. Caput metatarsal 3. \\
-    L/F & 28 & LASIS & Pelvic bone left front                & Left anterior superior iliac spine. \\
-    L/F & 29 & RASIS & Pelvic bone right front               & Right anterior superior iliac spine. \\
-    L/F & 30 & LPSIS & Pelvic bone left back                 & Left posterior superio iliac spine. \\
-    L/F & 31 & RPSIS & Pelvic bone right back                & Right posterior superior iliac spine. \\
-    L/F & 32 & LGTRO & Left greater trochanter of the femur  & On the cetner of the left greater trochanter. \\
-    L/F & 33 & FLTHI & Left thigh                            & On 1/3 on the line between the LFTRO and LLEK. \\
-    L/F & 34 & LLEK  & Left lateral epicondyle of the knee   & On the lateral side of the joint axis. \\
-    L/F & 35 & LATI  & Left anterior of the tibia            & On 2/3 on the line between the LLEK and LLM. \\
-    L/F & 36 & LLM   & Left lateral malleoulus of the ankle  & The center of the heel at the same height as the toe. \\
-    L/F & 37 & LHEE  & Left heel                             & Center of the heel at the same height as the toe. \\
-    L/F & 38 & LTOE  & Left toe                              & Tip of big toe. \\
-    L/F & 39 & LMT5  & Left 5th metatarsal                   & Caput of the 5th metatarsal bone, on joint line midfoot/toes. \\
-    L/F & 40 & RGTRO & Right greater trochanter of the femur & On the cetner of the right greater trochanter. \\
-    L/F & 41 & FRTHI & Right thigh                           & On 2/3 on the line between the RFTRO and RLEK. \\
-    L/F & 42 & RLEK  & Right lateral epicondyle of the knee  & On the lateral side of the joint axis. \\
-    L/F & 43 & RATI  & Right anterior of the tibia           & On 1/3 on the line between the RLEK and RLM. \\
-    L/F & 44 & RLM   & Right lateral malleoulus of the ankle & The center of the heel at the same height as the toe. \\
-    L/F & 45 & RHEE  & Right heel                            & Center of the heel at the same height as the toe. \\
-    L/F & 46 & RTOE  & Right toe                             & Tip of big toe. \\
-    L/F & 47 & RMT5  & Right 5th metatarsal                  & Caput of the 5th metatarsal bone, on joint line midfoot/toes. \\
-    \bottomrule
-  \end{tabular}
-  \label{tab:marker-labels}
-\end{table*}
 
 \subsubsection*{record-xxx.txt}
 %
