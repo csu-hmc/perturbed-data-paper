@@ -34,23 +34,20 @@ signal_output = interp1(time_output,signal_output,time_input);
 % Plotting
 %-------------------------------------------------------------------------
 
-% Settings to Improve Graph Appearance
+h = figure();
 
-% TODO : I have no idea what this does and the figure doesn't come out to
-% an adequate size. I think it may just crop the image from the default
-% size which is incorrect.
+fig_width = 5.0;
+golden_ratio = (1 + sqrt(5)) / 2;
+fig_height = fig_width / golden_ratio;
 
-ti = get(gca, 'TightInset');
-set(gca, 'Position', [ti(1) ti(2) 1-ti(3)-ti(1) 1-ti(4)-ti(2)]);
-set(gca, 'units', 'centimeters')
-pos = get(gca, 'Position');
-ti = get(gca, 'TightInset');
-set(gcf, 'PaperUnits', 'centimeters');
-set(gcf, 'PaperSize',  [pos(3)+ti(1)+ti(3) pos(4)+ti(2)+ti(4)]);
-set(gcf, 'PaperPositionMode',  'manual');
-set(gcf, 'PaperPosition', [0 0 pos(3)+ti(1)+ti(3) pos(4)+ti(2)+ti(4)]);
-
-% Plot
+set(gcf, ...
+    'Color', [1, 1, 1], ...
+    'PaperOrientation', 'portrait', ...
+    'PaperUnits', 'inches', ...
+    'PaperPositionMode', 'manual', ...
+    'OuterPosition', [424, 305 - 50, 518, 465], ...
+    'PaperPosition', [0, 0, fig_width, fig_height], ...
+    'PaperSize', [fig_width, fig_height])
 
 hold on
 
@@ -64,7 +61,4 @@ ylabel('Lateral Position (m)')
 title('Lateral Perturbation Signal')
 legend('Commanded', 'Measured')
 
-% Saving
-
-h = figure(1);
 saveas(h, [PATHS.figures_dir filesep 'lateral_perturbation.pdf']);
