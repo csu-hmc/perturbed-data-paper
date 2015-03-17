@@ -1,8 +1,5 @@
 % This script generates a plot of the lateral deviation of the treadmill
-% base durig trial number 6.
-
-clear
-clc
+% base during trial number 6.
 
 %-------------------------------------------------------------------------
 % File Paths
@@ -49,6 +46,8 @@ set(gcf, ...
 hold on
 
 plot(time_output, signal_output, 'Color', [0.2157 0.4706 0.7490])
+
+box on
 
 xlim([100 200])
 

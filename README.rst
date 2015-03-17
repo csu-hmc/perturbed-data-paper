@@ -288,13 +288,12 @@ The above commands can also be run with the make target::
 Configuration file
 ------------------
 
-Copy the default configuration to a file called ``config.yml``::
+If custom paths are needed, copy the default configuration to a file called
+``config.yml``::
 
    (gait)$ cp default-config.yml config.yml
 
-This can also be performed with a make target::
-
-   (gait)$ make defaultconfig
+and edit the new file to suit.
 
 Generate the tables and figures
 -------------------------------
