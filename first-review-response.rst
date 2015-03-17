@@ -139,9 +139,14 @@ trials are the only ones that included lateral perturbations and we felt that
 the valid kinematic data may be useful to future researchers. Our initial
 intentions were to collect data with lateral and longitudinal perturbations for
 all of the subjects, but that was thwarted by the equipment issues described in
-the paper. We've noted this in the "Data Limitations" section. See:
+the paper. We've reworked the paper to specifically note which trials were
+pilot trials and which used the final protocol. See:
 
 https://github.com/csu-hmc/perturbed-data-paper/pull/142/files
+
+and
+
+https://github.com/csu-hmc/perturbed-data-paper/pull/164/files
 
    Page 4, line 120. Why the participants were required to wear a baseball cap?
 
@@ -252,7 +257,8 @@ Fixed.
 
 We have clarified that only one subject's trials included lateral motion and
 have given a description of that motion including a graph showing the time
-history of the lateral deviation. See:
+history of the lateral deviation. We've also clarified which trials were pilot
+trials and which ones used the final protocol. See:
 
 https://github.com/csu-hmc/perturbed-data-paper/pull/151/files
 
