@@ -19,6 +19,7 @@ defaultconfig: default-config.yml
 	cp default-config.yml config.yml
 figures: config.yml raw-data/README.rst raw-data/T020/meta-020.yml raw-data/T020/mocap-020.txt raw-data/T020/record-020.txt
 	python src/unperturbed_perturbed_comparison.py
+	matlab -nodisplay -nosplash -nodesktop -r "run('src/lateral_perturbation_plot.m');exit;"
 tables: config.yml raw-data/README.rst
 	python src/subject_table.py
 clean:

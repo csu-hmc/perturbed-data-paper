@@ -1,4 +1,8 @@
 function paths = get_config()
+% function paths = get_config()
+%
+% Returns a structure containing absolute paths to the directories specified
+% in the configuration file.
 
     script_path = mfilename('fullpath');
     root_dir_path = fileparts(fileparts(script_path));
@@ -22,7 +26,7 @@ function paths = parse_yaml(path, root_dir_path)
 
     tline = fgets(fid);
     while ischar(tline)
-        parts = strsplit(tline, ': ');
+        parts = strsplit(strtrim(tline), ': ');
         name = parts{1};
         path = parts{2};
         if path(1) == '\' || path(2) == ':'
