@@ -1,8 +1,5 @@
 % This script generates a plot of the lateral deviation of the treadmill
-% base durig trial number 6.
-
-clear
-clc
+% base during trial number 6.
 
 %-------------------------------------------------------------------------
 % File Paths
