@@ -94,12 +94,16 @@ if not os.path.exists(table_dir):
     os.makedirs(table_dir)
 
 table_path = os.path.join(table_dir, 'subjects.tex')
-tex = unique_subjects.sort().to_latex(na_rep='NA', index=False,
-                                      columns=new_cols,
-                                      formatters=formatters)
+tex = unique_subjects.sort('1.6 m/s', na_position='first').to_latex(
+    na_rep='NA', index=False, columns=new_cols, formatters=formatters)
+
 tex = tex.replace('dollar', '$')
 tex = tex.replace('plusminus', '\pm')
 tex = tex.replace('rlrrllll', 'rlrrrrrr')
+lines = tex.split('\n')
+lines.insert(5, r'\midrule[0.25pt]')
+lines.insert(9, r'\midrule[0.25pt]')
+tex = '\n'.join(lines)
 with open(table_path, 'w') as f:
     f.write(tex)
 print('Table at: {}'.format(table_path))
