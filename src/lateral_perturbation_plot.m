@@ -47,6 +47,8 @@ hold on
 
 plot(time_output, signal_output, 'Color', [0.2157 0.4706 0.7490])
 
+box on
+
 xlim([100 200])
 
 xlabel('Time (s)')

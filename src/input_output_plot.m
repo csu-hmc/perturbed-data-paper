@@ -67,6 +67,7 @@ set(gcf, ...
 red = [0.815 0.3294 0.3020];
 blue = [0.2157 0.4706 0.7490];
 
+
 % Slow
 subplot(3, 1, 1)
 hold on
@@ -75,8 +76,10 @@ plot(time_input, inputs(:, 1), 'Color', red)
 plot(output_slow_time, output_slow, 'Color', blue)
 xlim([305 310]);
 
+box on
+
 leg = legend('Commanded', 'Measured');
-set(leg,'FontSize', 8);
+set(leg,'FontSize', 6);
 
 ylabel('Speed (m/s)')
 title('Slow Walking (0.8 m/s)')
@@ -89,6 +92,8 @@ plot(time_input, inputs(:, 2), 'Color', red)
 plot(output_normal_time, output_normal, 'Color', blue)
 xlim([305 310]);
 
+box on
+
 ylabel('Speed (m/s)')
 title('Normal Walking (1.2 m/s)')
 
@@ -99,6 +104,8 @@ hold on
 plot(time_input, inputs(:, 3), 'Color', red)
 plot(output_fast_time, output_fast, 'Color', blue)
 xlim([305 310])
+
+box on
 
 xlabel('Time (s)')
 ylabel('Speed (m/s)')
