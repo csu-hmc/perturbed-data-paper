@@ -53,7 +53,7 @@ plot(time_output, signal_output, 'Color', [0.2157 0.4706 0.7490])
 xlim([100 200])
 
 xlabel('Time (s)')
-ylabel('Lateral Position (m)')
+ylabel('Lateral Deviation (m)')
 title('Lateral Perturbation Signal')
 
 saveas(h, [PATHS.figures_dir filesep 'lateral_perturbation.pdf']);
