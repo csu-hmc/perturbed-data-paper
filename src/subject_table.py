@@ -84,7 +84,6 @@ units = ['', '', ' [yr]', ' [m]', ' [kg]', '', '', '']
 new_cols = [s.capitalize() + u for s, u in zip(cols, units)]
 unique_subjects.rename(columns=dict(zip(cols, new_cols)), inplace=True)
 
-
 formatters = {'Height [m]': lambda x: 'NA' if np.isnan(x)
               else '{:0.2f}'.format(x),
               'Mass [kg]': lambda x: '{:0.0f}'.format(x) if isinstance(x, float) else x}
@@ -94,12 +93,16 @@ if not os.path.exists(table_dir):
     os.makedirs(table_dir)
 
 table_path = os.path.join(table_dir, 'subjects.tex')
-tex = unique_subjects.sort().to_latex(na_rep='NA', index=False,
-                                      columns=new_cols,
-                                      formatters=formatters)
+tex = unique_subjects.sort('1.6 m/s', na_position='first').to_latex(
+    na_rep='NA', index=False, index_names=False, columns=new_cols,
+    formatters=formatters)
+
 tex = tex.replace('dollar', '$')
 tex = tex.replace('plusminus', '\pm')
 tex = tex.replace('rlrrllll', 'rlrrrrrr')
+lines = tex.split('\n')
+lines.insert(7, r'\midrule[0.25pt]')
+tex = '\n'.join(lines)
 with open(table_path, 'w') as f:
     f.write(tex)
 print('Table at: {}'.format(table_path))

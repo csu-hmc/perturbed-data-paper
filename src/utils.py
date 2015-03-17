@@ -30,8 +30,12 @@ def config_paths(root_dir):
 
     """
 
-    with open(os.path.join(root_dir, 'config.yml'), 'r') as f:
-        config = yaml.load(f)
+    try:
+        with open(os.path.join(root_dir, 'config.yml'), 'r') as f:
+            config = yaml.load(f)
+    except IOError:
+        with open(os.path.join(root_dir, 'default-config.yml'), 'r') as f:
+            config = yaml.load(f)
 
     raw_dir = os.path.join(root_dir, config['raw_data_dir'])
     processed_dir = os.path.join(root_dir, config['processed_data_dir'])
