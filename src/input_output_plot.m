@@ -1,67 +1,107 @@
-clear
-clc
+%-------------------------------------------------------------------------
+% File Paths
+%-------------------------------------------------------------------------
+
+PATHS = get_config();
+
+raw_dir = PATHS.raw_data_dir;
+
+per_sig_dir = [raw_dir filesep 'perturbation-signals'];
+commanded_file = [per_sig_dir filesep 'longitudinal-perturbation.txt'];
+
+measured_076 = [raw_dir filesep 'T076' filesep 'record-076.txt'];
+measured_077 = [raw_dir filesep 'T077' filesep 'record-077.txt'];
+measured_078 = [raw_dir filesep 'T078' filesep 'record-078.txt'];
 
 %-------------------------------------------------------------------------
-%Loading Files
+% Loading Files
 %-------------------------------------------------------------------------
-    input_signals = importdata('Longitudinal_Perturbation_2.4.2014.txt');
-    output_slow = importdata('record-076.txt');
-    output_normal = importdata('record-077.txt');
-    output_fast = importdata('record-078.txt');
+
+input_signals = importdata(commanded_file);
+output_slow = parse_record(measured_076);
+output_normal = parse_record(measured_077);
+output_fast = parse_record(measured_078);
+
 %-------------------------------------------------------------------------
-%Declaring Variables
+% Declaring Variables
 %-------------------------------------------------------------------------
-    %Time Variables (necessary because Record Module has varying timestamp)
-        time_input = input_signals(:,1);
-        output_slow_time = output_slow.data(:,1); 
-        output_slow_time = output_slow_time-output_slow_time(1,1);
-        output_normal_time = output_normal.data(:,1);
-        output_normal_time = output_normal_time-output_normal_time(1,1);
-        output_fast_time = output_fast.data(:,1);
-        output_fast_time  =output_fast_time-output_fast_time(1,1);
-    %Speed
-        inputs=[input_signals(:,2) input_signals(:,3) input_signals(:,4)];
-        output_slow = output_slow.data(:,2); 
-        output_normal = output_normal.data(:,2);
-        output_fast = output_fast.data(:,2);
+
+% Time Variables (necessary because Record Module has varying timestamp)
+time_input = input_signals.data(:, 1);
+
+output_slow_time = output_slow(:, 1);
+output_slow_time = output_slow_time - output_slow_time(1, 1);
+
+output_normal_time = output_normal(:, 1);
+output_normal_time = output_normal_time - output_normal_time(1, 1);
+
+output_fast_time = output_fast(:, 1);
+output_fast_time  = output_fast_time - output_fast_time(1, 1);
+
+% Speed
+inputs = [input_signals.data(:, 2) input_signals.data(:, 3) ...
+          input_signals.data(:, 4)];
+output_slow = output_slow(:, 2);
+output_normal = output_normal(:, 2);
+output_fast = output_fast(:, 2);
+
 %-------------------------------------------------------------------------
-%Plotting
+% Plotting
 %-------------------------------------------------------------------------
-    %Settings to Improve Graph Appearance
-        ti = get(gca,'TightInset');
-        set(gca,'Position',[ti(1) ti(2) 1-ti(3)-ti(1) 1-ti(4)-ti(2)]);
-        set(gca,'units','centimeters')
-        pos = get(gca,'Position');
-        ti = get(gca,'TightInset');
-        set(gcf, 'PaperUnits','centimeters');
-        set(gcf, 'PaperSize', [pos(3)+ti(1)+ti(3) pos(4)+ti(2)+ti(4)]);
-        set(gcf, 'PaperPositionMode', 'manual');
-        set(gcf, 'PaperPosition',[0 0 pos(3)+ti(1)+ti(3) pos(4)+ti(2)+ti(4)]);
-    figure(1)
-        subplot(3,1,1)
-        plot(time_input, inputs(:,1),'Color',[0.815 0.3294 0.3020])
-        hold on
-        plot(output_slow_time, output_slow,'Color',[0.2157 0.4706 0.7490])
-        legend('Commanded','Measured')
-        xlim([305 310]); 
-        ylabel('Speed (m/s)')
-        title('Slow Walking (0.8 m/s)')
-    
-        subplot(3,1,2)
-        plot(time_input, inputs(:,2),'Color',[0.815 0.3294 0.3020])
-        hold on
-        plot(output_normal_time, output_normal,'Color',[0.2157 0.4706 0.7490])
-        ylabel('Speed (m/s)')
-        xlim([305 310]); 
-        title('Normal Walking (1.2 m/s)')
-    
-        subplot(3,1,3)
-        plot(time_input,inputs(:,3),'Color',[0.815 0.3294 0.3020])
-        hold on
-        plot(output_fast_time,output_fast,'Color',[0.2157 0.4706 0.7490])
-        ylabel('Speed (m/s)')
-        xlim([305 310]); xlabel('Time (s)')
-        title('Fast Walking (1.6 m/s)')
-        
-        h=figure(1);
-        saveas(h,'input_vs_output.pdf')
+
+h = figure();
+
+fig_width = 5.0;
+golden_ratio = (1 + sqrt(5)) / 2;
+fig_height = fig_width / golden_ratio;
+
+set(gcf, ...
+    'Color', [1, 1, 1], ...
+    'PaperOrientation', 'portrait', ...
+    'PaperUnits', 'inches', ...
+    'PaperPositionMode', 'manual', ...
+    'OuterPosition', [424, 305 - 50, 518, 465], ...
+    'PaperPosition', [0, 0, fig_width, fig_height], ...
+    'PaperSize', [fig_width, fig_height])
+
+red = [0.815 0.3294 0.3020];
+blue = [0.2157 0.4706 0.7490];
+
+% Slow
+subplot(3, 1, 1)
+hold on
+
+plot(time_input, inputs(:, 1), 'Color', red)
+plot(output_slow_time, output_slow, 'Color', blue)
+xlim([305 310]);
+
+leg = legend('Commanded', 'Measured');
+set(leg,'FontSize', 8);
+
+ylabel('Speed (m/s)')
+title('Slow Walking (0.8 m/s)')
+
+% Normal
+subplot(3, 1, 2)
+hold on
+
+plot(time_input, inputs(:, 2), 'Color', red)
+plot(output_normal_time, output_normal, 'Color', blue)
+xlim([305 310]);
+
+ylabel('Speed (m/s)')
+title('Normal Walking (1.2 m/s)')
+
+% Fast
+subplot(3, 1, 3)
+hold on
+
+plot(time_input, inputs(:, 3), 'Color', red)
+plot(output_fast_time, output_fast, 'Color', blue)
+xlim([305 310])
+
+xlabel('Time (s)')
+ylabel('Speed (m/s)')
+title('Fast Walking (1.6 m/s)')
+
+saveas(h, [PATHS.figures_dir filesep 'input_vs_output.pdf'])
