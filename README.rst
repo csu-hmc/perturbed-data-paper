@@ -35,6 +35,28 @@ Attribution 4.0 International License`_.
 If you make use of our work we ask that you cite us. The following are some
 BibTeX formatted references that may be useful.
 
+Preprint
+--------
+
+Note that this citation will always be one version behind because the preprint
+is published after this repository is pinned to a version. Visit the DOI for
+the most up-to-date citation.
+
+::
+
+   @article{10.7287/peerj.preprints.700v2,
+     title = {An elaborate data set on human gait and the effect of mechanical perturbations},
+     author = {Moore, Jason K and Hnat, Sandra K. and van den Bogert, Antonie J.},
+     year = {2014},
+     month = {12},
+     keywords = {gait, data, control, perturbation},
+     volume = {2},
+     pages = {e700v2},
+     journal = {PeerJ PrePrints},
+     issn = {2167-9843},
+     url = {http://dx.doi.org/10.7287/peerj.preprints.700v2},
+     doi = {10.7287/peerj.preprints.700v2}}
+
 Data
 ----
 
@@ -47,6 +69,14 @@ Data
      publisher={ZENODO},
      author={Moore, Jason K. and Hnat, Sandra K. and van den Bogert, Antonie},
      year={2014}}
+
+   @misc{Hnat2015,
+     author={Hnat, Sandra K. and Moore, Jason K. and van den Bogert, Antonie J.},
+     title={{Commanded Treadmill Motions for Perturbation Experiments}},
+     month=mar,
+     year=2015,
+     doi={10.5281/zenodo.16064},
+     url={http://dx.doi.org/10.5281/zenodo.16064}}
 
 Software
 --------
@@ -69,29 +99,6 @@ Software
      DOI={10.5281/zenodo.13159}, publisher={ZENODO},
      author={Jason K. Moore and Nwanna, Obinna and Hnat, Sandra K. and van den Bogert, Antonie},
      year={2014}}
-
-Preprint
---------
-
-Note that this citation will always be one version behind because the preprint
-is published after this repository is pinned to a version. Visit the DOI for
-the most up-to-date citation.
-
-::
-
-   @article{10.7287/peerj.preprints.700v2,
-     title = {An elaborate data set on human gait and the effect of mechanical perturbations},
-     author = {Moore, Jason K and Hnat, Sandra K. and van den Bogert, Antonie J.},
-     year = {2014},
-     month = {12},
-     keywords = {gait, data, control, perturbation},
-     volume = {2},
-     pages = {e700v2},
-     journal = {PeerJ PrePrints},
-     issn = {2167-9843},
-     url = {http://dx.doi.org/10.7287/peerj.preprints.700v2},
-     doi = {10.7287/peerj.preprints.700v2}
-   }
 
 Data
 ====
@@ -134,17 +141,21 @@ GaitAnalysisToolKit
       :target: https://pypi.python.org/pypi/GaitAnalysisToolKit/
       :alt: Latest Version
 
-Furthermore, there are a variety of dependencies that must be installed on your
-system to run the scripts. It is best to follow the installation instructions
-provided by each of the following software packages for your operating system.
+Dependency Installation
+=======================
 
-- Various unix tools [#]_: cd, bash, gzip, make, mkdir, rm, tar, unzip, curl
+There are a variety of dependencies that must be installed on your system to
+run the scripts. It is best to follow the installation instructions provided by
+each of the following software packages for your operating system.
+
+- Various unix tools [#]_: cd, bash, gzip, make, mkdir, rm, tar, unzip, curl,
+  wget
 - The `Anaconda Python distribution`_ with Python 2.7 for ease of download and
   management of Python packages.
 - Various Python packages: pip, numpy 1.9.1, scipy 0.14.0, matplotlib 1.4.2,
   pytables 3.1.1, pandas 0.15.1, pyyaml 3.11, seaborn 0.5.0, pygments 2.0.1,
   oct2py 2.4.2, DynamicistToolKit 0.3.5, GaitAnalysisToolKit 0.1.2
-- Octave_ 3.8.1
+- Octave_ 3.6.4-3.8.2
 - A LaTeX distribution which includes pdflatex. For example: MikTeX_ [Win],
   `TeX Live`_ [Linux], MacTeX_ [Mac].
 - Various LaTeX Packages [#]_: minted_, lineno, graphicx, booktabs, cprotect,
@@ -173,61 +184,20 @@ provided by each of the following software packages for your operating system.
 .. _minted: https://github.com/gpoore/minted
 .. _Git: http://git-scm.com
 
-Get the source
-==============
+Debian Based Linux Distros (e.g. Ubuntu)
+----------------------------------------
 
-First, navigate to a desired location on your file system and either clone the
-repository with Git [#]_ and change into the new directory::
+Install the TeXLive LaTeX distribution and some subpackages::
 
-   $ git clone https://github.com/csu-hmc/perturbed-data-paper.git
-   $ cd perturbed-data-paper
+   $ sudo apt-get install texlive texlive-humanities texlive-science
 
-or download with curl, unpack the zip file, and change into the new directory::
-
-   $ curl -o perturbed-data-paper-master.zip https://github.com/csu-hmc/perturbed-data-paper/archive/master.zip
-   $ unzip perturbed-data-paper-master.zip
-   $ cd perturbed-data-paper-master
-
-.. [#] Please use Git if you wish to contribute back to the repository. See
-   CONTRIBUTING.rst for information on how to contribute.
-
-Basic LaTeX Build Instructions
-==============================
-
-To build the pdf from the LaTeX source using the pre-generated figures and
-tables in the repository, make sure you have an up-to-date LaTeX distribution
-installed and run ``make`` from within the repository. The default ``make``
-target will build the document, i.e.::
-
-   $ make
-
-You can then view the document with your preferred PDF viewer. For example,
-Evince can be used::
-
-   $ evince paper.pdf
-
-Full build instructions
-=======================
-
-The full build instructions allow you to both generate the figures and tables
-from raw data and compile the LaTeX document.
-
-These commands should work as is on Unix based systems (Linux, Mac, etc).
-Windows users should install Cygwin, MinGW, or each Unix tool separately to
-make use of those commands. If Cygwin or MinGW is used, the Unix tools will
-have to be executed in their respective terminal applications. All other
-commands will need to be executed in the Windows CMD prompt.
-
-Install dependencies
---------------------
-
-In addition to the LaTeX dependencies described above, install the following
-Octave and Python software.
-
-Install Octave from your system package manager or other binary method, for
-example on Debian based Linux systems::
+Install Octave::
 
    $ sudo apt-get install octave
+
+Install Matlab by purchasing it from http://mathworks.com and following their
+recommended installation procedure for your operating system. Make sure Matlab
+is on the system PATH.
 
 Install the Anaconda Python distribution, following the instructions on the
 website, for example for 64 bit Linux::
@@ -245,10 +215,6 @@ Now create and activate a Conda [#]_ environment with the main Python dependenci
 .. [#] Conda is a lightweight package manager that is used to download the
    exact versions of software into an isolated user installed environment.
 
-On Windows, the last command does not need to be prepended with ``source``::
-
-   $ activate gait
-
 Finally, install the remaining dependencies with pip [#]_ which grabs the
 correct versions from the `Python Package Index`_ (PyPi)::
 
@@ -262,29 +228,146 @@ correct versions from the `Python Package Index`_ (PyPi)::
 
 .. _Python Package Index: https://pypi.python.org/pypi
 
+Windows
+-------
+
+The following is a recommended dependency installation procedure for Windows.
+
+Install msysgit from http://msysgit.github.io to provide a Unix compatible BASH
+terminal. Use the default options and select "Use Git from Git Bash Only" and
+"Checkout windows-style, commit unix-style line endings". This puts a command
+"Git Bash" in the start menu that opens a shell which can be used for most
+commands.
+
+Install Anaconda from http://continuum.io/downloads to provide Python and many
+standard Python packages. Select install for "Just Me" unless you want to
+install it system wide with adminstrator priveleges. Be sure both "Add anaconda
+to my PATH environment variable" and "Register Anaconda as my default
+python2.7" are checked. At this point Python is now available both in Git Bash
+and the Windows Command Prompt (``cmd.exe``).
+
+Download the lastest SWC Installer from
+https://github.com/swcarpentry/windows-installer/releases. Install it by double
+clicking the ``exe`` file and then make sure to click "launch installer" in the
+last dialog. You'll then see a command prompt briefly listing the things it
+installs. GNU Make is now available in Git Bash.
+
+Download the "Basic Miktek" from http://miktex.org/download. Install with the
+default options and after the install run "Update" from the Start Menu to
+update the packages. ``pdflatex`` and other LaTeX tools are now available in
+Git Bash and the Windows command prompt. Either use the package manager to
+install all of the necessary LaTeX packages or wait to be prompted for them
+during the first document compilation.
+
+Download Octave 3.8.2 from http://mxeoctave.osuv.de [#]_.
+Install the ``exe`` file (this requires a Java VM runtime to be installed). Now
+add Octave's ``bin`` directory to the Windows PATH so that the ``octave``
+command can be run from Git Bash and the Windows command prompt. In the
+computer system properties advanced tab, select "Environment Variables" and
+prepend ``C:\Users\<your-user-name>\.swc\bin;C:\Octave\Octave-3.8.2\bin;`` to
+the contents of ``PATH``. The SWC ``bin`` must come before the Octave ``bin``
+because Octave contains a command called ``make`` that will override the
+``.swc\bin\make`` executable, which is undesirable.
+
+.. [#] The 3.6.4 MinGW binary from
+   http://sourceforge.net/projects/octave/files/Octave%20Windows%20binaries
+   will also work.
+
+Install Matlab by purchasing it from http://mathworks.com and following their
+recommended installation procedure for your operating system. Make sure Matlab
+is on the system PATH.
+
+The conda environment can be created from Git Bash or the Windows command
+prompt with the same commands as above::
+
+   $ conda create -n gait python=2.7 pip numpy=1.9.1 scipy=0.14.0 \
+     matplotlib=1.4.2 pytables=3.1.1 pandas=0.15.1 pyyaml=3.11 seaborn=0.5.0 \
+     pygments=2.0.1
+
+But the environment activation and subsequent Python commands must be run from
+the Windows command prompt [#]_::
+
+   > activate gait
+   [gait] > pip install oct2py==2.4.2
+   [gait] > pip install DynamicistToolKit==0.3.5
+   [gait] > pip install GaitAnalysisToolKit==0.1.2
+
+.. [#] They can be run from Git Bash but the activate command does not work and
+   the full path to the environment's Python would need to be specified to run
+   the Python scripts, see https://github.com/conda/conda/issues/747 for more
+   details.
+
+Get the source
+==============
+
+First, navigate to a desired location on your file system in the terminal (Git
+Bash on Windows) and either clone the repository with Git [#]_ and change into
+the new directory::
+
+   $ git clone https://github.com/csu-hmc/perturbed-data-paper.git
+   $ cd perturbed-data-paper
+
+or download with curl, unpack the zip file, and change into the new directory::
+
+   $ curl -o perturbed-data-paper-master.zip https://github.com/csu-hmc/perturbed-data-paper/archive/master.zip
+   $ unzip perturbed-data-paper-master.zip
+   $ cd perturbed-data-paper-master
+
+.. [#] Please use Git if you wish to contribute back to the repository. See
+   CONTRIBUTING.rst for information on how to contribute.
+
+Basic LaTeX Build Instructions
+==============================
+
+The only dependencies for the basic build are: LaTeX + required packages,
+Python + pygments, and a PDF viewer. Make sure pygments is installed in the
+root conda environment::
+
+   $ conda install pygments
+
+To build the pdf from the LaTeX source using the pre-generated figures and
+tables in the repository run ``make`` from the root of the repository. The
+default ``make`` target will build the document, i.e.::
+
+   $ make
+
+You can then view the document with your preferred PDF viewer. For example,
+Evince can be used on Linux::
+
+   $ evince paper.pdf
+
+Full build instructions
+=======================
+
+The full build instructions allow you to both generate the figures and tables
+from raw data and compile the LaTeX document.
+
+Any command that runs Python will have to be run in the Windows command prompt
+on Windows. Otherwise, run the commands in the Git Bash on Windows.
+
 Get the data
 ------------
 
 The data is available for download from Zenodo. It consists of two gzipped tar
-balls of approximately 1.2GB each. Create a directory to house the data,
-download, and unpack::
+balls of approximately 1.2GB each and one of 2.6MB. Create a directory to house
+the data, download, and unpack::
 
-   (gait)$ mkdir raw-data
-   (gait)$ cd raw-data
-   (gait)$ curl -o perturbed-walking-data-01.tar.gz https://zenodo.org/record/13030/files/perturbed-walking-data-01.tar.gz
-   (gait)$ curl -o perturbed-walking-data-02.tar.gz https://zenodo.org/record/13030/files/perturbed-walking-data-02.tar.gz
-   (gait)$ curl -o perturbation-signals.tar.gz https://zenodo.org/record/16064/files/perturbation-signals.tar.gz
-   (gait)$ tar -zxvf perturbed-walking-data-01.tar.gz
-   (gait)$ tar -zxvf perturbed-walking-data-02.tar.gz
-   (gait)$ tar -zxvf perturbation-signals.tar.gz
-   (gait)$ rm perturbed-walking-data-01.tar.gz
-   (gait)$ rm perturbed-walking-data-02.tar.gz
-   (gait)$ rm perturbation-signals.tar.gz
-   (gait)$ cd ..
+   $ mkdir raw-data
+   $ cd raw-data
+   $ curl -o perturbed-walking-data-01.tar.gz https://zenodo.org/record/13030/files/perturbed-walking-data-01.tar.gz
+   $ curl -o perturbed-walking-data-02.tar.gz https://zenodo.org/record/13030/files/perturbed-walking-data-02.tar.gz
+   $ curl -o perturbation-signals.tar.gz https://zenodo.org/record/16064/files/perturbation-signals.tar.gz
+   $ tar -zxvf perturbed-walking-data-01.tar.gz
+   $ tar -zxvf perturbed-walking-data-02.tar.gz
+   $ tar -zxvf perturbation-signals.tar.gz
+   $ rm perturbed-walking-data-01.tar.gz
+   $ rm perturbed-walking-data-02.tar.gz
+   $ rm perturbation-signals.tar.gz
+   $ cd ..
 
 The above commands can also be run with the make target::
 
-   (gait)$ make download
+   $ make download
 
 Configuration file
 ------------------
@@ -292,7 +375,7 @@ Configuration file
 If custom paths are needed, copy the default configuration to a file called
 ``config.yml``::
 
-   (gait)$ cp default-config.yml config.yml
+   $ cp default-config.yml config.yml
 
 and edit the new file to suit.
 
@@ -300,9 +383,18 @@ Generate the tables and figures
 -------------------------------
 
 The plots can be generated by running the following scripts from the ``src``
-directory::
+directory. The ``gait`` conda environment should be activated first.
 
+Linux/Mac
+~~~~~~~~~
+
+The figures can be generated with::
+
+   $ source activate gait
    (gait)$ python src/unperturbed_perturbed_comparison.py
+   (gait)$ matlab -nodisplay -nosplash -nodesktop -r "run('src/input_output_plot.m');exit;"
+   (gait)$ matlab -nodisplay -nosplash -nodesktop -r "run('src/frequency_analysis.m');exit;"
+   (gait)$ matlab -nodisplay -nosplash -nodesktop -r "run('src/lateral_perturbation_plot.m');exit;"
 
 The tables can be generated with::
 
@@ -310,20 +402,38 @@ The tables can be generated with::
 
 This can also be performed with a make target::
 
-   (gait)$ make tables
    (gait)$ make figures
+   (gait)$ make tables
+
+Windows (using ``cmd.exe``)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The figures can be generated with in ``cmd.exe``::
+
+   > activate gait
+   [gait] > python src/unperturbed_perturbed_comparison.py
+   [gait] > matlab -nodisplay -nosplash -nodesktop -r "run('src/input_output_plot.m');exit;"
+   [gait] > matlab -nodisplay -nosplash -nodesktop -r "run('src/frequency_analysis.m');exit;"
+   [gait] > matlab -nodisplay -nosplash -nodesktop -r "run('src/lateral_perturbation_plot.m');exit;"
+
+The tables can be generated with::
+
+   [gait] > python src/subject_table.py
+
+The ``figures`` and ``tables`` make targets will fail in the Windows command
+prompt because make is only available in Git Bash.
 
 Build the pdf
 -------------
 
-::
+After the figures and tables are generated, the PDF can be built as before::
 
-   (gait)$ make pdf
+   $ make pdf
 
 Complete Build
 --------------
 
-The entire process described above, i.e from data download to pdf compilation,
-can also be run with a single make target::
+The entire process described above, i.e. from data download to PDF compilation,
+can also be run with a single make target (only Linux/Mac)::
 
    (gait)$ make pdfraw
