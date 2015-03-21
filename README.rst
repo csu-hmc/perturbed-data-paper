@@ -138,7 +138,7 @@ Furthermore, there are a variety of dependencies that must be installed on your
 system to run the scripts. It is best to follow the installation instructions
 provided by each of the following software packages for your operating system.
 
-- Various unix tools [#]_: cd, bash, gzip, make, mkdir, rm, tar, unzip, wget
+- Various unix tools [#]_: cd, bash, gzip, make, mkdir, rm, tar, unzip, curl
 - The `Anaconda Python distribution`_ with Python 2.7 for ease of download and
   management of Python packages.
 - Various Python packages: pip, numpy 1.9.1, scipy 0.14.0, matplotlib 1.4.2,
@@ -182,9 +182,9 @@ repository with Git [#]_ and change into the new directory::
    $ git clone https://github.com/csu-hmc/perturbed-data-paper.git
    $ cd perturbed-data-paper
 
-or download with wget, unpack the zip file, and change into the new directory::
+or download with curl, unpack the zip file, and change into the new directory::
 
-   $ wget https://github.com/csu-hmc/perturbed-data-paper/archive/master.zip
+   $ curl -o perturbed-data-paper-master.zip https://github.com/csu-hmc/perturbed-data-paper/archive/master.zip
    $ unzip perturbed-data-paper-master.zip
    $ cd perturbed-data-paper-master
 
@@ -271,14 +271,15 @@ download, and unpack::
 
    (gait)$ mkdir raw-data
    (gait)$ cd raw-data
-   (gait)$ wget https://zenodo.org/record/13030/files/perturbed-walking-data-01.tar.gz
-   (gait)$ wget https://zenodo.org/record/13030/files/perturbed-walking-data-02.tar.gz
-   (gait)$ wget https://zenodo.org/record/16064/files/perturbation-signals.tar.gz
+   (gait)$ curl -o perturbed-walking-data-01.tar.gz https://zenodo.org/record/13030/files/perturbed-walking-data-01.tar.gz
+   (gait)$ curl -o perturbed-walking-data-02.tar.gz https://zenodo.org/record/13030/files/perturbed-walking-data-02.tar.gz
+   (gait)$ curl -o perturbation-signals.tar.gz https://zenodo.org/record/16064/files/perturbation-signals.tar.gz
    (gait)$ tar -zxvf perturbed-walking-data-01.tar.gz
    (gait)$ tar -zxvf perturbed-walking-data-02.tar.gz
    (gait)$ tar -zxvf perturbation-signals.tar.gz
    (gait)$ rm perturbed-walking-data-01.tar.gz
    (gait)$ rm perturbed-walking-data-02.tar.gz
+   (gait)$ rm perturbation-signals.tar.gz
    (gait)$ cd ..
 
 The above commands can also be run with the make target::
