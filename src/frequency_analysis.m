@@ -93,14 +93,17 @@ for i=1:speeds
     p_output_mean = mean(p_output, 2);
 
     % Plotting
-    titles={'Slow Walking (0.8 m/s)', 'Normal Walking (1.2 m/s)', 'Fast Walking (1.6 m/s)'};
+    titles={'Slow Walking (0.8 ms^{-1})', 'Normal Walking (1.2 ms^{-1})', 'Fast Walking (1.6 ms^{-1})'};
     subplot(speeds, 1, i)
     semilogy(f_input, p_input_mean, 'Color', red)
     hold on
     semilogy(f_output, p_output_mean, 'Color', blue)
-    ylabel('PSD (m^2s^{-2}/Hz)', 'FontSize', 8)
+
     xlim([0 8]); ylim([10^-5 10^0])
-    title(titles{i})
+
+    set(gca, 'FontSize', 6)  % sets axis tick font size
+    ylabel('PSD [m^2 s^{-2} Hz^{-1}]', 'FontSize', 6)
+    title(titles{i}, 'FontSize', 8)
 
     if i==1
         leg = legend('Commanded', 'Measured', 'Location', 'northeast');
@@ -108,7 +111,7 @@ for i=1:speeds
     end
 
     if i==3
-        xlabel('Frequency (Hz)', 'FontSize', 8);
+        xlabel('Frequency [Hz]', 'FontSize', 8);
     end
 
 end
