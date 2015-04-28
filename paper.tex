@@ -95,8 +95,8 @@ average gait cycles from the child subjects.
 
 \cite{Chester2007} report on a large gait database comparison where one
 database contained kinematic data of 409 gait cycles of children from 1 to 7
-years old but the data does not seem to be publicly available. This is,
-unfortunately, typical. \cite{Tirosh2010} recognized the need for a
+years old but the data does not seem to be publicly available. This is
+unfortunately typical. \cite{Tirosh2010} recognized the need for a
 comprehensive data base for clinical gait data and created the Gaitabase. This
 database may contain a substantial amount of data but it is encumbered by a
 complicated and restrictive license and sharing scheme. \cite{Yun2014} provides
@@ -106,17 +106,17 @@ include a substantial amount of raw data but it is private. However, there are
 examples of data with less restrictions. The University of Wisconsin at
 LaCrosse has an easily accessible normative gait data set \citep{Willson2014}
 from 25 subjects with lower extremity marker data from multiple gait cycles and
-force plate measurements from a single gait cycle. The CMU Graphics Lab
-Motion Capture Database~\citep{CMU2015} is also a good example and contains
-full body marker kinematics for a fair number of trials with small number of
-gait cycles during both walking and running.
+force plate measurements from a single gait cycle. The CMU Graphics Lab Motion
+Capture Database~\citep{CMU2015} is also a good example and contains full body
+marker kinematics for a fair number of trials with small number of gait cycles
+during both walking and running.
 
 More recent examples of biomechanists sharing their data alongside publications
 are: \cite{Bogert2013} which includes full body joint kinematics and kinetics
 from eleven subjects walking on an instrumented treadmill and \cite{Wang2014}
-who includes a larger set of data from ten subjects walking for five minutes
+who include a larger set of data from ten subjects walking for five minutes
 each at three different speeds but only a small set of lower extremity markers
-are present. The second is notable because it publishes the data in Dryad, a
+are present. The second is notable because they publish the data in Dryad, a
 modern citable data repository. It is also worth noting purely visual data
 collections of gait, like the one presented in \cite{Makihara2012}, which
 contain videos of subjects walking on a treadmill in full clothing. This
@@ -164,18 +164,18 @@ the human's sensors and actuators. With this in mind, we have collected data
 that is richer than previous gait data sets and may be rich enough for control
 identification. The data can also be used for verification purposes for
 controllers that have been designed in other manners, such as those constructed
-from first principles \citep{Geyer2010}.
+from first principles, e.g. \citep{Geyer2010}.
 
 With all of this in mind, we collected over seven and a half hours of gait data
-from fifteen able bodied subjects which amounts to over 25,000 gait cycles. The
-subjects walked at three different speeds on an instrumented treadmill while we
-collected full body marker locations and ground reaction loads from a pair of
-force plates. The final protocol for the majority of the trials included two
-minutes of normal walking and eight minutes of walking under the influence of
-pseudo-random belt speed fluctuations. The data has been organized complete
-with rich meta data and made available in the most unrestrictive form for other
-research uses following modern best practices in data sharing
-\citep{White2013}.
+from fifteen able bodied subjects which amounts to over 25,000 gait cycles
+\citep{Moore2014}. The subjects walked at three different speeds on an
+instrumented treadmill while we collected full body marker locations and ground
+reaction loads from a pair of force plates. The final protocol for the majority
+of the trials included two minutes of normal walking and eight minutes of
+walking under the influence of pseudo-random belt speed fluctuations. The data
+has been organized complete with rich meta data and made available in the most
+unrestrictive form for other research uses following modern best practices in
+data sharing \citep{White2013}.
 
 Furthermore, we include a small Apache licensed open source software library
 for basic gait analysis and demonstrate its use in the paper. The combination
@@ -251,16 +251,16 @@ Our motion capture system's coordinate system is such that the X coordinate
 points to the right, the Y coordinate points upwards, and the Z coordinate
 follows from the right-hand-rule, i.e. points backwards with respect to the
 walking direction. The camera's coordinate system is aligned to an origin point
-on treadmill's surface during camera calibration. The same point is used as the
-origin of the ground reaction force measuring system.
+on the treadmill's surface during camera calibration. The same point is used as
+the origin of the ground reaction force measuring system.
 Figure~\ref{fig:treadmill} shows the layout of the equipment.
 
 Early on, we discovered that the factory setup of the R-Link treadmill had a
 vibration mode as low as 5\si{\hertz} that was detectable in the force
-measurements, likely due to the flexible undercarriage and pitch motion
+measurements; likely due to the flexible undercarriage and pitch motion
 mechanism. Trials 6--8 are affected by this vibration mode. During trials 9--15
 the treadmill was stabilized with wooden blocks. During the remaining trials
-($>$~15) the treadmill was stabilized with metal supports; both ones we
+($>$~15) the treadmill was stabilized with metal supports; both with ones we
 fabricated in-house and ones supplied by the vendor. These supports aimed to
 improve the stiffness and frequency response of the force plate system. See the
 Data Limitations Section for more details.
@@ -369,7 +369,7 @@ experimentalist and the on-screen instructions from the video display. The
 final protocol for a single trial was as follows:
 %
 \begin{enumerate}
-  \item Subject stepped onto the treadmill and markers were identified with
+  \item The subject stepped onto the treadmill and markers were identified with
     Cortex.
   \item The safety rope was attached loosely to the rock climbing harness such
     that no forces were acting on the subject during walking, but so that the
@@ -537,8 +537,7 @@ See Listing~\ref{lis:example-meta-data} for an example.} file that contains all
 of the necessary meta data for the given trial. These three files are stored
 in a hierarchy of directories with one trial per directory. The directories are
 named in the following fashion \verb+T001/+ where \verb+T+ stands for ``trial''
-and the following three digits are provide a unique trial identification
-number.
+and the following three digits provide a unique trial identification number.
 
 \subsubsection*{mocap-xxx.txt}
 %
@@ -555,7 +554,9 @@ further described below:
 \begin{description}
   \item[TimeStamp] The monotonically increasing computer clock time when D-Flow
     receives a frame from Cortex. These are recorded approximately at
-    100~\si{\hertz} sampling rate and given in seconds.
+    100~\si{\hertz} sampling rate and given in seconds. Due to data buffering,
+    it is preferred to derive sample times from the FrameNumber column rather
+    than the TimeStamp.
   \item[FrameNumber] Monotonically increasing positive integers that correspond
     to each frame received from Cortex.
   \item[Marker Coordinates] Any column that ends in \verb+.PosX+, \verb+.PosY+,
@@ -707,7 +708,7 @@ information, detailed below:
   \item[nominal-speed] A float representing the nominal desired treadmill speed
     during the trial.
   \item[nominal-speed-units] A string providing the units of the nominal speed.
-  \item[notes] Any notes about the trial.
+  \item[notes] A string with any notes about the trial.
   \item[pitch] A boolean that indicates if the treadmill pitch degree of
     freedom was actuated during the trial.
   \item[stationary-platform] A boolean that indicates whether the treadmill
@@ -756,6 +757,7 @@ information, detailed below:
            high-performance: True
        dflow-version: 3.16.1
        cortex-version: 3.1.1.1290
+       marker-set: full
        marker-map:
            M1: LHEAD
            M2: THEAD
@@ -844,7 +846,7 @@ application programming interface (API) in Python. An example of the
 \end{listing}
 
 The \verb|GaitData| class is then used to compute gait events (toe off and heel
-strike times), basic 2D kinematics and inverse dynamics, and to store the data
+strike times), basic 2D inverse kinematics and dynamics, and to store the data
 into a Pandas \verb|Panel| with each gait cycle on the item axis at a specified
 sampling rate. This object can also be serialized to disk in HDF5 format. An
 example of using the Python API is shown in Listing~\ref{lis:gaitdata}.
@@ -869,11 +871,12 @@ example of using the Python API is shown in Listing~\ref{lis:gaitdata}.
   \label{lis:gaitdata}
 \end{listing}
 
-A similar work flow was used to produce Figure~\ref{fig:angle-torque-comparison}
-which compares the mean and standard deviation of sagittal plane joint angles
-and torques from the perturbed gait cycles and the unperturbed gait cycles
-computed from trial 20. This gives an idea of the more highly variable dynamics
-required to walk while being longitudinally perturbed.
+A similar work flow was used to produce
+Figure~\ref{fig:angle-torque-comparison} which compares the mean and standard
+deviation of sagittal plane joint angles and torques from the perturbed gait
+cycles to the unperturbed gait cycles computed from trial 20. This gives an
+idea of the more highly variable dynamics required to walk while being
+longitudinally perturbed.
 %
 \begin{figure}
   \centering
@@ -891,7 +894,7 @@ For more insight into the difference in the unperturbed and perturbed data,
 Figure~\ref{fig:gait-cycle-stats-comparison} compares the distribution of a few
 gait cycle statistics. One can see that the perturbed strides have a much
 larger variation in frequency and length and even larger variation in stride
-width. It is also interesting to note that the coupled nature of system's
+width. It is also interesting to note that the coupled nature of the system's
 degrees of freedom can be exploited to increase the stride width with only
 longitudinal perturbations, although not relatively as much as is in the other
 statistics.
@@ -985,11 +988,13 @@ these models and a source for generating them.
 
 \section*{Data Availability}
 %
-The data set \citep{Moore2014} is available via the Zenodo data repository.
-Two approximately 1.2GB gzipped tar balls contain the data and a \verb|README|
-file with a short description of the contents. The data is released under the
-Creative Commons CC0 license (http://creativecommons.org/about/cc0) following
-best practices for sharing scientific data.
+The data set \citep{Moore2014} is available via two Zenodo data repositories.
+The first holds two approximately 1.2GB gzipped tar balls with contain the main
+data and a \verb|README| file with a short description of the contents. The
+second \citep{Hnat2015} contains the Simulink generated data for the treadmill
+control inputs. The data is released under the Creative Commons CC0 license
+(http://creativecommons.org/about/cc0) following best practices for sharing
+scientific data.
 
 \section*{Software Availability}
 %
