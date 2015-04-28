@@ -4,7 +4,7 @@ Introduction
 This is the source repository for the paper:
 
    Moore, J.K., Hnat, S.K, van den Bogert, A. "An elaborate data set on human
-   gait and the effect of mechanical perturbations", 2014.
+   gait and the effect of mechanical perturbations", 2015.
 
 This repository contains or links to all of the information needed to reproduce
 the results in the paper.
@@ -16,6 +16,10 @@ system:
    :target: https://www.sharelatex.com/github/repos/csu-hmc/perturbed-data-paper/builds/latest/output.pdf
 
 .. _ShareLaTeX: http://sharelatex.com
+
+The peer reviewed article can be obtained from PeerJ:
+
+https://peerj.com/articles/918
 
 The preprint can be obtained from the PeerJ preprint server:
 
@@ -35,27 +39,45 @@ Attribution 4.0 International License`_.
 If you make use of our work we ask that you cite us. The following are some
 BibTeX formatted references that may be useful.
 
-Preprint
---------
-
-Note that this citation will always be one version behind because the preprint
-is published after this repository is pinned to a version. Visit the DOI for
-the most up-to-date citation.
+Article
+-------
 
 ::
 
-   @article{10.7287/peerj.preprints.700v2,
+   @article{10.7717/peerj.918,
+    title = {An elaborate data set on human gait and the effect of mechanical perturbations},
+    author = {Moore, Jason K. and Hnat, Sandra K. and van den Bogert, Antonie J.},
+    year = {2015},
+    month = {4},
+    keywords = {Gait, Data, Control, Perturbation},
+    volume = {3},
+    pages = {e918},
+    journal = {PeerJ},
+    issn = {2167-8359},
+    url = {https://dx.doi.org/10.7717/peerj.918},
+    doi = {10.7717/peerj.918}
+   }
+
+
+Preprint
+--------
+
+You may want to cite the particular version. See the PeerJ website for details.
+
+::
+
+   @article{10.7287/peerj.preprints.700,
      title = {An elaborate data set on human gait and the effect of mechanical perturbations},
      author = {Moore, Jason K and Hnat, Sandra K. and van den Bogert, Antonie J.},
      year = {2014},
      month = {12},
      keywords = {gait, data, control, perturbation},
      volume = {2},
-     pages = {e700v2},
+     pages = {e700},
      journal = {PeerJ PrePrints},
      issn = {2167-9843},
-     url = {http://dx.doi.org/10.7287/peerj.preprints.700v2},
-     doi = {10.7287/peerj.preprints.700v2}}
+     url = {http://dx.doi.org/10.7287/peerj.preprints.700},
+     doi = {10.7287/peerj.preprints.700}}
 
 Data
 ----
