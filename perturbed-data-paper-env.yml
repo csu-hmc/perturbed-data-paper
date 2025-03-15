@@ -1,0 +1,18 @@
+name: perturbed-data-paper
+channels:
+  - conda-forge
+dependencies:
+  - dynamicisttoolkit
+  - ipython
+  - matplotlib <3.7
+  - numpy
+  - oct2py <5
+  - pandas <0.24
+  - pip
+  - pytables
+  - python =3.6
+  - pyyaml
+  - scipy
+  - seaborn <0.9
+  - pip:
+    - -e git+https://github.com/csu-hmc/GaitAnalysisToolKit#egg=GaitAnalysisToolKit

@@ -32,10 +32,10 @@ def config_paths(root_dir):
 
     try:
         with open(os.path.join(root_dir, 'config.yml'), 'r') as f:
-            config = yaml.load(f)
+            config = yaml.load(f, Loader=yaml.SafeLoader)
     except IOError:
         with open(os.path.join(root_dir, 'default-config.yml'), 'r') as f:
-            config = yaml.load(f)
+            config = yaml.load(f, Loader=yaml.SafeLoader)
 
     raw_dir = os.path.join(root_dir, config['raw_data_dir'])
     processed_dir = os.path.join(root_dir, config['processed_data_dir'])
@@ -210,7 +210,7 @@ def generate_meta_data_tables(trials_dir, top_level_key='TOP', key_sep='|'):
             print('No meta file in {}'.format(directory))
             pass
         else:
-            meta_data = yaml.load(f)
+            meta_data = yaml.load(f, Loader=yaml.SafeLoader)
             flattened_dict = walk_dict(meta_data, top_level_key, key_sep)
             all_flattened_meta_data[trial_num] = flattened_dict
             for table_name, table_row_dict in flattened_dict.items():

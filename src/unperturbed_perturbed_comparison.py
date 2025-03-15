@@ -22,20 +22,20 @@ src_dir = os.path.dirname(script_path)
 root_dir = os.path.realpath(os.path.join(src_dir, '..'))
 raw_dir, tmp = config_paths(root_dir)
 
-params = {'backend': 'ps',
-          'axes.labelsize': 8,
-          'axes.titlesize': 10,
-          'font.size': 10,
-          'legend.fontsize': 8,
-          'xtick.labelsize': 8,
-          'ytick.labelsize': 8,
-          'text.usetex': True,
-          'font.family': 'serif',
-          'font.serif': ['Computer Modern'],
-          'figure.figsize': (6.0, 6.0 / golden),
-          }
-
-plt.rcParams.update(params)
+#params = {'backend': 'ps',
+          #'axes.labelsize': 8,
+          #'axes.titlesize': 10,
+          #'font.size': 10,
+          #'legend.fontsize': 8,
+          #'xtick.labelsize': 8,
+          #'ytick.labelsize': 8,
+          #'text.usetex': True,
+          #'font.family': 'serif',
+          #'font.serif': ['Computer Modern'],
+          #'figure.figsize': (6.0, 6.0 / golden),
+          #}
+#
+#plt.rcParams.update(params)
 
 trial_number = '020'
 paths = trial_file_paths(raw_dir, trial_number)
@@ -157,9 +157,11 @@ for col, ax, unit in zip(columns, axes[:-1], units):
     ax.set_title('{} {}'.format(col, unit), y=1.08)
     u = unperturbed_gait_cycle_stats[col]
     p = perturbed_gait_data.gait_cycle_stats[col]
-    sbn.boxplot([u.values, p.values], ax=ax, color=[red, blue],
+    sbn.boxplot(data=[u.values, p.values], ax=ax,
+                #color=[red, blue],
                 whis='range',
-                names=['U', 'P'])
+                #x=['U', 'P'],
+                )
 
 unperturbed_stride_widths = \
     (unperturbed_gait_cycles[:, :, 'RHEE.PosZ'] -
@@ -168,11 +170,12 @@ perturbed_stride_widths = \
     (perturbed_gait_data.gait_cycles[:, :, 'RHEE.PosZ'] -
      perturbed_gait_data.gait_cycles[:, :, 'LHEE.PosZ']).values.flatten()
 
-sbn.boxplot([unperturbed_stride_widths, perturbed_stride_widths],
+sbn.boxplot(data=[unperturbed_stride_widths, perturbed_stride_widths],
             ax=axes[-1],
-            color=[red, blue],
+            #color=[red, blue],
             whis='range',
-            names=['U', 'P'])
+            #x=['U', 'P'],
+            )
 axes[-1].set_title('Stride Width [m]'.format(col, unit), y=1.08)
 
 plt.tight_layout()
