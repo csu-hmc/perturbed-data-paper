@@ -9,14 +9,6 @@ This is the source repository for the paper:
 This repository contains or links to all of the information needed to reproduce
 the results in the paper.
 
-The latest rendered version of the PDF can be viewed via the ShareLaTeX_ CI
-system:
-
-.. image:: https://www.sharelatex.com/github/repos/csu-hmc/perturbed-data-paper/builds/latest/badge.svg
-   :target: https://www.sharelatex.com/github/repos/csu-hmc/perturbed-data-paper/builds/latest/output.pdf
-
-.. _ShareLaTeX: http://sharelatex.com
-
 The peer reviewed article can be obtained from PeerJ:
 
 https://peerj.com/articles/918
@@ -130,7 +122,6 @@ Creative Commons CC0 license.
 
 .. image:: https://zenodo.org/badge/doi/10.5281/zenodo.13030.svg
    :target: http://dx.doi.org/10.5281/zenodo.13030
-
 
 .. image:: https://zenodo.org/badge/doi/10.5281/zenodo.16064.svg
    :target: http://dx.doi.org/10.5281/zenodo.16064
@@ -331,7 +322,7 @@ the new directory::
 
 or download with curl, unpack the zip file, and change into the new directory::
 
-   $ curl -o perturbed-data-paper-master.zip https://github.com/csu-hmc/perturbed-data-paper/archive/master.zip
+   $ curl -L -o perturbed-data-paper-master.zip https://github.com/csu-hmc/perturbed-data-paper/archive/master.zip
    $ unzip perturbed-data-paper-master.zip
    $ cd perturbed-data-paper-master
 
@@ -376,9 +367,9 @@ the data, download, and unpack::
 
    $ mkdir raw-data
    $ cd raw-data
-   $ curl -o perturbed-walking-data-01.tar.gz https://zenodo.org/record/13030/files/perturbed-walking-data-01.tar.gz
-   $ curl -o perturbed-walking-data-02.tar.gz https://zenodo.org/record/13030/files/perturbed-walking-data-02.tar.gz
-   $ curl -o perturbation-signals.tar.gz https://zenodo.org/record/16064/files/perturbation-signals.tar.gz
+   $ curl -L -o perturbed-walking-data-01.tar.gz https://zenodo.org/record/13030/files/perturbed-walking-data-01.tar.gz
+   $ curl -L -o perturbed-walking-data-02.tar.gz https://zenodo.org/record/13030/files/perturbed-walking-data-02.tar.gz
+   $ curl -L -o perturbation-signals.tar.gz https://zenodo.org/record/16064/files/perturbation-signals.tar.gz
    $ tar -zxvf perturbed-walking-data-01.tar.gz
    $ tar -zxvf perturbed-walking-data-02.tar.gz
    $ tar -zxvf perturbation-signals.tar.gz

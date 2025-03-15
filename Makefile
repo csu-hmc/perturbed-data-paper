@@ -6,9 +6,9 @@ pdf: paper.tex tables/subjects.tex figures/unperturbed-perturbed-boxplot-compari
 pdfraw: download tables figures pdf
 download:
 	mkdir raw-data
-	curl -o raw-data/perturbed-walking-data-01.tar.gz https://zenodo.org/record/13030/files/perturbed-walking-data-01.tar.gz
-	curl -o raw-data/perturbed-walking-data-02.tar.gz https://zenodo.org/record/13030/files/perturbed-walking-data-02.tar.gz
-	curl -o raw-data/perturbation-signals.tar.gz https://zenodo.org/record/16064/files/perturbation-signals.tar.gz
+	curl -L -o raw-data/perturbed-walking-data-01.tar.gz https://zenodo.org/record/13030/files/perturbed-walking-data-01.tar.gz
+	curl -L -o raw-data/perturbed-walking-data-02.tar.gz https://zenodo.org/record/13030/files/perturbed-walking-data-02.tar.gz
+	curl -L -o raw-data/perturbation-signals.tar.gz https://zenodo.org/record/16064/files/perturbation-signals.tar.gz
 	tar -C raw-data -zxf raw-data/perturbed-walking-data-01.tar.gz
 	tar -C raw-data -zxf raw-data/perturbed-walking-data-02.tar.gz
 	tar -C raw-data -zxf raw-data/perturbation-signals.tar.gz
