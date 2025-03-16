@@ -9,6 +9,8 @@ import os
 
 from numpy import rad2deg
 from scipy.constants import golden
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import pandas
 from gaitanalysis.utils import _percent_formatter
