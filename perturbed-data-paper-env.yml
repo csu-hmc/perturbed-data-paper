@@ -20,5 +20,5 @@ dependencies:
   - pyside==1.2.1
   - pip:
     - DynamicistToolKit==0.3.5
-    - GaitAnalysisToolKit==0.1.2
-    - oct2py==3.1.0
+    - GaitAnalysisToolKit==0.1.2  # can't go to 0.2.0 because it requires newer ipython/jupyter stuff for oct2py
+    - oct2py<3.4  # 3.1.0 fails to install with pip
