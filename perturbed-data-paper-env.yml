@@ -1,0 +1,24 @@
+# CONDA_CHANNEL_PRIORITY=false conda env create -f perturbed-data-paper-env.yml
+name: perturbed-data-paper
+channels:
+  - defaults
+  - free  # old packages may be here
+dependencies:
+  - ipython==3.0.0  # for Python 2
+  - matplotlib=1.4.2
+  - numpy==1.9.2
+  - pandas==0.16.0
+  - pip <21  # for Python 2
+  - pygments==2.0.2
+  - pytables==3.1.1
+  - python=2.7.9
+  - pyyaml==3.11
+  - scipy==0.15.1
+  - seaborn==0.5.1
+  - decorator <4  # trailets
+  - pyqt==4.10.4
+  - pyside==1.2.1
+  - pip:
+    - DynamicistToolKit==0.3.5
+    - GaitAnalysisToolKit==0.1.2  # can't go to 0.2.0 because it requires newer ipython/jupyter stuff for oct2py
+    - oct2py<3.4  # 3.1.0 fails to install with pip
